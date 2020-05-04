@@ -1,0 +1,63 @@
+<style include="challenge-32"></style>
+
+<div id="header">
+  <h2>Keyword frequency among Magic: the Gathering cards</h2>
+  <p><em>Note: Card numbers include cards which merely reference a keyword,
+  (eg <a href="https://scryfall.com/card/m13/177"> Mwonvuli Beast Tracker</a>),
+  generate tokens with the keyword (eg
+  <a href="https://scryfall.com/card/soi/103">Call the Bloodline</a>), reference
+  a name that happens to contain a keyword (eg
+  <a href="https://scryfall.com/card/grn/99">Experimental Frenzy</a>), etc. in
+  addition to cards that actually have the keyword on them.</em>
+  <h3>Filters</h3>
+  <div class="filterBlock">
+    <div class="inline"><strong>Use:</strong></div>
+    <paper-radio-group class="row inline" selected="{{colorType_}}">
+      <paper-radio-button name="color">Card color</paper-radio-button>
+      <paper-radio-button name="identity">Card color identity</paper-radio-button>
+    </paper-radio-group>
+  </div>
+  <div class="filterBlock">
+    <div class="row">
+      <strong>Formats:</strong>
+      <div class="col">
+        <paper-checkbox checked="{{formatCheckboxes_.standard}}">Standard</paper-checkbox>
+        <paper-checkbox checked="{{formatCheckboxes_.modern}}">Modern</paper-checkbox>
+        <paper-checkbox checked="{{formatCheckboxes_.legacy}}">Legacy</paper-checkbox>
+        <paper-checkbox checked="{{formatCheckboxes_.vintage}}">Vintage</paper-checkbox>
+        <paper-checkbox checked="{{formatCheckboxes_.commander}}">Commander</paper-checkbox>
+        <paper-checkbox checked="{{formatCheckboxes_.brawl}}">Brawl</paper-checkbox>
+      </div>
+      <div class="col">
+        <paper-checkbox checked="{{formatCheckboxes_.pauper}}">Pauper</paper-checkbox>
+        <paper-checkbox checked="{{formatCheckboxes_.penny}}">Penny</paper-checkbox>
+        <paper-checkbox checked="{{formatCheckboxes_.duel}}">Duel Commander</paper-checkbox>
+        <paper-checkbox checked="{{formatCheckboxes_.future}}">Future</paper-checkbox>
+        <paper-checkbox checked="{{formatCheckboxes_.oldschool}}">Old school</paper-checkbox>
+      </div>
+      <paper-dropdown-menu label="Include cards which are">
+        <paper-listbox slot="dropdown-content" attr-for-selected="value" selected="{{legalCategory_}}">
+          <paper-item value="legal-any">Legal in any selected format</paper-item>
+          <paper-item value="legal-all">Legal in all selected formats</paper-item>
+          <paper-item value="illegal-any">Not legal in any selected format</paper-item>
+          <paper-item value="illegal-all">Not legal in all selected formats</paper-item>
+          <paper-item value="restricted-any">Restricted in any selected format</paper-item>
+          <paper-item value="restricted-all">Restricted in all selected formats</paper-item>
+          <paper-item value="all"><em>All cards</em></paper-item>
+        </paper-listbox>
+      </paper-dropdown-menu>
+    </div>
+  </div>
+</div>
+<div id="content">
+  <template
+      is="dom-repeat"
+      items="[[keywordData_]]"
+      sort="sortKeywords_">
+    <keyword-stats
+        keyword-data="[[item]]"
+        color-type="[[colorType_]]"
+        legal-category="[[legalCategory_]]"
+        format-checkboxes="[[formatCheckboxes_]]"></keyword-stats>
+  </template>
+</div>

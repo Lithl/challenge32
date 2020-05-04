@@ -1,0 +1,83 @@
+@import '../../common';
+
+h2,
+h3,
+.filterBlock {
+  margin: 8px 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+
+  paper-checkbox,
+  paper-radio-button {
+    flex: 0 0;
+  }
+
+  &.inline {
+    display: inline-flex;
+  }
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+
+  paper-checkbox,
+  paper-radio-button {
+    flex: 0 0;
+  }
+}
+
+.inline {
+  display: inline-block;
+}
+
+paper-radio-button {
+  margin: 0 8px;
+  --paper-radio-button-label: {
+    white-space: nowrap;
+  }
+}
+
+paper-checkbox {
+  margin: 0 8px;
+  --paper-checkbox-label: {
+    white-space: nowrap;
+  }
+}
+
+paper-dropdown-menu {
+  margin-top: -8px;
+}
+
+keyword-stats {
+  padding: 8px 0;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, .2);
+  }
+}
+
+p {
+  margin: 8px;
+}
+
+#header {
+  width: 100%;
+  padding: 16px 0 4px 16px;
+  top: -8px;
+  left: -8px;
+  position: relative;
+  background: white;
+  box-shadow: 0 1px 8px black;
+  z-index: 2;
+}
+
+#content {
+  overflow: scroll;
+  top: -8px;
+  position: relative;padding-top: 8px;
+  // z-index: 1;
+}
