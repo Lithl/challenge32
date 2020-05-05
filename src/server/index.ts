@@ -1,5 +1,6 @@
 import express from 'express';
 import * as bodyParser from 'body-parser';
+import * as commanders from './commanders';
 
 export function apply(root: string) {
   const app = express();
@@ -22,6 +23,7 @@ export function apply(root: string) {
   }
 
   app.use(bodyParser.json());
+  commanders.apply(app);
 
   app.listen(3004, () => console.log('Server running on port 3004'));
 }
