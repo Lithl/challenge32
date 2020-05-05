@@ -1,83 +1,291 @@
 @import '../../common';
 
-h2,
-h3,
-.filterBlock {
-  margin: 8px 0;
+$white: #fffbd5;
+$blue: #aae0fa;
+$black: #cbc2bf;
+$red: #f9aa8f;
+$green: #9bd3ae;
+
+// pentagon calculations
+$sqrtTenPlus2sqrt5: 3.804;
+$sqrtTenMinus2sqrt5: 2.351;
+$sqrt5Plus1: 3.236;
+$sqrt5Minus1: 1.236;
+$c1: 1 - (($sqrt5Minus1 / 4 + 1) / 2);
+$c2: 1 - (($sqrt5Plus1 / 4 + 1) / 2);
+$s1: ($sqrtTenPlus2sqrt5 / 4 + 1) / 2;
+$s2: ($sqrtTenMinus2sqrt5 / 4 + 1) / 2;
+
+$shiftTop: -3.5;
+$shiftLeft: 0;
+
+.mana-symbol {
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+  border: 5px black solid;
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-35px, -70px);
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-
-  paper-checkbox,
-  paper-radio-button {
-    flex: 0 0;
-  }
-
-  &.inline {
-    display: inline-flex;
-  }
+.dot {
+  width: 20px;
+  height: 20px;
+  border: 5px black solid;
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-15px, -30px);
 }
 
-.col {
-  display: flex;
-  flex-direction: column;
-
-  paper-checkbox,
-  paper-radio-button {
-    flex: 0 0;
-  }
+.white-mana {
+  background: $white;
 }
 
-.inline {
-  display: inline-block;
+.blue-mana {
+  background: $blue;
 }
 
-paper-radio-button {
-  margin: 0 8px;
-  --paper-radio-button-label: {
-    white-space: nowrap;
-  }
+.black-mana {
+  background: $black;
 }
 
-paper-checkbox {
-  margin: 0 8px;
-  --paper-checkbox-label: {
-    white-space: nowrap;
-  }
+.red-mana {
+  background: $red;
 }
 
-paper-dropdown-menu {
-  margin-top: -8px;
-}
-
-keyword-stats {
-  padding: 8px 0;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, .2);
-  }
-}
-
-p {
-  margin: 8px;
-}
-
-#header {
-  width: 100%;
-  padding: 16px 0 4px 16px;
-  top: -8px;
-  left: -8px;
-  position: relative;
-  background: white;
-  box-shadow: 0 1px 8px black;
-  z-index: 2;
+.green-mana {
+  background: $green;
 }
 
 #content {
-  overflow: scroll;
-  top: -8px;
-  position: relative;padding-top: 8px;
-  // z-index: 1;
+  position: relative;
+}
+
+.deck {
+  position: absolute;
+}
+
+.ally,
+.wedge {
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top left;
+  background-color: black;
+
+  .background {
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    width: 100%;
+    height: 100%;
+    transform: scale(.95);
+  }
+}
+
+.landscape {
+  .ally,
+  .wedge {
+    // length of line between mono-colors
+    width: 48.55vh;
+    // same distance as from midpoint of hypotenuse to 4C dot
+    height: 15.264vh;
+  }
+
+  .whiteless {
+    // (0, -1)
+    left: calc(#{50vh + $shiftLeft * 1vh} - 15px);
+    top: calc(#{100vh + $shiftTop * 1vh} - 50px);
+  }
+
+  .blueless {
+    // (-s1, -c1)
+    left: calc(#{-($s1 * 100vh) + 100vh + $shiftLeft * 1vh} + 15px);
+    top: calc(#{-($c1 * 100vh) + 100vh + $shiftTop * 1vh} - 35px);
+  }
+
+  .blackless {
+    // (-s2, c2)
+    left: calc(#{-($s2 * 100vh) + 100vh + $shiftLeft * 1vh} + 20px);
+    top: calc(#{$c2 * 100vh + $shiftTop * 1vh} + 5px);
+  }
+
+  .redless {
+    // (s2, c2)
+    left: calc(#{$s2 * 100vh + $shiftLeft * 1vh} - 10px);
+    top: $c2 * 100vh + $shiftTop * 1vh;
+  }
+
+  .greenless {
+    // (s1, -c1)
+    left: calc(#{$s1 * 100vh + $shiftLeft * 1vh} - 20px);
+    top: calc(#{-($c1 * 100vh) + 100vh + $shiftTop * 1vh} - 20px);
+  }
+
+  .azorius {
+    left: 50vh + $shiftLeft * 1vh;
+    top: calc(#{$c2 * 100vh + $shiftTop * 1vh} - 45px);
+    transform: rotate(36deg);
+
+    .background {
+      background: linear-gradient(90deg, $white 0%, $white 50%, $blue 50%, $blue 100%);
+      // background-image: url(https://img.scryfall.com/cards/art_crop/front/8/c/8ce912d9-406b-4eba-97be-3bf1d425ee05.jpg?1562923488);
+      // transform: rotate(38deg) translate(0, 235px);
+    }
+  }
+
+  .dimir {
+    left: calc(#{(($s1 - $s2) / 2 + $s2) * 100vh + $shiftLeft * 1vh} + 15px);
+    top: calc(#{((-$c1 - $c2) / 2 + $c2) * 100vh + 50vh + $shiftTop * 1vh} - 35px);
+    transform: rotate(108deg);
+
+    .background {
+      background: linear-gradient(90deg, $blue 0%, $blue 50%, $black 50%, $black 100%);
+      // background-image: url(https://img.scryfall.com/cards/art_crop/front/d/b/db6c91ec-df14-460f-967c-f182562fe7d8.jpg?1581480984);
+    }
+  }
+
+  .rakdos {
+    left: calc(#{($s1 * 100vh - 50vh) / 2 + 50vh + $shiftLeft * 1vh} - 10px);
+    top: calc(#{((-1 - (-$c1)) / 2 + (-$c1)) * 100vh + 100vh + 50vh + $shiftTop * 1vh} - 35px);
+    transform: rotate(180deg);
+
+    .background {
+      background: linear-gradient(90deg, $black 0%, $black 50%, $red 50%, $red 100%);
+    }
+  }
+
+  .gruul {
+    left: calc(#{((.5 + $s1) / 2 - $s1) * 100vh + 47.5vh + $shiftLeft * 1vh} + 10px);
+    top: calc(#{((-1 - (-$c1)) / 2 + (-$c1)) * 100vh + 100vh + 50vh + $shiftTop * 1vh} - 20px);
+    transform: rotate(254deg);
+
+    .background {
+      background: linear-gradient(90deg, $red 0%, $red 50%, $green 50%, $green 100%);
+    }
+  }
+
+  .selesnya {
+    left: ((-$s2 - -$s1) / 2 + -$s1) * 100vh + 100vh + $shiftLeft * 1vh;
+    top: calc(#{((-$c1 - $c2) / 2 + $c2) * 100vh + 50vh + $shiftTop * 1vh} - 35px);
+    transform: rotate(324deg);
+
+    .background {
+      background: linear-gradient(90deg, $green 0%, $green 50%, $white 50%, $white 100%);
+      // background-image: url(https://img.scryfall.com/cards/art_crop/front/8/1/81dc3d00-97cd-4549-b5a4-15a1e08767f5.jpg?1567181403);
+    }
+  }
+
+  .jeskai {
+    left: 50vh + $shiftLeft * 1vh;
+    top: calc(#{$c2 * 100vh + $shiftTop * 1vh} - 40px);
+    transform: rotate(36deg) scaleY(-1);
+
+    .background {
+      background: linear-gradient(90deg, $white 0%, $white 33%, $red 33%, $red 66%, $blue 66%, $blue 100%);
+    }
+  }
+
+  .sultai {
+    left: calc(#{(($s1 - $s2) / 2 + $s2) * 100vh + $shiftLeft * 1vh} + 5px);
+    top: calc(#{((-$c1 - $c2) / 2 + $c2) * 100vh + 50vh + $shiftTop * 1vh} - 35px);
+    transform: rotate(108deg) scaleY(-1);
+
+    .background {
+      background: linear-gradient(90deg, $blue 0%, $blue 33%, $green 33%, $green 66%, $black 66%, $black 100%);
+    }
+  }
+
+  .mardu {
+    left: calc(#{($s1 * 100vh - 50vh) / 2 + 50vh + $shiftLeft * 1vh} - 10px);
+    top: calc(#{((-1 - (-$c1)) / 2 + (-$c1)) * 100vh + 100vh + 50vh + $shiftTop * 1vh} - 40px);
+    transform: rotate(180deg) scaleY(-1);
+
+    .background {
+      background: linear-gradient(90deg, $black 0%, $black 33%, $white 33%, $white 66%, $red 66%, $red 100%);
+    }
+  }
+
+  .temur {
+    left: calc(#{((.5 + $s1) / 2 - $s1) * 100vh + 47.5vh + $shiftLeft * 1vh} + 15px);
+    top: calc(#{((-1 - (-$c1)) / 2 + (-$c1)) * 100vh + 100vh + 50vh + $shiftTop * 1vh} - 25px);
+    transform: rotate(254deg) scaleY(-1);
+
+    .background {
+      background: linear-gradient(90deg, $red 0%, $red 33%, $blue 33%, $blue 66%, $green 66%, $green 100%);
+    }
+  }
+
+  .abzan {
+    left: ((-$s2 - -$s1) / 2 + -$s1) * 100vh + 100vh + $shiftLeft * 1vh;
+    top: calc(#{((-$c1 - $c2) / 2 + $c2) * 100vh + 50vh + $shiftTop * 1vh} - 30px);
+    transform: rotate(324deg) scaleY(-1);
+
+    .background {
+      background: linear-gradient(90deg, $green 0%, $green 33%, $black 33%, $black 66%, $white 66%, $white 100%);
+    }
+  }
+
+  .mana-symbol {
+    &.white-mana {
+      // midpoint between blackless and redless
+      // (0, c2)
+      left: 50vh + $shiftLeft * 1vh;
+      top: $c2 * 100vh + $shiftTop * 1vh;
+    }
+
+    &.blue-mana {
+      // midpoint between redless and greenless
+      // ((s1 - s2) / 2 + s2, (-c1 - c2) / 2 + c2)
+      left: (($s1 - $s2) / 2 + $s2) * 100vh + $shiftLeft * 1vh;
+      top: ((-$c1 - $c2) / 2 + $c2) * 100vh + 50vh + $shiftTop * 1vh;
+    }
+
+    &.black-mana {
+      // midpoint between greenless and whiteless
+      // ((s1 - 0) / 2 + 0, (-1 - -c1) / 2 + -c1)
+      left: ($s1 * 100vh - 50vh) / 2 + 50vh + $shiftLeft * 1vh;
+      top: ((-1 - (-$c1)) / 2 + (-$c1)) * 100vh + 100vh + 50vh + $shiftTop * 1vh;
+    }
+
+    &.red-mana {
+      // midpoint between whiteless and blueless
+      // ((0 - -s1) / 2 + -s1, (-1 - -c1) / 2 + -c1)
+      left: calc(#{((.5 + $s1) / 2 - $s1) * 100vh + 47.5vh + $shiftLeft * 1vh} + 10px);
+      top: calc(#{((-1 - (-$c1)) / 2 + (-$c1)) * 100vh + 100vh + 50vh + $shiftTop * 1vh} - 5px);
+    }
+
+    &.green-mana {
+      // midpoint between blueless and blackless
+      // ((-s2 - -s1) / 2 + -s1, (-c1 - c2) / 2 + c2)
+      left: ((-$s2 - -$s1) / 2 + -$s1) * 100vh + 100vh + $shiftLeft * 1vh;
+      top: ((-$c1 - $c2) / 2 + $c2) * 100vh + 50vh + $shiftTop * 1vh;
+    }
+  }
+}
+
+.portrait {
+  .mana-symbol {
+    &.white-mana {
+      left: calc(50vw - 35px);
+      top: 0;
+    }
+
+    &.blue-mana {
+      left: calc(100vw - 70px);
+      top: calc(33.754vw + 35px)
+    }
+
+    &.black-mana {
+      left: calc(81.243vw - 35px);
+      top: calc(100vw - 70px);
+    }
+
+    &.red-mana {
+      left: calc(18.757vw + 35px);
+      top: calc(100vw - 70px);
+    }
+
+    &.green-mana {
+      left: 0;
+      top: calc(33.754vh + 35px);
+    }
+  }
 }
