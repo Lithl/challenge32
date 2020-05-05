@@ -11,10 +11,20 @@ $sqrtTenPlus2sqrt5: 3.804;
 $sqrtTenMinus2sqrt5: 2.351;
 $sqrt5Plus1: 3.236;
 $sqrt5Minus1: 1.236;
-$c1: 1 - (($sqrt5Minus1 / 4 + 1) / 2);
-$c2: 1 - (($sqrt5Plus1 / 4 + 1) / 2);
-$s1: ($sqrtTenPlus2sqrt5 / 4 + 1) / 2;
-$s2: ($sqrtTenMinus2sqrt5 / 4 + 1) / 2;
+$c1: $sqrt5Minus1 / 4;
+$c2: $sqrt5Plus1 / 4;
+$s1: $sqrtTenPlus2sqrt5 / 4;
+$s2: $sqrtTenMinus2sqrt5 / 4;
+
+@mixin point($x, $y, $unit) {
+  // $x: x-coordinate in range [-1,1]
+  // $y: y-coordinate in range [-1,1]
+  // $unit: unit for display
+  // convert $x to range [0,1] and multiply by 100#{$unit}
+  // convert $y to range [0,1], invert (1 - $y), and multiply by 100#{$unit}
+  left: ($x + 1) / 2 * 100#{$unit};
+  top: (1 - ($y + 1) / 2) * 100#{$unit};
+}
 
 $shiftTop: -3.5;
 $shiftLeft: 0;
@@ -26,7 +36,7 @@ $shiftLeft: 0;
   border: 5px black solid;
   border-radius: 50%;
   position: absolute;
-  transform: translate(-35px, -70px);
+  transform: translate(-35px, -35px);
 }
 
 .dot {
@@ -35,7 +45,7 @@ $shiftLeft: 0;
   border: 5px black solid;
   border-radius: 50%;
   position: absolute;
-  transform: translate(-15px, -30px);
+  transform: translate(-15px, -15px);
 }
 
 .white-mana {
@@ -60,6 +70,7 @@ $shiftLeft: 0;
 
 #content {
   position: relative;
+  transform: scale(.9);
 }
 
 .deck {
@@ -84,44 +95,33 @@ $shiftLeft: 0;
   .ally,
   .wedge {
     // length of line between mono-colors
-    width: 48.55vh;
+    width: 47.55vh;
     // same distance as from midpoint of hypotenuse to 4C dot
-    height: 15.264vh;
+    height: 17.274vh;
   }
 
   .whiteless {
-    // (0, -1)
-    left: calc(#{50vh + $shiftLeft * 1vh} - 15px);
-    top: calc(#{100vh + $shiftTop * 1vh} - 50px);
+    @include point(0, -1, vh);
   }
 
   .blueless {
-    // (-s1, -c1)
-    left: calc(#{-($s1 * 100vh) + 100vh + $shiftLeft * 1vh} + 15px);
-    top: calc(#{-($c1 * 100vh) + 100vh + $shiftTop * 1vh} - 35px);
+    @include point(-$s1, -$c1, vh);
   }
 
   .blackless {
-    // (-s2, c2)
-    left: calc(#{-($s2 * 100vh) + 100vh + $shiftLeft * 1vh} + 20px);
-    top: calc(#{$c2 * 100vh + $shiftTop * 1vh} + 5px);
+    @include point(-$s2, $c2, vh);
   }
 
   .redless {
-    // (s2, c2)
-    left: calc(#{$s2 * 100vh + $shiftLeft * 1vh} - 10px);
-    top: $c2 * 100vh + $shiftTop * 1vh;
+    @include point($s2, $c2, vh);
   }
 
   .greenless {
-    // (s1, -c1)
-    left: calc(#{$s1 * 100vh + $shiftLeft * 1vh} - 20px);
-    top: calc(#{-($c1 * 100vh) + 100vh + $shiftTop * 1vh} - 20px);
+    @include point($s1, -$c1, vh);
   }
 
   .azorius {
-    left: 50vh + $shiftLeft * 1vh;
-    top: calc(#{$c2 * 100vh + $shiftTop * 1vh} - 45px);
+    @include point(0, $c2, vh);
     transform: rotate(36deg);
 
     .background {
@@ -132,8 +132,7 @@ $shiftLeft: 0;
   }
 
   .dimir {
-    left: calc(#{(($s1 - $s2) / 2 + $s2) * 100vh + $shiftLeft * 1vh} + 15px);
-    top: calc(#{((-$c1 - $c2) / 2 + $c2) * 100vh + 50vh + $shiftTop * 1vh} - 35px);
+    @include point(($s1 - $s2) / 2 + $s2, (-$c1 - $c2) / 2 + $c2, vh);
     transform: rotate(108deg);
 
     .background {
@@ -143,8 +142,7 @@ $shiftLeft: 0;
   }
 
   .rakdos {
-    left: calc(#{($s1 * 100vh - 50vh) / 2 + 50vh + $shiftLeft * 1vh} - 10px);
-    top: calc(#{((-1 - (-$c1)) / 2 + (-$c1)) * 100vh + 100vh + 50vh + $shiftTop * 1vh} - 35px);
+    @include point(($s1 - 0) / 2 + 0, (-1 - -$c1) / 2 + -$c1, vh);
     transform: rotate(180deg);
 
     .background {
@@ -153,9 +151,8 @@ $shiftLeft: 0;
   }
 
   .gruul {
-    left: calc(#{((.5 + $s1) / 2 - $s1) * 100vh + 47.5vh + $shiftLeft * 1vh} + 10px);
-    top: calc(#{((-1 - (-$c1)) / 2 + (-$c1)) * 100vh + 100vh + 50vh + $shiftTop * 1vh} - 20px);
-    transform: rotate(254deg);
+    @include point((0 - -$s1) / 2 + -$s1, (-1 - -$c1) / 2 + -$c1, vh);
+    transform: rotate(252deg);
 
     .background {
       background: linear-gradient(90deg, $red 0%, $red 50%, $green 50%, $green 100%);
@@ -163,8 +160,7 @@ $shiftLeft: 0;
   }
 
   .selesnya {
-    left: ((-$s2 - -$s1) / 2 + -$s1) * 100vh + 100vh + $shiftLeft * 1vh;
-    top: calc(#{((-$c1 - $c2) / 2 + $c2) * 100vh + 50vh + $shiftTop * 1vh} - 35px);
+    @include point((-$s2 - -$s1) / 2 + -$s1, (-$c1 - $c2) / 2 + $c2, vh);
     transform: rotate(324deg);
 
     .background {
@@ -174,8 +170,7 @@ $shiftLeft: 0;
   }
 
   .jeskai {
-    left: 50vh + $shiftLeft * 1vh;
-    top: calc(#{$c2 * 100vh + $shiftTop * 1vh} - 40px);
+    @include point(0, $c2, vh);
     transform: rotate(36deg) scaleY(-1);
 
     .background {
@@ -184,8 +179,7 @@ $shiftLeft: 0;
   }
 
   .sultai {
-    left: calc(#{(($s1 - $s2) / 2 + $s2) * 100vh + $shiftLeft * 1vh} + 5px);
-    top: calc(#{((-$c1 - $c2) / 2 + $c2) * 100vh + 50vh + $shiftTop * 1vh} - 35px);
+    @include point(($s1 - $s2) / 2 + $s2, (-$c1 - $c2) / 2 + $c2, vh);
     transform: rotate(108deg) scaleY(-1);
 
     .background {
@@ -194,8 +188,7 @@ $shiftLeft: 0;
   }
 
   .mardu {
-    left: calc(#{($s1 * 100vh - 50vh) / 2 + 50vh + $shiftLeft * 1vh} - 10px);
-    top: calc(#{((-1 - (-$c1)) / 2 + (-$c1)) * 100vh + 100vh + 50vh + $shiftTop * 1vh} - 40px);
+    @include point(($s1 - 0) / 2 + 0, (-1 - -$c1) / 2 + -$c1, vh);
     transform: rotate(180deg) scaleY(-1);
 
     .background {
@@ -204,9 +197,8 @@ $shiftLeft: 0;
   }
 
   .temur {
-    left: calc(#{((.5 + $s1) / 2 - $s1) * 100vh + 47.5vh + $shiftLeft * 1vh} + 15px);
-    top: calc(#{((-1 - (-$c1)) / 2 + (-$c1)) * 100vh + 100vh + 50vh + $shiftTop * 1vh} - 25px);
-    transform: rotate(254deg) scaleY(-1);
+    @include point((0 - -$s1) / 2 + -$s1, (-1 - -$c1) / 2 + -$c1, vh);
+    transform: rotate(252deg) scaleY(-1);
 
     .background {
       background: linear-gradient(90deg, $red 0%, $red 33%, $blue 33%, $blue 66%, $green 66%, $green 100%);
@@ -214,8 +206,7 @@ $shiftLeft: 0;
   }
 
   .abzan {
-    left: ((-$s2 - -$s1) / 2 + -$s1) * 100vh + 100vh + $shiftLeft * 1vh;
-    top: calc(#{((-$c1 - $c2) / 2 + $c2) * 100vh + 50vh + $shiftTop * 1vh} - 30px);
+    @include point((-$s2 - -$s1) / 2 + -$s1, (-$c1 - $c2) / 2 + $c2, vh);
     transform: rotate(324deg) scaleY(-1);
 
     .background {
@@ -226,37 +217,27 @@ $shiftLeft: 0;
   .mana-symbol {
     &.white-mana {
       // midpoint between blackless and redless
-      // (0, c2)
-      left: 50vh + $shiftLeft * 1vh;
-      top: $c2 * 100vh + $shiftTop * 1vh;
+      @include point(0, $c2, vh);
     }
 
     &.blue-mana {
       // midpoint between redless and greenless
-      // ((s1 - s2) / 2 + s2, (-c1 - c2) / 2 + c2)
-      left: (($s1 - $s2) / 2 + $s2) * 100vh + $shiftLeft * 1vh;
-      top: ((-$c1 - $c2) / 2 + $c2) * 100vh + 50vh + $shiftTop * 1vh;
+      @include point(($s1 - $s2) / 2 + $s2, (-$c1 - $c2) / 2 + $c2, vh);
     }
 
     &.black-mana {
       // midpoint between greenless and whiteless
-      // ((s1 - 0) / 2 + 0, (-1 - -c1) / 2 + -c1)
-      left: ($s1 * 100vh - 50vh) / 2 + 50vh + $shiftLeft * 1vh;
-      top: ((-1 - (-$c1)) / 2 + (-$c1)) * 100vh + 100vh + 50vh + $shiftTop * 1vh;
+      @include point(($s1 - 0) / 2 + 0, (-1 - -$c1) / 2 + -$c1, vh);
     }
 
     &.red-mana {
       // midpoint between whiteless and blueless
-      // ((0 - -s1) / 2 + -s1, (-1 - -c1) / 2 + -c1)
-      left: calc(#{((.5 + $s1) / 2 - $s1) * 100vh + 47.5vh + $shiftLeft * 1vh} + 10px);
-      top: calc(#{((-1 - (-$c1)) / 2 + (-$c1)) * 100vh + 100vh + 50vh + $shiftTop * 1vh} - 5px);
+      @include point((0 - -$s1) / 2 + -$s1, (-1 - -$c1) / 2 + -$c1, vh);
     }
 
     &.green-mana {
       // midpoint between blueless and blackless
-      // ((-s2 - -s1) / 2 + -s1, (-c1 - c2) / 2 + c2)
-      left: ((-$s2 - -$s1) / 2 + -$s1) * 100vh + 100vh + $shiftLeft * 1vh;
-      top: ((-$c1 - $c2) / 2 + $c2) * 100vh + 50vh + $shiftTop * 1vh;
+      @include point((-$s2 - -$s1) / 2 + -$s1, (-$c1 - $c2) / 2 + $c2, vh);
     }
   }
 }
