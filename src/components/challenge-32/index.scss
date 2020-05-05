@@ -91,13 +91,34 @@ $shiftLeft: 0;
   }
 }
 
+.shard {
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  transform-origin: top center;
+  background-color: black;
+
+  .background {
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+    width: 100%;
+    height: 100%;
+    transform: scale(.95);
+  }
+}
+
 .landscape {
   .ally,
   .wedge {
     // length of line between mono-colors
     width: 47.55vh;
-    // same distance as from midpoint of hypotenuse to 4C dot
-    height: 17.274vh;
+    // 85% of the distance from midpoint of hypotenuse to 4C dot
+    height: 14.6829vh;
+  }
+
+  .shard {
+    --minus-shard-half-width: -10.60475vh;
+    // distance between interior vertices of ally pair triangles
+    width: 21.2095vh;
+    // ditance from midpoint between adjacent all pair triangles to shared mono-color
+    height: 25.855vh;
   }
 
   .whiteless {
@@ -211,6 +232,51 @@ $shiftLeft: 0;
 
     .background {
       background: linear-gradient(90deg, $green 0%, $green 33%, $black 33%, $black 66%, $white 66%, $white 100%);
+    }
+  }
+
+  .bant {
+    @include point(0, $c2, vh);
+    transform: translate(var(--minus-shard-half-width), 0);
+
+    .background {
+      background: linear-gradient(90deg, $green 0%, $green 33%, $white 33%, $white 66%, $blue 66%, $blue 100%);
+    }
+  }
+
+  .esper {
+    @include point(($s1 - $s2) / 2 + $s2, (-$c1 - $c2) / 2 + $c2, vh);
+    transform: translate(var(--minus-shard-half-width), 0) rotate(72deg);
+
+    .background {
+      background: linear-gradient(90deg, $white 0%, $white 33%, $blue 33%, $blue 66%, $black 66%, $black 100%);
+    }
+  }
+
+  .grixis {
+    @include point(($s1 - 0) / 2 + 0, (-1 - -$c1) / 2 + -$c1, vh);
+    transform: translate(var(--minus-shard-half-width), 0) rotate(144deg);
+
+    .background {
+      background: linear-gradient(90deg, $blue 0%, $blue 33%, $black 33%, $black 66%, $red 66%, $red 100%);
+    }
+  }
+
+  .jund {
+    @include point((0 - -$s1) / 2 + -$s1, (-1 - -$c1) / 2 + -$c1, vh);
+    transform: translate(var(--minus-shard-half-width), 0) rotate(216deg);
+
+    .background {
+      background: linear-gradient(90deg, $black 0%, $black 33%, $red 33%, $red 66%, $green 66%, $green 100%);
+    }
+  }
+
+  .naya {
+    @include point((-$s2 - -$s1) / 2 + -$s1, (-$c1 - $c2) / 2 + $c2, vh);
+    transform: translate(var(--minus-shard-half-width), 0) rotate(288deg);
+
+    .background {
+      background: linear-gradient(90deg, $red 0%, $red 33%, $green 33%, $green 66%, $white 66%, $white 100%);
     }
   }
 
