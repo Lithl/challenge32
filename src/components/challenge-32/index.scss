@@ -26,8 +26,37 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   top: (1 - ($y + 1) / 2) * 100#{$unit};
 }
 
-$shiftTop: -3.5;
-$shiftLeft: 0;
+@mixin gradient-bg($color1, $color2: null, $color3: null, $color4: null, $color5: null, $angle: 90deg) {
+  @if $color5 {
+    background: linear-gradient(
+      $angle,
+      $color1 0%, $color1 20%,
+      $color2 20%, $color2 40%,
+      $color3 40%, $color3 60%,
+      $color4 60%, $color4 80%,
+      $color5 80%, $color5 100%);
+  } @else if $color4 {
+    background: linear-gradient(
+      $angle,
+      $color1 0%, $color1 25%,
+      $color2 25%, $color2 50%,
+      $color3 50%, $color3 75%,
+      $color4 75%, $color4 100%);
+  } @else if $color3 {
+    background: linear-gradient(
+      $angle,
+      $color1 0%, $color1 33%,
+      $color2 33%, $color2 66%,
+      $color3 66%, $color3 100%);
+  } @else if $color2 {
+    background: linear-gradient(
+      $angle,
+      $color1 0%, $color1 50%,
+      $color2 50%, $color2 100%);
+  } @else {
+    background-color: $color1;
+  }
+}
 
 .mana-symbol {
   width: 50px;
@@ -49,23 +78,23 @@ $shiftLeft: 0;
 }
 
 .white-mana {
-  background: $white;
+  background-color: $white;
 }
 
 .blue-mana {
-  background: $blue;
+  background-color: $blue;
 }
 
 .black-mana {
-  background: $black;
+  background-color: $black;
 }
 
 .red-mana {
-  background: $red;
+  background-color: $red;
 }
 
 .green-mana {
-  background: $green;
+  background-color: $green;
 }
 
 #content {
@@ -81,30 +110,155 @@ $shiftLeft: 0;
 .wedge {
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: top left;
-  background-color: black;
 
   .background {
     clip-path: polygon(0 0, 100% 0, 50% 100%);
-    width: 100%;
-    height: 100%;
-    transform: scale(.95);
   }
 }
 
 .shard {
   clip-path: polygon(0 100%, 50% 0, 100% 100%);
   transform-origin: top center;
-  background-color: black;
 
   .background {
     clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  }
+}
+
+.ally,
+.wedge,
+.shard {
+  background-color: black;
+
+  .background {
     width: 100%;
     height: 100%;
     transform: scale(.95);
   }
 }
 
+.azorius {
+  transform: rotate(36deg);
+
+  .background {
+    @include gradient-bg($white, $blue);
+  }
+}
+
+.dimir {
+  transform: rotate(108deg);
+
+  .background {
+    @include gradient-bg($blue, $black);
+  }
+}
+
+.rakdos {
+  transform: rotate(180deg);
+
+  .background {
+    @include gradient-bg($black, $red);
+  }
+}
+
+.gruul {
+  transform: rotate(252deg);
+
+  .background {
+    @include gradient-bg($red, $green);
+  }
+}
+
+.selesnya {
+  transform: rotate(324deg);
+
+  .background {
+    @include gradient-bg($green, $white);
+  }
+}
+
+.jeskai {
+  transform: rotate(36deg) scaleY(-1);
+
+  .background {
+    @include gradient-bg($white, $red, $blue);
+  }
+}
+
+.sultai {
+  transform: rotate(108deg) scaleY(-1);
+
+  .background {
+    @include gradient-bg($blue, $green, $black);
+  }
+}
+
+.mardu {
+  transform: rotate(180deg) scaleY(-1);
+
+  .background {
+    @include gradient-bg($black, $white, $red);
+  }
+}
+
+.temur {
+  transform: rotate(252deg) scaleY(-1);
+
+  .background {
+    @include gradient-bg($red, $blue, $green);
+  }
+}
+
+.abzan {
+  transform: rotate(324deg) scaleY(-1);
+
+  .background {
+    @include gradient-bg($green, $black, $white);
+  }
+}
+
+.bant {
+  transform: translate(var(--minus-shard-half-width), 0);
+
+  .background {
+    @include gradient-bg($green, $white, $blue);
+  }
+}
+
+.esper {
+  transform: translate(var(--minus-shard-half-width), 0) rotate(72deg);
+
+  .background {
+    @include gradient-bg($white, $blue, $black);
+  }
+}
+
+.grixis {
+  transform: translate(var(--minus-shard-half-width), 0) rotate(144deg);
+
+  .background {
+    @include gradient-bg($blue, $black, $red);
+  }
+}
+
+.jund {
+  transform: translate(var(--minus-shard-half-width), 0) rotate(216deg);
+
+  .background {
+    @include gradient-bg($black, $red, $green);
+  }
+}
+
+.naya {
+  transform: translate(var(--minus-shard-half-width), 0) rotate(288deg);
+
+  .background {
+    @include gradient-bg($red, $green, $white);
+  }
+}
+
 .landscape {
+  // shape dimensions
   .ally,
   .wedge {
     // length of line between mono-colors
@@ -121,6 +275,7 @@ $shiftLeft: 0;
     height: 25.855vh;
   }
 
+  // 4C combos
   .whiteless {
     @include point(0, -1, vh);
   }
@@ -141,143 +296,67 @@ $shiftLeft: 0;
     @include point($s1, -$c1, vh);
   }
 
+  // Allied guilds
   .azorius {
     @include point(0, $c2, vh);
-    transform: rotate(36deg);
-
-    .background {
-      background: linear-gradient(90deg, $white 0%, $white 50%, $blue 50%, $blue 100%);
-      // background-image: url(https://img.scryfall.com/cards/art_crop/front/8/c/8ce912d9-406b-4eba-97be-3bf1d425ee05.jpg?1562923488);
-      // transform: rotate(38deg) translate(0, 235px);
-    }
   }
 
   .dimir {
-    @include point(($s1 - $s2) / 2 + $s2, (-$c1 - $c2) / 2 + $c2, vh);
-    transform: rotate(108deg);
-
-    .background {
-      background: linear-gradient(90deg, $blue 0%, $blue 50%, $black 50%, $black 100%);
-      // background-image: url(https://img.scryfall.com/cards/art_crop/front/d/b/db6c91ec-df14-460f-967c-f182562fe7d8.jpg?1581480984);
-    }
+    @include point(($s1 - $s2) / 2 + $s2, $c2 - ($c1 + $c2) / 2, vh);
   }
 
   .rakdos {
-    @include point(($s1 - 0) / 2 + 0, (-1 - -$c1) / 2 + -$c1, vh);
-    transform: rotate(180deg);
-
-    .background {
-      background: linear-gradient(90deg, $black 0%, $black 50%, $red 50%, $red 100%);
-    }
+    @include point($s1 / 2, ($c1 - 1) / 2 - $c1, vh);
   }
 
   .gruul {
-    @include point((0 - -$s1) / 2 + -$s1, (-1 - -$c1) / 2 + -$c1, vh);
-    transform: rotate(252deg);
-
-    .background {
-      background: linear-gradient(90deg, $red 0%, $red 50%, $green 50%, $green 100%);
-    }
+    @include point($s1 / 2 - $s1, ($c1 - 1) / 2 - $c1, vh);
   }
 
   .selesnya {
-    @include point((-$s2 - -$s1) / 2 + -$s1, (-$c1 - $c2) / 2 + $c2, vh);
-    transform: rotate(324deg);
-
-    .background {
-      background: linear-gradient(90deg, $green 0%, $green 50%, $white 50%, $white 100%);
-      // background-image: url(https://img.scryfall.com/cards/art_crop/front/8/1/81dc3d00-97cd-4549-b5a4-15a1e08767f5.jpg?1567181403);
-    }
+    @include point(($s1 - $s2) / 2 - $s1, $c2 - ($c1 + $c2) / 2, vh);
   }
 
+  // Khans wedges
   .jeskai {
     @include point(0, $c2, vh);
-    transform: rotate(36deg) scaleY(-1);
-
-    .background {
-      background: linear-gradient(90deg, $white 0%, $white 33%, $red 33%, $red 66%, $blue 66%, $blue 100%);
-    }
   }
 
   .sultai {
-    @include point(($s1 - $s2) / 2 + $s2, (-$c1 - $c2) / 2 + $c2, vh);
-    transform: rotate(108deg) scaleY(-1);
-
-    .background {
-      background: linear-gradient(90deg, $blue 0%, $blue 33%, $green 33%, $green 66%, $black 66%, $black 100%);
-    }
+    @include point(($s1 - $s2) / 2 + $s2, $c2 - ($c1 + $c2) / 2, vh);
   }
 
   .mardu {
-    @include point(($s1 - 0) / 2 + 0, (-1 - -$c1) / 2 + -$c1, vh);
-    transform: rotate(180deg) scaleY(-1);
-
-    .background {
-      background: linear-gradient(90deg, $black 0%, $black 33%, $white 33%, $white 66%, $red 66%, $red 100%);
-    }
+    @include point($s1 / 2, ($c1 - 1) / 2 - $c1, vh);
   }
 
   .temur {
-    @include point((0 - -$s1) / 2 + -$s1, (-1 - -$c1) / 2 + -$c1, vh);
-    transform: rotate(252deg) scaleY(-1);
-
-    .background {
-      background: linear-gradient(90deg, $red 0%, $red 33%, $blue 33%, $blue 66%, $green 66%, $green 100%);
-    }
+    @include point($s1 / 2 - $s1, ($c1 - 1) / 2 - $c1, vh);
   }
 
   .abzan {
-    @include point((-$s2 - -$s1) / 2 + -$s1, (-$c1 - $c2) / 2 + $c2, vh);
-    transform: rotate(324deg) scaleY(-1);
-
-    .background {
-      background: linear-gradient(90deg, $green 0%, $green 33%, $black 33%, $black 66%, $white 66%, $white 100%);
-    }
+    @include point(($s1 - $s2) / 2 - $s1, $c2 - ($c1 + $c2) / 2, vh);
   }
 
+  // Alara shards
   .bant {
     @include point(0, $c2, vh);
-    transform: translate(var(--minus-shard-half-width), 0);
-
-    .background {
-      background: linear-gradient(90deg, $green 0%, $green 33%, $white 33%, $white 66%, $blue 66%, $blue 100%);
-    }
   }
 
   .esper {
-    @include point(($s1 - $s2) / 2 + $s2, (-$c1 - $c2) / 2 + $c2, vh);
-    transform: translate(var(--minus-shard-half-width), 0) rotate(72deg);
-
-    .background {
-      background: linear-gradient(90deg, $white 0%, $white 33%, $blue 33%, $blue 66%, $black 66%, $black 100%);
-    }
+    @include point(($s1 - $s2) / 2 + $s2, $c2 - ($c1 + $c2) / 2, vh);
   }
 
   .grixis {
-    @include point(($s1 - 0) / 2 + 0, (-1 - -$c1) / 2 + -$c1, vh);
-    transform: translate(var(--minus-shard-half-width), 0) rotate(144deg);
-
-    .background {
-      background: linear-gradient(90deg, $blue 0%, $blue 33%, $black 33%, $black 66%, $red 66%, $red 100%);
-    }
+    @include point($s1 / 2, ($c1 - 1) / 2 - $c1, vh);
   }
 
   .jund {
-    @include point((0 - -$s1) / 2 + -$s1, (-1 - -$c1) / 2 + -$c1, vh);
-    transform: translate(var(--minus-shard-half-width), 0) rotate(216deg);
-
-    .background {
-      background: linear-gradient(90deg, $black 0%, $black 33%, $red 33%, $red 66%, $green 66%, $green 100%);
-    }
+    @include point($s1 / 2 - $s1, ($c1 - 1) / 2 - $c1, vh);
   }
 
   .naya {
-    @include point((-$s2 - -$s1) / 2 + -$s1, (-$c1 - $c2) / 2 + $c2, vh);
-    transform: translate(var(--minus-shard-half-width), 0) rotate(288deg);
-
-    .background {
-      background: linear-gradient(90deg, $red 0%, $red 33%, $green 33%, $green 66%, $white 66%, $white 100%);
-    }
+    @include point(($s1 - $s2) / 2 - $s1, $c2 - ($c1 + $c2) / 2, vh);
   }
 
   .mana-symbol {
@@ -288,22 +367,22 @@ $shiftLeft: 0;
 
     &.blue-mana {
       // midpoint between redless and greenless
-      @include point(($s1 - $s2) / 2 + $s2, (-$c1 - $c2) / 2 + $c2, vh);
+      @include point(($s1 - $s2) / 2 + $s2, $c2 - ($c1 + $c2) / 2, vh);
     }
 
     &.black-mana {
       // midpoint between greenless and whiteless
-      @include point(($s1 - 0) / 2 + 0, (-1 - -$c1) / 2 + -$c1, vh);
+      @include point($s1 / 2, ($c1 - 1) / 2 - $c1, vh);
     }
 
     &.red-mana {
       // midpoint between whiteless and blueless
-      @include point((0 - -$s1) / 2 + -$s1, (-1 - -$c1) / 2 + -$c1, vh);
+      @include point($s1 / 2 - $s1, ($c1 - 1) / 2 - $c1, vh);
     }
 
     &.green-mana {
       // midpoint between blueless and blackless
-      @include point((-$s2 - -$s1) / 2 + -$s1, (-$c1 - $c2) / 2 + $c2, vh);
+      @include point(($s1 - $s2) / 2 - $s1, $c2 - ($c1 + $c2) / 2, vh);
     }
   }
 }
