@@ -71,22 +71,18 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
 }
 
 .mana-symbol {
-  width: 50px;
-  height: 50px;
   padding: 5px;
-  border: 5px black solid;
+  border-color: black;
+  border-style: solid;
   border-radius: 50%;
   position: absolute;
-  transform: translate(-35px, -35px);
 }
 
 .dot {
-  width: 20px;
-  height: 20px;
-  border: 5px black solid;
+  border-color: black;
+  border-style: solid;
   border-radius: 50%;
   position: absolute;
-  transform: translate(-15px, -15px);
 }
 
 .white-mana {
@@ -288,24 +284,31 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 
   // 4C combos
-  .whiteless {
+  .dot {
+    width: 1.6916vh; // 20px at my default resolution
+    height: 1.6916vh;
+    border-width: .4229vh; // 5px at my default resolution
+    transform: translate(-1.2687vh, -1.2687vh); // half (width+border)
+
+    &.whiteless {
     @include point(0, -1, vh);
   }
 
-  .blueless {
+    &.blueless {
     @include point(-$s1, -$c1, vh);
   }
 
-  .blackless {
+    &.blackless {
     @include point(-$s2, $c2, vh);
   }
 
-  .redless {
+    &.redless {
     @include point($s2, $c2, vh);
   }
 
-  .greenless {
+    &.greenless {
     @include point($s1, -$c1, vh);
+  }
   }
 
   // Allied guilds
@@ -372,6 +375,12 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 
   .mana-symbol {
+    width: 4.229vh; // 50px at my default resolution
+    height: 4.229vh;
+    padding: .4229vh; // 5px at my default resolution
+    border-width: .4229vh;
+    transform: translate(-2.9603vh, -2.9603vh); // half (width+padding+border)
+
     &.white-mana {
       // midpoint between blackless and redless
       @include point(0, $c2, vh);
