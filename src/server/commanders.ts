@@ -6,6 +6,8 @@ export type ManaColor = 'W' | 'U' | 'B' | 'R' | 'G';
 export interface CardData {
   name: string;
   colorIdentity: ManaColor[];
+  partnerWith?: string;
+  partnerWithAny: boolean;
   image: {
     normal: string,
     art: string,
@@ -26,10 +28,23 @@ export function apply(app: express.Application) {
       .then(async (text: string) => {
         const json = JSON.parse(text);
         json.data.forEach((orig: any) => {
+          let partnerWith;
+          let partnerWithAny;
+          if (orig.card_faces && orig.card_faces[0].oracle_text) {
+            partnerWith = (orig.card_faces[0].oracle_text.match(/^partner with ([^(\n]+)/im) || '')[1];
+            partnerWithAny = /^partner\b/im.test(orig.card_faces[0].oracle_text) && !partnerWith;
+          } else {
+            partnerWith = (orig.oracle_text.match(/^partner with ([^(\n]+)/im) || '')[1];
+            partnerWithAny = /^partner\b/im.test(orig.oracle_text) && !partnerWith;
+          }
+          if (partnerWith) partnerWith = partnerWith.trim();
+
           if (orig.card_faces && orig.card_faces[0].image_uris) {
             commanders.push({
               name: orig.card_faces[0].name,
               colorIdentity: orig.color_identity,
+              partnerWith,
+              partnerWithAny,
               image: {
                 normal: orig.card_faces[0].image_uris.normal,
                 art: orig.card_faces[0].image_uris.art_crop,
@@ -39,6 +54,8 @@ export function apply(app: express.Application) {
             commanders.push({
               name: orig.name,
               colorIdentity: orig.color_identity,
+              partnerWith,
+              partnerWithAny,
               image: {
                 normal: orig.image_uris.normal,
                 art: orig.image_uris.art_crop,
@@ -51,7 +68,7 @@ export function apply(app: express.Application) {
           await timer(1000);
           await getCardData(json.next_page);
         }
-      });
+      }).catch((err: any) => console.error(err));
   }
 
   function populateCommanders() {
