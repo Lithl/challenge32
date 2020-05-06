@@ -134,9 +134,19 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 }
 
+.enemy {
+  clip-path: polygon(0 0, 100% 0, 63.85% 100%, 36.15% 100%);
+  transform-origin: top left;
+
+  .background {
+    clip-path: polygon(0 0, 100% 0, 63.85% 100%, 36.15% 100%);
+  }
+}
+
 .ally,
 .wedge,
 .shard,
+.enemy,
 .pentacolor {
   background-color: black;
 
@@ -270,6 +280,45 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 }
 
+// Enemy guilds
+.simic {
+  .background {
+    @include gradient-bg($green, $blue);
+  }
+}
+
+.orzhov {
+  transform: rotate(72deg);
+
+  .background {
+    @include gradient-bg($white, $black);
+  }
+}
+
+.izzet {
+  transform: rotate(144deg);
+
+  .background {
+    @include gradient-bg($blue, $red);
+  }
+}
+
+.golgari {
+  transform: rotate(216deg);
+
+  .background {
+    @include gradient-bg($black, $green);
+  }
+}
+
+.boros {
+  transform: rotate(288deg);
+
+  .background {
+    @include gradient-bg($red, $white);
+  }
+}
+
 // Other
 .pentacolor {
   clip-path: polygon(
@@ -306,6 +355,13 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
     width: 21.2095vh;
     // ditance from midpoint between adjacent all pair triangles to shared mono-color
     height: 25.855vh;
+  }
+
+  .enemy {
+    // width of shard triangles
+    width: 21.2095vh;
+    // distance from base of shard tirangle to edge of pentacolor pentagon
+    height: 10.55vh;
   }
 
   .pentacolor {
@@ -362,6 +418,37 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
 
   .selesnya {
     @include point(($s1 - $s2) / 2 - $s1, $c2 - ($c1 + $c2) / 2, vh);
+  }
+
+  // Enemy guilds
+  .simic {
+    // bottom-left corner of bant triangle
+    left: 39.39425vh;
+    top: 35.405vh;
+  }
+
+  .orzhov {
+    // bottom-right corner of bant triangle
+    left: 60.60375vh;
+    top: 35.405vh;
+  }
+
+  .izzet {
+    // corner shared by esper, dimir, and grixis
+    left: 67.1578vh;
+    top: 55.576vh;
+  }
+
+  .golgari {
+    // corner shared by grixis, rakdos, and jund
+    left: 50.019vh;
+    top: 68.0426vh;
+  }
+
+  .boros {
+    // corner shared by jund, gruul, and naya
+    left: 32.8602vh;
+    top: 55.576vh;
   }
 
   // Khans wedges
