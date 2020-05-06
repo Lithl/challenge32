@@ -141,6 +141,7 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
 #content {
   position: relative;
   transform: scale(.9);
+  left: 5vh;
 }
 
 .deck {
@@ -179,6 +180,7 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
 .wedge,
 .shard,
 .enemy,
+.four-color,
 .pentacolor {
   background-color: black;
 
@@ -371,6 +373,32 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 }
 
+.four-color-constellation {
+  position: absolute;
+  transform-origin: center;
+  transform: scale(1.1);
+}
+
+.four-color {
+  clip-path: polygon(
+    0 100%,
+    0 0,
+    100% 0,
+    100% 100%,
+    50% 50%);
+  border-radius: 50%;
+
+  .background {
+    clip-path: polygon(
+      0 95%,
+      0 0,
+      100% 0,
+      100% 95%,
+      50% 45%);
+    border-radius: 50%;
+  }
+}
+
 .landscape {
   // shape dimensions
   .ally,
@@ -403,31 +431,82 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
     left: 45vh;
   }
 
+  .four-color {
+    --minus-4c-half-width: -4.2818625vh;
+    width: 8.563725vh; // .9 * 2.25 * 50px at my default resolution
+    height: 8.563725vh;
+  }
+
   // 4C combos
   .dot {
     width: 1.6916vh; // 20px at my default resolution
     height: 1.6916vh;
     border-width: .4229vh; // 5px at my default resolution
     transform: translate(-1.2687vh, -1.2687vh); // half (width+border)
+  }
 
-    &.whiteless {
-      @include point(0, -1, vh);
+  .four-color-constellation {
+    width: 95.1vh; // largest horizontal distance between .dot elements
+    height: 90.45vh; // largest vertical distance between .dot elements
+  }
+
+  .whiteless {
+    @include point(0, -1, vh);
+
+    &.deck {
+      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-width)) rotate(180deg);
+
+      .background {
+        @include conic-bg($blue, $black, $red, $green, $start: -.375, $scale: 75);
+      }
     }
+  }
 
-    &.blueless {
-      @include point(-$s1, -$c1, vh);
+  .blueless {
+    @include point(-$s1, -$c1, vh);
+
+    &.deck {
+      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-width)) rotate(252deg);
+
+      .background {
+        @include conic-bg($black, $red, $green, $white, $start: -.375, $scale: 75);
+      }
     }
+  }
 
-    &.blackless {
-      @include point(-$s2, $c2, vh);
+  .blackless {
+    @include point(-$s2, $c2, vh);
+
+    &.deck {
+      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-width)) rotate(324deg);
+
+      .background {
+        @include conic-bg($red, $green, $white, $blue, $start: -.375, $scale: 75);
+      }
     }
+  }
 
-    &.redless {
-      @include point($s2, $c2, vh);
+  .redless {
+    @include point($s2, $c2, vh);
+
+    &.deck {
+      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-width)) rotate(36deg);
+
+      .background {
+        @include conic-bg($green, $white, $blue, $black, $start: -.375, $scale: 75);
+      }
     }
+  }
 
-    &.greenless {
-      @include point($s1, -$c1, vh);
+  .greenless {
+    @include point($s1, -$c1, vh);
+
+    &.deck {
+      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-width)) rotate(108deg);
+
+      .background {
+        @include conic-bg($white, $blue, $black, $red, $start: -.375, $scale: 75);
+      }
     }
   }
 
