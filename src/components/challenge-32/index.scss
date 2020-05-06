@@ -135,7 +135,8 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
 
 .ally,
 .wedge,
-.shard {
+.shard,
+.pentacolor {
   background-color: black;
 
   .background {
@@ -265,6 +266,26 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 }
 
+// Other
+.pentacolor {
+  clip-path: polygon(
+    range-scale(0) * 100% invert(range-scale(-1)) * 100%,
+    range-scale(-$s1) * 100% invert(range-scale(-$c1)) * 100%,
+    range-scale(-$s2) * 100% invert(range-scale($c2)) * 100%,
+    range-scale($s2) * 100% invert(range-scale($c2)) * 100%,
+    range-scale($s1) * 100% invert(range-scale(-$c1)) * 100%);
+
+  .background {
+    clip-path: polygon(
+      range-scale(0) * 100% invert(range-scale(-1)) * 100%,
+      range-scale(-$s1) * 100% invert(range-scale(-$c1)) * 100%,
+      range-scale(-$s2) * 100% invert(range-scale($c2)) * 100%,
+      range-scale($s2) * 100% invert(range-scale($c2)) * 100%,
+      range-scale($s1) * 100% invert(range-scale(-$c1)) * 100%);
+    background: conic-gradient($white, $blue, $black, $red, $green, $white);
+  }
+}
+
 .landscape {
   // shape dimensions
   .ally,
@@ -281,6 +302,13 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
     width: 21.2095vh;
     // ditance from midpoint between adjacent all pair triangles to shared mono-color
     height: 25.855vh;
+  }
+
+  .pentacolor {
+    width: 10vh;
+    height: 10vh;
+    top: 45vh;
+    left: 45vh;
   }
 
   // 4C combos
