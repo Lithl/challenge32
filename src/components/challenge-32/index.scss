@@ -647,6 +647,16 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
       // vertical equal to whiteless
       @include point($s1 / 2 + $s2 / 4, -1, vh);
     }
+
+    &.any-type {
+      // horizontal midpoint between red and green
+      // vertical equal to whiteless
+      @include point(-$s1 / 2 - $s2 / 4, -1, vh);
+      font-size: 10vh;
+      font-weight: bold;
+      text-align: center;
+      line-height: 100%;
+    }
   }
 }
 
