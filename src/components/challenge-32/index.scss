@@ -39,6 +39,7 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
 }
 
 @mixin gradient-bg($color1, $color2: null, $color3: null, $color4: null, $color5: null, $angle: 90deg) {
+  // creates a linear-gradient with hard stops equally distributed between each color (up to 5 colors)
   @if $color5 {
     background: linear-gradient(
       $angle,
@@ -146,6 +147,7 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 }
 
+// Allied guilds
 .azorius {
   transform: rotate(36deg);
 
@@ -186,6 +188,7 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 }
 
+// Khans wedges
 .jeskai {
   transform: rotate(36deg) scaleY(-1);
 
@@ -226,6 +229,7 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 }
 
+// Alara shards
 .bant {
   transform: translate(var(--minus-shard-half-width), 0);
 
