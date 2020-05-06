@@ -68,6 +68,140 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
         this.colorIdentityEquals_(card, 'G'));
   }
 
+  protected listCCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, ''));
+  }
+
+  protected listWUCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'WU'));
+  }
+
+  protected listUBCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'UB'));
+  }
+
+  protected listBRCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'BR'));
+  }
+
+  protected listRGCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'RG'));
+  }
+
+  protected listGWCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'GW'));
+  }
+
+  protected listGUCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'GU'));
+  }
+
+  protected listWBCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'WB'));
+  }
+
+  protected listURCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'UR'));
+  }
+
+  protected listBGCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'BG'));
+  }
+
+  protected listRWCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'RW'));
+  }
+
+  protected listWRUCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'WRU'));
+  }
+
+  protected listUGBCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'UGB'));
+  }
+
+  protected listBWRCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'BWR'));
+  }
+
+  protected listRUGCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'RUG'));
+  }
+
+  protected listGBWCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'GBW'));
+  }
+
+  protected listGWUCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'GWU'));
+  }
+
+  protected listWUBCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'WUB'));
+  }
+
+  protected listUBRCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'UBR'));
+  }
+
+  protected listBRGCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'BRG'));
+  }
+
+  protected listRGWCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'RGW'));
+  }
+
+  protected listUBRGCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'UBRG'));
+  }
+
+  protected listWBRGCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'WBRG'));
+  }
+
+  protected listWURGCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'WURG'));
+  }
+
+  protected listWUBGCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'WUBG'));
+  }
+
+  protected listWUBRCommanders_() {
+    this.listCommanders_((card: CardData) =>
+        this.colorIdentityEquals_(card, 'WUBR'));
+  }
+
+  protected listAllCommanders_() {
+    this.listCommanders_(() => true);
+  }
+
   private colorIdentityEquals_(card: CardData, identity: string) {
     if (card.colorIdentity.length !== identity.length) return false;
     for (const color of identity) {

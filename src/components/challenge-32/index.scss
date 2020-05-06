@@ -383,6 +383,11 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   position: absolute;
   transform-origin: center;
   transform: scale(1.1);
+  pointer-events: none;
+
+  .deck {
+    pointer-events: initial;
+  }
 }
 
 .four-color {
