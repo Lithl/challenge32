@@ -72,7 +72,6 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
 }
 
 .mana-symbol {
-  padding: 5px;
   border-color: black;
   border-style: solid;
   border-radius: 50%;
@@ -494,11 +493,11 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 
   .mana-symbol {
-    width: 4.229vh; // 50px at my default resolution
-    height: 4.229vh;
+    width: 9.51525vh; // 2.25 * 50px at my default resolution
+    height: 9.51525vh;
     padding: .4229vh; // 5px at my default resolution
     border-width: .4229vh;
-    transform: translate(-2.9603vh, -2.9603vh); // half (width+padding+border)
+    transform: translate(-5.60342vh, -5.60342vh); // half width+padding+border
 
     &.white-mana {
       // midpoint between blackless and redless
