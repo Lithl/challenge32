@@ -323,24 +323,24 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
     transform: translate(-1.2687vh, -1.2687vh); // half (width+border)
 
     &.whiteless {
-    @include point(0, -1, vh);
-  }
+      @include point(0, -1, vh);
+    }
 
     &.blueless {
-    @include point(-$s1, -$c1, vh);
-  }
+      @include point(-$s1, -$c1, vh);
+    }
 
     &.blackless {
-    @include point(-$s2, $c2, vh);
-  }
+      @include point(-$s2, $c2, vh);
+    }
 
     &.redless {
-    @include point($s2, $c2, vh);
-  }
+      @include point($s2, $c2, vh);
+    }
 
     &.greenless {
-    @include point($s1, -$c1, vh);
-  }
+      @include point($s1, -$c1, vh);
+    }
   }
 
   // Allied guilds
