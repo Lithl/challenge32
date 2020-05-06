@@ -5,6 +5,7 @@ $blue: #aae0fa;
 $black: #cbc2bf;
 $red: #f9aa8f;
 $green: #9bd3ae;
+$colorless: #ccc2c0;
 
 // pentagon calculations
 $sqrtTenPlus2sqrt5: 3.804;
@@ -136,6 +137,11 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
 
 .green-mana {
   background-color: $green;
+}
+
+.colorless-mana,
+.any-type {
+  background-color: $colorless;
 }
 
 #content {
@@ -634,6 +640,12 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
     &.green-mana {
       // midpoint between blueless and blackless
       @include point(($s1 - $s2) / 2 - $s1, $c2 - ($c1 + $c2) / 2, vh);
+    }
+
+    &.colorless-mana {
+      // horizontal midpoint between blue and black
+      // vertical equal to whiteless
+      @include point($s1 / 2 + $s2 / 4, -1, vh);
     }
   }
 }
