@@ -71,6 +71,39 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 }
 
+@mixin conic-bg($color1, $color2: null, $color3: null, $color4: null, $color5: null, $start: 0, $scale: 100) {
+  // creates a conic-gradient with hard stops equally distributed between each color (up to 5 colors)
+  @if $color5 {
+    background: conic-gradient(
+      from #{$start}turn,
+      $color1 0%, $color1 ($scale / 5) * 1%,
+      $color2 ($scale / 5) * 1%, $color2 (2 * $scale / 5) * 1%,
+      $color3 (2 * $scale / 5) * 1%, $color3 (3 * $scale / 5) * 1%,
+      $color4 (3 * $scale / 5) * 1%, $color4 (4 * $scale / 5) * 1%,
+      $color5 (4 * $scale / 5) * 1%, $color5 $scale * 1%);
+  } @else if $color4 {
+    background: conic-gradient(
+      from #{$start}turn,
+      $color1 0, $color1 ($scale / 4) * 1%,
+      $color2 ($scale / 4) * 1%, $color2 (2 * $scale / 4) * 1%,
+      $color3 (2 * $scale / 4) * 1%, $color3 (3 * $scale / 4) * 1%,
+      $color4 (3 * $scale / 4) * 1%, $color4 $scale * 1%);
+  } @else if $color3 {
+    background: conic-gradient(
+      from #{$start}turn,
+      $color1 0%, $color1 ($scale / 3) * 1%,
+      $color2 ($scale / 3) * 1%, $color2 (2 * $scale / 3) * 1%,
+      $color3 (2 * $scale / 3) * 1%, $color3 $scale * 1%);
+  } @else if $color2 {
+    background: conic-gradient(
+      from #{$start}turn,
+      $color1 0%, $color1 ($scale / 2) * 1%,
+      $color2 ($scale / 2) * 1%, $color2 $scale * 1%);
+  } @else {
+    background-color: $color1;
+  }
+}
+
 .mana-symbol {
   border-color: black;
   border-style: solid;
