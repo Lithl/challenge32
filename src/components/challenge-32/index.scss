@@ -643,15 +643,15 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
     }
 
     &.colorless-mana {
-      // horizontal midpoint between blue and black
+      // horizontal same as blue
       // vertical equal to whiteless
-      @include point($s1 / 2 + $s2 / 4, -1, vh);
+      @include point(($s1 - $s2) / 2 + $s2, -1, vh);
     }
 
     &.any-type {
-      // horizontal midpoint between red and green
+      // horizontal same as green
       // vertical equal to whiteless
-      @include point(-$s1 / 2 - $s2 / 4, -1, vh);
+      @include point(($s1 - $s2) / 2 - $s1, -1, vh);
       font-size: 10vh;
       font-weight: bold;
       text-align: center;
