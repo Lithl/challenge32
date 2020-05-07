@@ -76,11 +76,11 @@ export class CommanderSelector extends PolymerElement {
   }
 
   protected selectCommander_(e: DomRepeatCustomEvent) {
-    this.dialog_.close();
     this.dispatchEvent(new CustomEvent('commander-selected', {
       detail: e.model.item,
       bubbles: true,
       composed: true,
     }));
+    this.dialog_.close();
   }
 }
