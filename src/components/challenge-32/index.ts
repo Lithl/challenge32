@@ -12,7 +12,7 @@ import './index.scss?name=challenge-32';
 
 @customElement('challenge-32')
 export class Challenge32 extends GestureEventListeners(PolymerElement) {
-  @query('#content') protected content!: HTMLDivElement;
+  @query('#content') private content_!: HTMLDivElement;
 
   @property() protected commanders_: CardData[] = [];
 
@@ -32,11 +32,11 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     const width = bodyRect.width;
     const height = bodyRect.height;
     if (width > height) {
-      this.content.classList.toggle('landscape', true);
-      this.content.classList.toggle('portrait', false);
+      this.content_.classList.toggle('landscape', true);
+      this.content_.classList.toggle('portrait', false);
     } else {
-      this.content.classList.toggle('landscape', false);
-      this.content.classList.toggle('portrait', true);
+      this.content_.classList.toggle('landscape', false);
+      this.content_.classList.toggle('portrait', true);
     }
   }
 
