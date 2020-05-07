@@ -319,4 +319,8 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   protected isVisible_(card?: CardData) {
     return !!card ? 'visible' : 'hidden';
   }
+
+  protected isBackground_(card?: CardData) {
+    return !!card ? 'background' : '';
+  }
 }
