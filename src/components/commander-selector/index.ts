@@ -59,7 +59,7 @@ export class CommanderSelector extends PolymerElement {
   }
 
   protected handleOpenClose_() {
-    if (!this.dialog_.opened) {
+    if (this.dialog_.opened) {
       this.filter_.value = '';
       this.preview_.style.backgroundImage = '';
     }
