@@ -4,6 +4,7 @@ import request from 'request-promise-native';
 export type ManaColor = 'W' | 'U' | 'B' | 'R' | 'G';
 
 export interface CardData {
+  id: string;
   name: string;
   colorIdentity: ManaColor[];
   partnerWith?: string;
@@ -41,6 +42,7 @@ export function apply(app: express.Application) {
 
           if (orig.card_faces && orig.card_faces[0].image_uris) {
             commanders.push({
+              id: orig.id,
               name: orig.card_faces[0].name,
               colorIdentity: orig.color_identity,
               partnerWith,
@@ -52,6 +54,7 @@ export function apply(app: express.Application) {
             });
           } else {
             commanders.push({
+              id: orig.id,
               name: orig.name,
               colorIdentity: orig.color_identity,
               partnerWith,
