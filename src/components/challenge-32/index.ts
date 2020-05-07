@@ -2,6 +2,7 @@ import { PolymerElement, html } from '@polymer/polymer/polymer-element';
 import { GestureEventListeners } from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
 import { customElement, query, property } from '@polymer/decorators';
 import '@polymer/iron-ajax';
+import { CommanderSelector } from '../commander-selector';
 
 import { CardData, ManaColor } from '../../server/commanders';
 import { onlyUnique } from '../../util';
@@ -13,8 +14,11 @@ import './index.scss?name=challenge-32';
 @customElement('challenge-32')
 export class Challenge32 extends GestureEventListeners(PolymerElement) {
   @query('#content') private content_!: HTMLDivElement;
+  @query('#selector') private selector_!: CommanderSelector;
 
   @property() protected commanders_: CardData[] = [];
+
+  private selectedId_?: HTMLElement;
 
   static get template() {
     // @ts-ignore
@@ -40,172 +44,210 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     }
   }
 
+  private getDeckInPath_(path: any[]) {
+    return path.find((item: any) =>
+        item.classList && item.classList.contains('deck'));
+  }
+
   protected getCommanders_(e: CustomEvent) {
     this.commanders_ = e.detail.response.commanders;
   }
 
-  protected listWCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listWCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('mono-white', (card: CardData) =>
         this.colorIdentityEquals_(card, 'W'));
   }
 
-  protected listUCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listUCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('mono-blue', (card: CardData) =>
         this.colorIdentityEquals_(card, 'U'));
   }
 
-  protected listBCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listBCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('mono-black', (card: CardData) =>
         this.colorIdentityEquals_(card, 'B'));
   }
 
-  protected listRCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listRCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('mono-red', (card: CardData) =>
         this.colorIdentityEquals_(card, 'R'));
   }
 
-  protected listGCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listGCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('mono-green', (card: CardData) =>
         this.colorIdentityEquals_(card, 'G'));
   }
 
-  protected listCCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listCCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('colorless', (card: CardData) =>
         this.colorIdentityEquals_(card, ''));
   }
 
-  protected listWUCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listWUCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Azorius', (card: CardData) =>
         this.colorIdentityEquals_(card, 'WU') || this.isPartnerIn_(card, 'WU'));
   }
 
-  protected listUBCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listUBCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Dimir', (card: CardData) =>
         this.colorIdentityEquals_(card, 'UB') || this.isPartnerIn_(card, 'UB'));
   }
 
-  protected listBRCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listBRCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Rakdos', (card: CardData) =>
         this.colorIdentityEquals_(card, 'BR') || this.isPartnerIn_(card, 'BR'));
   }
 
-  protected listRGCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listRGCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Gruul', (card: CardData) =>
         this.colorIdentityEquals_(card, 'RG') || this.isPartnerIn_(card, 'RG'));
   }
 
-  protected listGWCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listGWCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Selesnya', (card: CardData) =>
         this.colorIdentityEquals_(card, 'GW') || this.isPartnerIn_(card, 'GW'));
   }
 
-  protected listGUCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listGUCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Simic', (card: CardData) =>
         this.colorIdentityEquals_(card, 'GU') || this.isPartnerIn_(card, 'GU'));
   }
 
-  protected listWBCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listWBCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Orzhov', (card: CardData) =>
         this.colorIdentityEquals_(card, 'WB') || this.isPartnerIn_(card, 'WB'));
   }
 
-  protected listURCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listURCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Izzet', (card: CardData) =>
         this.colorIdentityEquals_(card, 'UR') || this.isPartnerIn_(card, 'UR'));
   }
 
-  protected listBGCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listBGCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Golgari', (card: CardData) =>
         this.colorIdentityEquals_(card, 'BG') || this.isPartnerIn_(card, 'BG'));
   }
 
-  protected listRWCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listRWCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Boros', (card: CardData) =>
         this.colorIdentityEquals_(card, 'RW') || this.isPartnerIn_(card, 'RW'));
   }
 
-  protected listWRUCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listWRUCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Jeskai', (card: CardData) =>
         this.colorIdentityEquals_(card, 'WRU') || this.isPartnerIn_(card, 'WRU'));
   }
 
-  protected listUGBCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listUGBCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Sultai', (card: CardData) =>
         this.colorIdentityEquals_(card, 'UGB') || this.isPartnerIn_(card, 'UGB'));
   }
 
-  protected listBWRCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listBWRCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Mardu', (card: CardData) =>
         this.colorIdentityEquals_(card, 'BWR') || this.isPartnerIn_(card, 'BWR'));
   }
 
-  protected listRUGCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listRUGCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Temur', (card: CardData) =>
         this.colorIdentityEquals_(card, 'RUG') || this.isPartnerIn_(card, 'RUG'));
   }
 
-  protected listGBWCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listGBWCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Abzan', (card: CardData) =>
         this.colorIdentityEquals_(card, 'GBW') || this.isPartnerIn_(card, 'GBW'));
   }
 
-  protected listGWUCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listGWUCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Bant', (card: CardData) =>
         this.colorIdentityEquals_(card, 'GWU') || this.isPartnerIn_(card, 'GWU'));
   }
 
-  protected listWUBCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listWUBCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Esper', (card: CardData) =>
         this.colorIdentityEquals_(card, 'WUB') || this.isPartnerIn_(card, 'WUB'));
   }
 
-  protected listUBRCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listUBRCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Grixis', (card: CardData) =>
         this.colorIdentityEquals_(card, 'UBR') || this.isPartnerIn_(card, 'UBR'));
   }
 
-  protected listBRGCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listBRGCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Jund', (card: CardData) =>
         this.colorIdentityEquals_(card, 'BRG') || this.isPartnerIn_(card, 'BRG'));
   }
 
-  protected listRGWCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listRGWCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('Naya', (card: CardData) =>
         this.colorIdentityEquals_(card, 'RGW') || this.isPartnerIn_(card, 'RGW'));
   }
 
-  protected listUBRGCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listUBRGCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('whiteless', (card: CardData) =>
         this.colorIdentityEquals_(card, 'UBRG') || this.isPartnerIn_(card, 'UBRG'));
   }
 
-  protected listWBRGCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listWBRGCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('blueless', (card: CardData) =>
         this.colorIdentityEquals_(card, 'WBRG') || this.isPartnerIn_(card, 'WBRG'));
   }
 
-  protected listWURGCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listWURGCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('blackless', (card: CardData) =>
         this.colorIdentityEquals_(card, 'WURG') || this.isPartnerIn_(card, 'WURG'));
   }
 
-  protected listWUBGCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listWUBGCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('redless', (card: CardData) =>
         this.colorIdentityEquals_(card, 'WUBG') || this.isPartnerIn_(card, 'WUBG'));
   }
 
-  protected listWUBRCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listWUBRCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('greenless', (card: CardData) =>
         this.colorIdentityEquals_(card, 'WUBR') || this.isPartnerIn_(card, 'WUBR'));
   }
 
-  protected listWUBRGCommanders_() {
-    this.listCommanders_((card: CardData) =>
+  protected listWUBRGCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('pentacolor', (card: CardData) =>
         this.colorIdentityEquals_(card, 'WUBRG') || this.isPartnerIn_(card, 'WUBRG'));
   }
 
-  protected listAllCommanders_() {
-    this.listCommanders_(() => true);
+  protected listAllCommanders_(e: Event) {
+    this.selectedId_ = this.getDeckInPath_(e.composedPath());
+    this.listCommanders_('any', () => true);
   }
 
   private colorIdentityEquals_(card: CardData, identity: string) {
@@ -257,7 +299,18 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     }
   }
 
-  private listCommanders_(filter: (card: CardData) => boolean) {
-    console.log(this.commanders_.filter(filter));
+  private listCommanders_(id: string, filter: (card: CardData) => boolean) {
+    this.selector_.commanders = this.commanders_.filter(filter);
+    this.selector_.identity = id;
+    this.selector_.show();
+  }
+
+  protected handleCommanderSelected_(e: CustomEvent) {
+    if (this.selectedId_) {
+      const background = this.selectedId_.querySelector('.background') as HTMLElement;
+      if (background) {
+        background.style.backgroundImage = `url(${e.detail.image.art})`;
+      }
+    }
   }
 }
