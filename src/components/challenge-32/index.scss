@@ -263,6 +263,15 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 }
 
+.dimir,
+.rakdos,
+.gruul {
+  .image {
+    transform: scale(-1);
+    clip-path: polygon(0 100%, 100% 100%, 50% 0);
+  }
+}
+
 // Khans wedges
 .jeskai {
   transform: rotate(36deg) scaleY(-1);
@@ -301,6 +310,22 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
 
   .background {
     @include gradient-bg($green, $black, $white);
+  }
+}
+
+.jeskai,
+.abzan {
+  .image {
+    transform: scaleY(-1);
+    clip-path: polygon(0 100%, 100% 100%, 50% 0);
+  }
+}
+
+.sultai,
+.mardu,
+.temur {
+  .image {
+    transform: scaleX(-1);
   }
 }
 
@@ -345,6 +370,15 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 }
 
+.grixis,
+.jund {
+  .image {
+    transform-origin: center;
+    transform: scale(-1);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+  }
+}
+
 // Enemy guilds
 .simic {
   .background {
@@ -381,6 +415,14 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
 
   .background {
     @include gradient-bg($red, $white);
+  }
+}
+
+.izzet,
+.golgari {
+  .image {
+    transform: scale(-1);
+    clip-path: polygon(0 100%, 100% 100%, 63.85% 0, 36.15% 0);
   }
 }
 
@@ -457,6 +499,20 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
       100% 85%,
       50% 35%);
     border-radius: 50%;
+  }
+}
+
+.whiteless,
+.blueless,
+.greenless {
+  .image {
+    transform: scale(-1);
+    clip-path: polygon(
+      0 15%,
+      0 100%,
+      100% 100%,
+      100% 15%,
+      50% 65%);
   }
 }
 
