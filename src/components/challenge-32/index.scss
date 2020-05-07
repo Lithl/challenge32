@@ -110,6 +110,7 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   border-style: solid;
   border-radius: 50%;
   position: absolute;
+  user-select: none;
 }
 
 .dot {
@@ -152,6 +153,7 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
 
 .deck {
   position: absolute;
+  cursor: pointer;
 }
 
 .ally,
