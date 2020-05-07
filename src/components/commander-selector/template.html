@@ -1,0 +1,35 @@
+<style include="commander-selector"></style>
+
+<paper-dialog
+    id="dialog"
+    with-backdrop
+    allow-click-through="false"
+    always-on-top
+    entry-animation="scale-up-animation"
+    exit-animation="fade-out-animation"
+    on-opened-changed="handleOpenClose_">
+  <h2>Select [[identity]] commander</h2>
+  <div class="row">
+    <div class="column">
+      <paper-input
+          id="filter"
+          label="Filter commanders"
+          type="search"
+          on-value-changed="updateFilter_">
+        <iron-icon slot="suffix" icon="filter-list"></iron-icon>
+      </paper-input>
+      <paper-listbox>
+        <template
+            id="list"
+            is="dom-repeat"
+            items="[[commanders]]"
+            filter="filterCommanders_">
+          <paper-item
+              on-tap="selectCommander_"
+              on-mouseenter="displayPreview_">[[item.name]]</paper-item>
+        </template>
+      </paper-listbox>
+    </div>
+    <div id="preview" class="column"></div>
+  </div>
+</paper-dialog>

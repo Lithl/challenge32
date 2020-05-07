@@ -1,0 +1,46 @@
+@import '../../common';
+
+#dialog {
+  border-radius: 8px;
+
+  & > :last-child {
+    margin-bottom: 24px;
+  }
+
+  & > :first-child {
+    margin-top: 24px;
+  }
+
+  & > * {
+    padding: 0 24px;
+  }
+}
+
+paper-listbox {
+  height: 35vh;
+  overflow-y: scroll;
+
+  paper-item {
+    --paper-item-selected-weight: normal;
+
+    cursor: pointer;
+  }
+}
+
+.row {
+  display: flex;
+
+  .column {
+    flex: 1 0;
+
+    &#preview {
+      margin-left: 1vw;
+      min-width: 25vw;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      background-image: url(https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/thumb/f/f8/Magic_card_back.jpg/250px-Magic_card_back.jpg);
+    }
+  }
+}
