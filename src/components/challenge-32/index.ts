@@ -307,9 +307,13 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
 
   protected handleCommanderSelected_(e: CustomEvent) {
     if (this.selectedId_) {
-      const background = this.selectedId_.querySelector('.background') as HTMLElement;
-      if (background) {
-        background.style.backgroundImage = `url(${e.detail.image.art})`;
+      const border = this.selectedId_.querySelector('.border') as HTMLElement;
+      if (border) {
+        border.style.visibility = 'visible';
+      }
+      const img = this.selectedId_.querySelector('.image') as HTMLElement;
+      if (img) {
+        img.style.backgroundImage = `url(${e.detail.image.art})`;
       }
     }
   }
