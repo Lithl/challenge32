@@ -7,9 +7,13 @@ export function apply(root: string) {
 
   const whitelist: {[uri: string]: string} = {
     'challenge32.js': 'dist/challenge32.js',
+    'challenge32.js.map': 'dist/challenge32.js.map',
     'challenge32.lib.js': 'dist/vendors~challenge32.js',
+    'vendors~challenge32.js.map': 'dist/vendors~challenge32.js.map',
     'web-animations.js':
         'node_modules/web-animations-js/web-animations-next-lite.min.js',
+    'web-animations-next-lite.min.js.map':
+        'node_modules/web-animations-js/web-animations-next-lite.min.js.map',
     'root.css': '',
     '': 'index.html',
     'favicon.ico': '',
