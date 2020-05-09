@@ -1,5 +1,6 @@
 import express from 'express';
 import request from 'request-promise-native';
+import 'colors';
 
 export type ManaColor = 'W' | 'U' | 'B' | 'R' | 'G';
 
@@ -15,15 +16,22 @@ export interface CardData {
   };
 }
 
+export const whitelistedRoutes: string[] = [];
+
 export function apply(app: express.Application) {
   let commanders: CardData[] = [];
+
+  function createRoute(route: string, cb: express.RequestHandler) {
+    whitelistedRoutes.push(route);
+    app.get(route, cb);
+  }
 
   function timer(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   function getCardData(uri?: string) {
-    console.info(`called getCardData(${uri})`);
+    console.info(`called getCardData(${(uri || '').blue})`.italic);
     const queryStr = 'is:commander';
     return request(uri || `https://api.scryfall.com/cards/search?q=${queryStr}`)
       .then(async (text: string) => {
@@ -75,14 +83,14 @@ export function apply(app: express.Application) {
   }
 
   function populateCommanders() {
-    console.info('calling populateKeywords');
+    console.info('calling populateCommanders'.italic);
     return getCardData();
   }
   populateCommanders().catch((err: string) => {
     console.error(err);
   });
 
-  app.get('/commanders', (_: express.Request, res: express.Response) => {
+  createRoute('/commanders', (_: express.Request, res: express.Response) => {
     if (!commanders.length) {
       populateCommanders().then(() => {
         res.status(200).send({ commanders });
@@ -94,7 +102,7 @@ export function apply(app: express.Application) {
     }
   });
 
-  app.get('/repopulate-commanders', (_: express.Request, res: express.Response) => {
+  createRoute('/repopulate-commanders', (_: express.Request, res: express.Response) => {
     commanders = [];
     populateCommanders().finally(() => {
       res.status(200).send({
