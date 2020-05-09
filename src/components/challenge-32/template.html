@@ -254,6 +254,13 @@
   </div>
 
   <img src="/images/c.svg" class="colorless-mana mana-symbol deck" on-tap="listCCommanders_">
+  <div class="colorless-mana deck"
+      on-tap="listCCommanders_"
+      style$="visibility: [[isVisible_(diagram_.colorless)]]">
+    <div class="background">
+      <div class="image" style$="background-image: url([[diagram_.colorless.image.art]])"></div>
+    </div>
+  </div>
   <div class="any-type mana-symbol deck" on-tap="listAllCommanders_">?</div>
 </div>
 

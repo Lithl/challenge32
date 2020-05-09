@@ -149,7 +149,8 @@ div.white-mana.deck,
 div.blue-mana.deck,
 div.black-mana.deck,
 div.red-mana.deck,
-div.green-mana.deck {
+div.green-mana.deck,
+div.colorless-mana.deck {
   border-radius: 50%;
   border-style: solid;
   border-color: black;
@@ -592,11 +593,12 @@ div.green-mana.deck {
   div.blue-mana.deck,
   div.black-mana.deck,
   div.red-mana.deck,
-  div.green-mana.deck {
-    width: 10.36105vh; // 2.25 * 60px at my default resolution
-    height: 10.36105vh;
+  div.green-mana.deck,
+  div.colorless-mana.deck {
+    width: 12.43326vh; // 2.7 * 60px at my default resolution
+    height: 12.43326vh;
     border-width: .4229vh; // 5px at default resolution
-    transform: translate(-5.60342vh, -5.60342vh); // half width+padding+border
+    transform: translate(-6.63953vh, -6.63953vh); // half width+padding+border
   }
 
   div.white-mana.deck {
@@ -617,6 +619,10 @@ div.green-mana.deck {
 
   div.green-mana.deck {
     @include point(($s1 - $s2) / 2 - $s1, $c2 - ($c1 + $c2) / 2, vh);
+  }
+
+  div.colorless-mana.deck {
+    @include point(($s1 - $s2) / 2 + $s2, -1, vh);
   }
 
   // 4C combos
@@ -787,14 +793,14 @@ div.green-mana.deck {
   }
 
   .mana-symbol {
-    width: 9.51525vh; // 2.25 * 50px at my default resolution
-    height: 9.51525vh;
+    width: 11.4183vh; // 2.7 * 50px at my default resolution
+    height: 11.4183vh;
     padding: .4229vh; // 5px at my default resolution
     border-width: .4229vh;
-    transform: translate(-5.60342vh, -5.60342vh); // half width+padding+border
+    transform: translate(-6.55495vh, -6.55495vh); // half width+padding+border
 
     &.background {
-      transform: translate(-5.60342vh, -5.60342vh) scale(2);
+      transform: translate(-6.55495vh, -6.55495vh) scale(2);
     }
 
     &.white-mana {
@@ -832,7 +838,7 @@ div.green-mana.deck {
       // horizontal same as green
       // vertical equal to whiteless
       @include point(($s1 - $s2) / 2 - $s1, -1, vh);
-      font-size: 10vh;
+      font-size: 12vh;
       font-weight: bold;
       text-align: center;
       line-height: 100%;
