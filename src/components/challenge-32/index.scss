@@ -111,11 +111,6 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   border-radius: 50%;
   position: absolute;
   user-select: none;
-
-  &.background {
-    transition: transform 1s cubic-bezier(.5, 0, .6, 1.5);
-    z-index: -1;
-  }
 }
 
 .dot {
@@ -149,12 +144,11 @@ div.white-mana.deck,
 div.blue-mana.deck,
 div.black-mana.deck,
 div.red-mana.deck,
-div.green-mana.deck,
-div.colorless-mana.deck {
+div.green-mana.deck {
   border-radius: 50%;
   border-style: solid;
   border-color: black;
-  visibility: hidden;
+  z-index: -1;
 
   .background,
   .image {
@@ -172,11 +166,38 @@ div.colorless-mana.deck {
     background-position: center top;
     background-size: cover;
   }
+
+  &.background {
+    transition: transform 1s cubic-bezier(.5, 0, .6, 1.5);
+  }
 }
 
 .colorless-mana,
 .any-type {
   background-color: $colorless;
+
+  &.deck {
+    border-radius: 50%;
+    border-style: solid;
+    border-color: black;
+
+    .background,
+    .image {
+      width: 100%;
+      height: 100%;
+      transform: scale(.95);
+      border-radius: 50%;
+    }
+
+    .background {
+      background-color: black;
+    }
+
+    .image {
+      background-position: center top;
+      background-size: cover;
+    }
+  }
 }
 
 #content {
@@ -595,10 +616,21 @@ div.colorless-mana.deck {
   div.red-mana.deck,
   div.green-mana.deck,
   div.colorless-mana.deck {
-    width: 12.43326vh; // 2.7 * 60px at my default resolution
-    height: 12.43326vh;
-    border-width: .4229vh; // 5px at default resolution
-    transform: translate(-6.63953vh, -6.63953vh); // half width+padding+border
+    width: 5.0748vh * 1.35; // 5.0748vh = 60px at my default resolution
+    height: 5.0748vh * 1.35;
+    border-width: .4229 / 3.5 * 1vh; // .4229vh = 5px at default resolution
+    transform: translate(#{-(5.0748 * 1.35 + 2 * .4229 / 3.5) / 2}vh, #{-(5.0748 * 1.35 + 2 * .4229 / 3.5) / 2}vh);
+
+    &.background {
+      transform: translate(#{-(5.0748 * 1.35 + 2 * .4229 / 3.5) / 2}vh, #{-(5.0748 * 1.35 + 2 * .4229 / 3.5) / 2}vh) scale(3.5);
+    }
+  }
+
+  div.colorless-mana.deck {
+    width: 4.229vh * 2.7 + .4229vh * 2;
+    height: 4.229vh * 2.7 + .4229vh * 2;
+    border-width: .4229vh;
+    transform: translate(#{-(4.229 * 2.7 + 4 * .4229) / 2}vh, #{-(4.229 * 2.7 + 4 * .4229) / 2}vh);
   }
 
   div.white-mana.deck {
@@ -793,11 +825,11 @@ div.colorless-mana.deck {
   }
 
   .mana-symbol {
-    width: 11.4183vh; // 2.7 * 50px at my default resolution
-    height: 11.4183vh;
+    width: 4.229vh * 1.35; // 4.229vh = 50px at my default resolution
+    height: 4.229vh * 1.35;
     padding: .4229vh; // 5px at my default resolution
     border-width: .4229vh;
-    transform: translate(-6.55495vh, -6.55495vh); // half width+padding+border
+    transform: translate(#{-(4.229 * 1.35 + 4 * .4229) / 2}vh, #{-(4.229 * 1.35 + 4 * .4229) / 2}vh);
 
     &.background {
       transform: translate(-6.55495vh, -6.55495vh) scale(2);
@@ -842,6 +874,13 @@ div.colorless-mana.deck {
       font-weight: bold;
       text-align: center;
       line-height: 100%;
+    }
+
+    &.colorless-mana,
+    &.any-type {
+      width: 4.229vh * 2.7;
+      height: 4.229vh * 2.7;
+      transform: translate(#{-(4.229 * 2.7 + 4 * .4229) / 2}vh, #{-(4.229 * 2.7 + 4 * .4229) / 2}vh);
     }
   }
 }
