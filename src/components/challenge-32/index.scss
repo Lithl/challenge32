@@ -17,6 +17,11 @@ $c2: $sqrt5Plus1 / 4;
 $s1: $sqrtTenPlus2sqrt5 / 4;
 $s2: $sqrtTenMinus2sqrt5 / 4;
 
+@function px($px) {
+  // converts a pixel value to a number suitable for use with vh/vw units
+  @return $px * .08458;
+}
+
 @function invert($n) {
   // $n: number in rane [0,1]
   // return: number in range [1,0]
@@ -617,9 +622,9 @@ div.green-mana.deck {
   }
 
   .four-color {
-    --minus-4c-half-width: -4.2818625vh;
-    width: 8.563725vh; // .9 * 2.25 * 50px at my default resolution
-    height: 8.563725vh;
+    --minus-4c-half-width: #{-1 * px(50 * 2.8 / 2)}vh;
+    width: px(50) * 2.8 * 1vh;
+    height: px(50) * 2.8 * 1vh;
   }
 
   div.white-mana.deck,
@@ -628,21 +633,21 @@ div.green-mana.deck {
   div.red-mana.deck,
   div.green-mana.deck,
   div.colorless-mana.deck {
-    width: 5.0748vh * 1.35; // 5.0748vh = 60px at my default resolution
-    height: 5.0748vh * 1.35;
-    border-width: .4229 / 3.5 * 1vh; // .4229vh = 5px at default resolution
-    transform: translate(#{-(5.0748 * 1.35 + 2 * .4229 / 3.5) / 2}vh, #{-(5.0748 * 1.35 + 2 * .4229 / 3.5) / 2}vh);
+    width: px(60) * 1.35 * 1vh;
+    height: px(60) * 1.35 * 1vh;
+    border-width: px(5) / 3.5 * 1vh;
+    transform: translate(#{-(px(60) * 1.35 + 2 * px(5) / 3.5) / 2}vh, #{-(px(60) * 1.35 + 2 * px(5) / 3.5) / 2}vh);
 
     &.background {
-      transform: translate(#{-(5.0748 * 1.35 + 2 * .4229 / 3.5) / 2}vh, #{-(5.0748 * 1.35 + 2 * .4229 / 3.5) / 2}vh) scale(3.5);
+      transform: translate(#{-(px(60) * 1.35 + 2 * px(5) / 3.5) / 2}vh, #{-(px(60) * 1.35 + 2 * px(5) / 3.5) / 2}vh) scale(3.5);
     }
   }
 
   div.colorless-mana.deck {
-    width: 4.229vh * 2.7 + .4229vh * 2;
-    height: 4.229vh * 2.7 + .4229vh * 2;
-    border-width: .4229vh;
-    transform: translate(#{-(4.229 * 2.7 + 4 * .4229) / 2}vh, #{-(4.229 * 2.7 + 4 * .4229) / 2}vh);
+    width: px(50) * 2.7 * 1vh + px(5) * 2 * 1vh;
+    height: px(50) * 2.7 * 1vh + px(5) * 2 * 1vh;
+    border-width: px(5) * 1vh;
+    transform: translate(#{-(px(50) * 2.7 + 4 * px(5)) / 2}vh, #{-(px(50) * 2.7 + 4 * px(5)) / 2}vh);
   }
 
   div.white-mana.deck {
@@ -671,10 +676,10 @@ div.green-mana.deck {
 
   // 4C combos
   .dot {
-    width: 1.6916vh; // 20px at my default resolution
-    height: 1.6916vh;
-    border-width: .4229vh; // 5px at my default resolution
-    transform: translate(-1.2687vh, -1.2687vh); // half (width+border)
+    width: px(20) * 1vh;
+    height: px(20) * 1vh;
+    border-width: px(5) * 1vh;
+    transform: translate(-1 * px(15) * 1vh, -1 * px(15) * 1vh);
   }
 
   .four-color-constellation {
@@ -837,11 +842,11 @@ div.green-mana.deck {
   }
 
   .mana-symbol {
-    width: 4.229vh * 1.35; // 4.229vh = 50px at my default resolution
-    height: 4.229vh * 1.35;
-    padding: .4229vh; // 5px at my default resolution
-    border-width: .4229vh;
-    transform: translate(#{-(4.229 * 1.35 + 4 * .4229) / 2}vh, #{-(4.229 * 1.35 + 4 * .4229) / 2}vh);
+    width: px(50) * 1.35 * 1vh;
+    height: px(50) * 1.35 * 1vh;
+    padding: px(5) * 1vh;
+    border-width: px(5) * 1vh;
+    transform: translate(#{-(px(50) * 1.35 + 4 * px(5)) / 2}vh, #{-(px(50) * 1.35 + 4 * px(5)) / 2}vh);
 
     &.background {
       transform: translate(-6.55495vh, -6.55495vh) scale(2);
@@ -890,9 +895,9 @@ div.green-mana.deck {
 
     &.colorless-mana,
     &.any-type {
-      width: 4.229vh * 2.7;
-      height: 4.229vh * 2.7;
-      transform: translate(#{-(4.229 * 2.7 + 4 * .4229) / 2}vh, #{-(4.229 * 2.7 + 4 * .4229) / 2}vh);
+      width: px(50) * 2.7 * 1vh;
+      height: px(50) * 2.7 * 1vh;
+      transform: translate(#{-(px(50) * 2.7 + 4 * px(5)) / 2}vh, #{-(px(50) * 2.7 + 4 * px(5)) / 2}vh);
     }
   }
 }
