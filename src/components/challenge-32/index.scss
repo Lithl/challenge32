@@ -197,7 +197,19 @@ div.green-mana.deck {
       background-position: center top;
       background-size: cover;
     }
+
+    span {
+      position: absolute;
+      display: block;
+      width: 100%;
+      left: 0;
+      top: 0;
+    }
   }
+}
+
+.any-type.deck .background {
+  transform: scale(1);
 }
 
 #content {

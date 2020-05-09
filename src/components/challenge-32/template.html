@@ -246,7 +246,12 @@
       <div class="image" style$="background-image: url([[diagram_.colorless.image.art]])"></div>
     </div>
   </div>
-  <div class="any-type mana-symbol deck" on-tap="listAllCommanders_">?</div>
+  <div class="any-type mana-symbol deck" on-tap="listAllCommanders_">
+    <span>?</span>
+    <div class="background" style$="visibility: [[isVisible_(diagram_.any)]]">
+      <div class="image" style$="background-image: url([[diagram_.any.image.art]])"></div>
+    </div>
+  </div>
 </div>
 
 <commander-selector id="selector" on-commander-selected="handleCommanderSelected_"></commander-selector>
