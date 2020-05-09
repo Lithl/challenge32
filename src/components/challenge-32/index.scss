@@ -168,7 +168,7 @@ div.green-mana.deck {
   }
 
   &.background {
-    transition: transform 1s cubic-bezier(.5, 0, .6, 1.5);
+    transition: transform .5s cubic-bezier(.5, 0, .6, 2);
   }
 }
 
