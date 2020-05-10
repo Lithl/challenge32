@@ -575,20 +575,6 @@ div.green-mana.deck {
   }
 }
 
-.whiteless,
-.blueless,
-.greenless {
-  .image {
-    transform: scale(-.95);
-    clip-path: polygon(
-      0 15%,
-      0 100%,
-      100% 100%,
-      100% 15%,
-      50% 65%);
-  }
-}
-
 .landscape {
   // shape dimensions
   .ally,
