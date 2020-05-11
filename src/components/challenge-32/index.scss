@@ -125,24 +125,49 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   position: absolute;
 }
 
-.white-mana {
+.white-mana,
+.white-mana.deck .background {
   background-color: $white;
+
+  &.deck {
+    --mono-color-rotation: 0deg;
+  }
 }
 
-.blue-mana {
+.blue-mana,
+.blue-mana.deck .background {
   background-color: $blue;
+
+  &.deck {
+    --mono-color-rotation: 72deg;
+  }
 }
 
-.black-mana {
+.black-mana,
+.black-mana.deck .background {
   background-color: $black;
+
+  &.deck {
+    --mono-color-rotation: 144deg;
+  }
 }
 
-.red-mana {
+.red-mana,
+.red-mana.deck .background {
   background-color: $red;
+
+  &.deck {
+    --mono-color-rotation: 216deg;
+  }
 }
 
-.green-mana {
+.green-mana,
+.green-mana.deck .background {
   background-color: $green;
+
+  &.deck {
+    --mono-color-rotation: 288deg;
+  }
 }
 
 div.white-mana.deck,
@@ -150,20 +175,21 @@ div.blue-mana.deck,
 div.black-mana.deck,
 div.red-mana.deck,
 div.green-mana.deck {
-  border-radius: 50%;
-  border-style: solid;
-  border-color: black;
+  visibility: hidden;
+  background-color: black;
+  clip-path: url(#petal);
   z-index: -1;
 
   .background,
+  .border,
   .image {
     width: 100%;
     height: 100%;
     transform: scale(.95);
-    border-radius: 50%;
+    clip-path: url(#petal);
   }
 
-  .background {
+  .border {
     background-color: black;
   }
 
@@ -173,6 +199,7 @@ div.green-mana.deck {
   }
 
   &.background {
+    visibility: visible;
     transition: transform .5s cubic-bezier(.5, 0, .6, 2);
   }
 }
