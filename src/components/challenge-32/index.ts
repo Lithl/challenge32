@@ -252,7 +252,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
 
   protected listAllCommanders_() {
     this.selectedId_ = 'any';
-    this.listCommanders_('any', () => true);
+    this.listCommanders_('any');
   }
 
   private colorIdentityEquals_(card: CardData, identity: string) {
@@ -304,8 +304,12 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     }
   }
 
-  private listCommanders_(id: string, filter: (card: CardData) => boolean) {
-    this.selector_.commanders = this.commanders_.filter(filter);
+  private listCommanders_(id: string, filter?: (card: CardData) => boolean) {
+    if (filter) {
+      this.selector_.commanders = this.commanders_.filter(filter);
+    } else {
+      this.selector_.commanders = this.commanders_;
+    }
     this.selector_.identity = id;
     this.selector_.show();
   }
