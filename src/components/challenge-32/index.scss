@@ -551,54 +551,14 @@ div.green-mana.deck {
   }
 }
 
-.four-color-constellation {
-  position: absolute;
-  transform-origin: center;
-  transform: scale(1.1);
-  pointer-events: none;
-
-  .deck {
-    pointer-events: initial;
-  }
-}
-
 .four-color {
-  clip-path: polygon(
-    0 100%,
-    0 0,
-    100% 0,
-    100% 100%,
-    50% 50%);
-  border-radius: 50%;
+  clip-path: url(#petal);
+  z-index: -2;
 
-  .background {
-    clip-path: polygon(
-      0 95%,
-      0 0,
-      100% 0,
-      100% 95%,
-      50% 45%);
-    border-radius: 50%;
-  }
-
-  .border {
-    clip-path: polygon(
-      0 90%,
-      0 0,
-      100% 0,
-      100% 90%,
-      50% 40%);
-    border-radius: 50%;
-  }
-
+  .background,
+  .border,
   .image {
-    clip-path: polygon(
-      0 85%,
-      0 0,
-      100% 0,
-      100% 85%,
-      50% 35%);
-    border-radius: 50%;
+    clip-path: url(#petal);
   }
 }
 
@@ -635,9 +595,10 @@ div.green-mana.deck {
   }
 
   .four-color {
-    --minus-4c-half-width: #{-1 * px(182 / 2)}vh;
-    width: px(182) * 1vh;
-    height: px(182) * 1vh;
+    --minus-4c-half-width: #{-(px(182 * 1.75 * 1.2 / 2))}vh;
+    --minus-4c-half-height: #{-(px(182 * 1.75 * .962 / 2))}vh;
+    width: px(182 * 1.75 * 1.2) * 1vh;
+    height: px(182 * 1.75 * .962) * 1vh;
   }
 
   div.white-mana.deck,
@@ -646,13 +607,12 @@ div.green-mana.deck {
   div.red-mana.deck,
   div.green-mana.deck,
   div.colorless-mana.deck {
-    width: px(81) * 1vh;
-    height: px(81) * 1vh;
-    border-width: px(5 / 3.5) * 1vh;
-    transform: translate(#{-(px(81 + 10 / 3.5) / 2)}vh, #{-(px(81 + 10 / 3.5) / 2)}vh);
+    width: px(91 * 1.2) * 1vh;
+    height: px(91 * .962) * 1vh;
+    transform: translate(#{-(px(91 * 1.2 / 2))}vh, #{-(px(91 * .962 / 2))}vh) rotate(var(--mono-color-rotation));
 
     &.background {
-      transform: translate(#{-(px(81 + 10 / 3.5) / 2)}vh, #{-(px(81 + 10 / 3.5) / 2)}vh) scale(3.5);
+      transform: translate(#{-(px(91 * 1.2 / 2))}vh, #{-(px(91 * .962 / 2))}vh) scale(3.5) rotate(var(--mono-color-rotation));
     }
   }
 
@@ -704,7 +664,7 @@ div.green-mana.deck {
     @include point(0, -1, vh);
 
     &.deck {
-      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-width)) rotate(180deg);
+      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(180deg);
 
       .background {
         @include conic-bg($blue, $black, $red, $green, $start: -.375, $scale: 75);
@@ -716,7 +676,7 @@ div.green-mana.deck {
     @include point(-$s1, -$c1, vh);
 
     &.deck {
-      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-width)) rotate(252deg);
+      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(252deg);
 
       .background {
         @include conic-bg($black, $red, $green, $white, $start: -.375, $scale: 75);
@@ -728,7 +688,7 @@ div.green-mana.deck {
     @include point(-$s2, $c2, vh);
 
     &.deck {
-      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-width)) rotate(324deg);
+      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(324deg);
 
       .background {
         @include conic-bg($red, $green, $white, $blue, $start: -.375, $scale: 75);
@@ -740,7 +700,7 @@ div.green-mana.deck {
     @include point($s2, $c2, vh);
 
     &.deck {
-      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-width)) rotate(36deg);
+      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(36deg);
 
       .background {
         @include conic-bg($green, $white, $blue, $black, $start: -.375, $scale: 75);
@@ -752,7 +712,7 @@ div.green-mana.deck {
     @include point($s1, -$c1, vh);
 
     &.deck {
-      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-width)) rotate(108deg);
+      transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(108deg);
 
       .background {
         @include conic-bg($white, $blue, $black, $red, $start: -.375, $scale: 75);
