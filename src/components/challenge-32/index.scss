@@ -655,11 +655,6 @@ div.green-mana.deck {
     transform: translate(-1 * px(15) * 1vh, -1 * px(15) * 1vh);
   }
 
-  .four-color-constellation {
-    width: 95.1vh; // largest horizontal distance between .dot elements
-    height: 90.45vh; // largest vertical distance between .dot elements
-  }
-
   .whiteless {
     @include point(0, -1, vh);
 
