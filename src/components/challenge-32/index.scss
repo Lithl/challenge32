@@ -656,9 +656,12 @@ div.green-mana.deck {
   }
 
   .whiteless {
-    @include point(0, -1, vh);
+    // @include point(0, -1, vh);
+    left: range-scale(0) * 100vh;
+    top: invert(range-scale(-1)) * 100 - 3vh;
 
     &.deck {
+      top: invert(range-scale(-1)) * 100 - 6vh;
       transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(180deg);
 
       .background {
@@ -668,9 +671,13 @@ div.green-mana.deck {
   }
 
   .blueless {
-    @include point(-$s1, -$c1, vh);
+    // @include point(-$s1, -$c1, vh);
+    left: range-scale($s1 / 2 - $s1) * 100 - 21.311vh;
+    top: invert(range-scale(($c1 - 1) / 2 - $c1)) * 100 - 18.073vh;
 
     &.deck {
+      left: range-scale($s1 / 2 - $s1) * 100 - 18.458vh;
+      top: invert(range-scale(($c1 - 1) / 2 - $c1)) * 100 - 19vh;
       transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(252deg);
 
       .background {
@@ -680,9 +687,13 @@ div.green-mana.deck {
   }
 
   .blackless {
-    @include point(-$s2, $c2, vh);
+    // @include point(-$s2, $c2, vh);
+    left: range-scale(($s1 - $s2) / 2 - $s1) * 100 + 10.603vh;
+    top: invert(range-scale($c2 - ($c1 + $c2) / 2)) * 100 - 25.853vh;
 
     &.deck {
+      left: range-scale(($s1 - $s2) / 2 - $s1) * 100 + 12.367vh;
+      top: invert(range-scale($c2 - ($c1 + $c2) / 2)) * 100 - 23.426vh;
       transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(324deg);
 
       .background {
@@ -692,9 +703,13 @@ div.green-mana.deck {
   }
 
   .redless {
-    @include point($s2, $c2, vh);
+    // @include point($s2, $c2, vh);
+    left: range-scale(0) * 100 + 27.864vh;
+    top: invert(range-scale($c2)) * 100 + 2.095vh;
 
     &.deck {
+      left: range-scale(0) * 100 + 26.101vh;
+      top: invert(range-scale($c2)) * 100 + 4.523vh;
       transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(36deg);
 
       .background {
@@ -704,9 +719,13 @@ div.green-mana.deck {
   }
 
   .greenless {
-    @include point($s1, -$c1, vh);
+    // @include point($s1, -$c1, vh);
+    left: range-scale(($s1 - $s2) / 2 + $s2) * 100 + 6.618vh;
+    top: invert(range-scale($c2 - ($c1 + $c2) / 2)) * 100 + 27.148vh;
 
     &.deck {
+      left: range-scale(($s1 - $s2) / 2 + $s2) * 100 + 3.765vh;
+      top: invert(range-scale($c2 - ($c1 + $c2) / 2)) * 100 + 26.221vh;
       transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(108deg);
 
       .background {
