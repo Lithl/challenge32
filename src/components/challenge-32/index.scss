@@ -251,7 +251,8 @@ div.green-mana.deck {
   top: 3vh;
 }
 
-.deck {
+.deck,
+.image {
   position: absolute;
   cursor: pointer;
 }

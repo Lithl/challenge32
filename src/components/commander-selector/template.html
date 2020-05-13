@@ -18,7 +18,7 @@
           on-value-changed="updateFilter_">
         <iron-icon slot="suffix" icon="filter-list"></iron-icon>
       </paper-input>
-      <paper-listbox>
+      <paper-listbox id="listContainer" multi>
         <template
             id="list"
             is="dom-repeat"
@@ -31,5 +31,9 @@
       </paper-listbox>
     </div>
     <div id="preview" class="column"></div>
+  </div>
+  <div class="buttons">
+    <paper-button dialog-dismiss>Cancel</paper-button>
+    <paper-button on-tap="handleConfirm_">Select</paper-button>
   </div>
 </paper-dialog>

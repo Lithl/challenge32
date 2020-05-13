@@ -45,7 +45,10 @@
   <div class="wedge deck jeskai" on-tap="listWRUCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.jeskai)]]">
-        <div class="image" style$="background-image: url([[diagram_.jeskai.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.jeskai.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.jeskai.1]]">
+          <div class="image" style$="background-image: url([[diagram_.jeskai.1.image.art]])"></div>
+        </template>
       </div>
     </div>
   </div>
@@ -73,7 +76,10 @@
   <div class="wedge deck abzan" on-tap="listGBWCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.abzan)]]">
-        <div class="image" style$="background-image: url([[diagram_.abzan.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.abzan.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.abzan.1]]">
+          <div class="image" style$="background-image: url([[diagram_.abzan.1.image.art]])"></div>
+        </template>
       </div>
     </div>
   </div>
@@ -205,7 +211,7 @@
       on-tap="listWCommanders_">
     <div class="background">
       <div class="border">
-        <div class="image" style$="background-image: url([[diagram_.monoWhite.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.monoWhite.0.image.art]])"></div>
       </div>
     </div>
   </div>
@@ -214,7 +220,7 @@
       on-tap="listUCommanders_">
     <div class="background">
       <div class="border">
-        <div class="image" style$="background-image: url([[diagram_.monoBlue.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.monoBlue.0.image.art]])"></div>
       </div>
     </div>
   </div>
@@ -223,7 +229,7 @@
       on-tap="listBCommanders_">
     <div class="background">
       <div class="border">
-        <div class="image" style$="background-image: url([[diagram_.monoBlack.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.monoBlack.0.image.art]])"></div>
       </div>
     </div>
   </div>
@@ -232,7 +238,7 @@
       on-tap="listRCommanders_">
     <div class="background">
       <div class="border">
-        <div class="image" style$="background-image: url([[diagram_.monoRed.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.monoRed.0.image.art]])"></div>
       </div>
     </div>
   </div>
@@ -241,7 +247,7 @@
       on-tap="listGCommanders_">
     <div class="background">
       <div class="border">
-        <div class="image" style$="background-image: url([[diagram_.monoGreen.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.monoGreen.0.image.art]])"></div>
       </div>
     </div>
   </div>

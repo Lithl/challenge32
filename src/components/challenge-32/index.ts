@@ -18,7 +18,7 @@ export type ColorDescriptor = 'colorless' | 'monoWhite' | 'monoBlue' |
     'grixis' | 'jund' | 'naya' | 'whiteless' | 'blueless' | 'blackless' |
     'redless' | 'greenless' | 'pentacolor';
 
-interface DiagramModel extends Record<ColorDescriptor, CardData> {}
+interface DiagramModel extends Record<ColorDescriptor, [CardData]> {}
 
 @customElement('challenge-32')
 export class Challenge32 extends GestureEventListeners(PolymerElement) {
