@@ -11,12 +11,12 @@ import { default as template } from './template.html';
 
 import './index.scss?name=challenge-32';
 
-type ColorDescriptor = 'colorless' | 'monoWhite' | 'monoBlue' | 'monoBlack' |
-    'monoRed' | 'monoGreen' | 'azorius' | 'dimir' | 'rakdos' | 'gruul' |
-    'selesnya' | 'simic' | 'orzhov' | 'izzet' | 'golgari' | 'boros' | 'jeskai' |
-    'sultai' | 'mardu' | 'temur' | 'abzan' | 'bant' | 'esper' | 'grixis' |
-    'jund' | 'naya' | 'whiteless' | 'blueless' | 'blackless' | 'redless' |
-    'greenless' | 'pentacolor' | 'any';
+export type ColorDescriptor = 'colorless' | 'monoWhite' | 'monoBlue' |
+    'monoBlack' | 'monoRed' | 'monoGreen' | 'azorius' | 'dimir' | 'rakdos' |
+    'gruul' | 'selesnya' | 'simic' | 'orzhov' | 'izzet' | 'golgari' | 'boros' |
+    'jeskai' | 'sultai' | 'mardu' | 'temur' | 'abzan' | 'bant' | 'esper' |
+    'grixis' | 'jund' | 'naya' | 'whiteless' | 'blueless' | 'blackless' |
+    'redless' | 'greenless' | 'pentacolor';
 
 interface DiagramModel extends Record<ColorDescriptor, CardData> {}
 
