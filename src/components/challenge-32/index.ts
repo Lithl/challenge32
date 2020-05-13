@@ -250,11 +250,6 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
         this.colorIdentityEquals_(card, 'WUBRG') || this.isPartnerIn_(card, 'WUBRG'));
   }
 
-  protected listAllCommanders_() {
-    this.selectedId_ = 'any';
-    this.listCommanders_('any');
-  }
-
   private colorIdentityEquals_(card: CardData, identity: string) {
     if (card.colorIdentity.length !== identity.length) return false;
     for (const color of identity) {
