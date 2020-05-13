@@ -695,7 +695,6 @@ div.green-mana.deck {
   }
 
   .whiteless {
-    // @include point(0, -1, vh);
     left: range-scale(0) * 100vh;
     top: invert(range-scale(-1)) * 100 - 3vh;
 
@@ -710,7 +709,6 @@ div.green-mana.deck {
   }
 
   .blueless {
-    // @include point(-$s1, -$c1, vh);
     left: range-scale($s1 / 2 - $s1) * 100 - 21.311vh;
     top: invert(range-scale(($c1 - 1) / 2 - $c1)) * 100 - 18.073vh;
 
@@ -726,7 +724,6 @@ div.green-mana.deck {
   }
 
   .blackless {
-    // @include point(-$s2, $c2, vh);
     left: range-scale(($s1 - $s2) / 2 - $s1) * 100 + 10.603vh;
     top: invert(range-scale($c2 - ($c1 + $c2) / 2)) * 100 - 25.853vh;
 
@@ -742,7 +739,6 @@ div.green-mana.deck {
   }
 
   .redless {
-    // @include point($s2, $c2, vh);
     left: range-scale(0) * 100 + 27.864vh;
     top: invert(range-scale($c2)) * 100 + 2.095vh;
 
@@ -758,7 +754,6 @@ div.green-mana.deck {
   }
 
   .greenless {
-    // @include point($s1, -$c1, vh);
     left: range-scale(($s1 - $s2) / 2 + $s2) * 100 + 6.618vh;
     top: invert(range-scale($c2 - ($c1 + $c2) / 2)) * 100 + 27.148vh;
 
