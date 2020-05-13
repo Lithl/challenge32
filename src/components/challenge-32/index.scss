@@ -228,6 +228,10 @@ div.green-mana.deck {
     .image {
       background-position: center top;
       background-size: cover;
+
+      & + .image {
+        clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+      }
     }
 
     span {
@@ -431,6 +435,10 @@ div.green-mana.deck {
 .temur {
   .image {
     transform: scale(-.95, .95);
+
+    & + .image {
+      clip-path: polygon(50% 0, 100% 0, 50% 100%);
+    }
   }
 }
 
@@ -481,6 +489,18 @@ div.green-mana.deck {
     transform-origin: center;
     transform: scale(-1);
     clip-path: polygon(0 0, 50% 100%, 100% 0);
+
+    & + .image {
+      clip-path: polygon(50% 0, 50% 100%, 100% 0);
+    }
+  }
+}
+
+.bant,
+.esper,
+.naya {
+  .image + .image {
+    clip-path: polygon(50% 100%, 50% 0, 100% 100%);
   }
 }
 
@@ -528,6 +548,18 @@ div.green-mana.deck {
   .image {
     transform: scale(-1);
     clip-path: polygon(0 100%, 100% 100%, 63.85% 0, 36.15% 0);
+
+    & + .image {
+      clip-path: polygon(50% 100%, 100% 100%, 63.85% 0, 50% 0);
+    }
+  }
+}
+
+.simic,
+.orzhov,
+.boros {
+  .image + .image {
+    clip-path: polygon(50% 0, 100% 0, 63.85% 100%, 50% 100%);
   }
 }
 
@@ -565,6 +597,15 @@ div.green-mana.deck {
   .image {
     clip-path: url(#petal);
   }
+}
+
+.partner-separator {
+  background-color: black;
+  height: 100%;
+  width: 1%;
+  position: absolute;
+  top: 0;
+  left: 49.5%;
 }
 
 .landscape {
