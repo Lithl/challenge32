@@ -175,7 +175,6 @@ div.blue-mana.deck,
 div.black-mana.deck,
 div.red-mana.deck,
 div.green-mana.deck {
-  visibility: hidden;
   background-color: black;
   clip-path: url(#petal);
   z-index: -1;
@@ -200,11 +199,6 @@ div.green-mana.deck {
     & + .image {
       clip-path: url(#halfPetal);
     }
-  }
-
-  &.background {
-    visibility: visible;
-    transition: transform .5s cubic-bezier(.5, 0, .6, 2);
   }
 }
 
@@ -656,13 +650,7 @@ div.green-mana.deck {
   div.red-mana.deck,
   div.green-mana.deck,
   div.colorless-mana.deck {
-    width: px(91 * 1.2) * 1vh;
-    height: px(91 * .962) * 1vh;
-    transform: translate(#{-(px(91 * 1.2 / 2))}vh, #{-(px(91 * .962 / 2))}vh) rotate(var(--mono-color-rotation));
-
-    &.background {
-      transform: translate(#{-(px(91 * 1.2 / 2))}vh, #{-(px(91 * .962 / 2))}vh) scale(3.5) rotate(var(--mono-color-rotation));
-    }
+    transform: translate(#{-(px(382.2 / 2))}vh, #{-(px(382.2 / 2))}vh) rotate(var(--mono-color-rotation));
   }
 
   div.colorless-mana.deck {
