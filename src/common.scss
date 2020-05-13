@@ -14,3 +14,33 @@ a:visited {
 a:hover {
   text-decoration: underline;
 }
+
+paper-dialog {
+  border-radius: 8px;
+
+  & > :last-child {
+    margin-bottom: 24px;
+  }
+
+  & > :first-child {
+    margin-top: 24px;
+  }
+
+  & > * {
+    padding: 0 24px;
+  }
+
+  .buttons {
+    padding: 8px 8px 8px 24px;
+    margin: 0;
+
+    paper-button {
+      margin: 0 .29em;
+      padding: .7em .57em;
+
+      &[dialog-dismiss] {
+        color: var(--accent-color);
+      }
+    }
+  }
+}
