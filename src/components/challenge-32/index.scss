@@ -372,7 +372,7 @@ div.green-mana.deck {
 .rakdos,
 .gruul {
   .image {
-    transform: scale(-1);
+    transform: scale(-.95);
     clip-path: polygon(0 100%, 100% 100%, 50% 0);
   }
 }
@@ -486,8 +486,8 @@ div.green-mana.deck {
 .grixis,
 .jund {
   .image {
-    transform-origin: center;
-    transform: scale(-1);
+    transform-origin: center 50.5%;
+    transform: scale(-.95);
     clip-path: polygon(0 0, 50% 100%, 100% 0);
 
     & + .image {
@@ -546,7 +546,7 @@ div.green-mana.deck {
 .izzet,
 .golgari {
   .image {
-    transform: scale(-1);
+    transform: scale(-.95);
     clip-path: polygon(0 100%, 100% 100%, 63.85% 0, 36.15% 0);
 
     & + .image {
