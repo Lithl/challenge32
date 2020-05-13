@@ -77,7 +77,7 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 }
 
-@mixin conic-bg($color1, $color2: null, $color3: null, $color4: null, $color5: null, $start: 0, $scale: 100) {
+@mixin conic-bg($color1, $color2: null, $color3: null, $color4: null, $color5: null, $start: 0, $scale: 100, $at: 50% 50%) {
   // creates a conic-gradient with hard stops equally distributed between each color (up to 5 colors)
   @if $color5 {
     background: conic-gradient(
@@ -89,7 +89,7 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
       $color5 (4 * $scale / 5) * 1%, $color5 $scale * 1%);
   } @else if $color4 {
     background: conic-gradient(
-      from #{$start}turn,
+      from #{$start}turn at $at,
       $color1 0, $color1 ($scale / 4) * 1%,
       $color2 ($scale / 4) * 1%, $color2 (2 * $scale / 4) * 1%,
       $color3 (2 * $scale / 4) * 1%, $color3 (3 * $scale / 4) * 1%,
@@ -704,7 +704,7 @@ div.green-mana.deck {
       transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(180deg);
 
       .background {
-        @include conic-bg($blue, $black, $red, $green, $start: -.375, $scale: 75);
+        @include conic-bg($blue, $black, $red, $green, $start: -.34, $scale: 68, $at: 50% 41%);
       }
     }
   }
@@ -720,7 +720,7 @@ div.green-mana.deck {
       transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(252deg);
 
       .background {
-        @include conic-bg($black, $red, $green, $white, $start: -.375, $scale: 75);
+        @include conic-bg($black, $red, $green, $white, $start: -.34, $scale: 68, $at: 50% 41%);
       }
     }
   }
@@ -736,7 +736,7 @@ div.green-mana.deck {
       transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(324deg);
 
       .background {
-        @include conic-bg($red, $green, $white, $blue, $start: -.375, $scale: 75);
+        @include conic-bg($red, $green, $white, $blue, $start: -.34, $scale: 68, $at: 50% 41%);
       }
     }
   }
@@ -752,7 +752,7 @@ div.green-mana.deck {
       transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(36deg);
 
       .background {
-        @include conic-bg($green, $white, $blue, $black, $start: -.375, $scale: 75);
+        @include conic-bg($green, $white, $blue, $black, $start: -.34, $scale: 68, $at: 50% 41%);
       }
     }
   }
@@ -768,7 +768,7 @@ div.green-mana.deck {
       transform: translate(var(--minus-4c-half-width), var(--minus-4c-half-height)) rotate(108deg);
 
       .background {
-        @include conic-bg($white, $blue, $black, $red, $start: -.375, $scale: 75);
+        @include conic-bg($white, $blue, $black, $red, $start: -.34, $scale: 68, $at: 50% 41%);
       }
     }
   }
