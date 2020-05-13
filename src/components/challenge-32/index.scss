@@ -655,13 +655,6 @@ div.green-mana.deck {
     transform: translate(#{-(px(382.2 / 2))}vh, #{-(px(382.2 / 2))}vh) rotate(var(--mono-color-rotation));
   }
 
-  div.colorless-mana.deck {
-    width: px(185.5) * 1vh;
-    height: px(185.5) * 1vh;
-    border-width: px(5) * 1vh;
-    transform: translate(#{-(px(195.5) / 2)}vh, #{-(px(195.5) / 2)}vh);
-  }
-
   div.white-mana.deck {
     @include point(0, $c2, vh);
   }
@@ -683,7 +676,12 @@ div.green-mana.deck {
   }
 
   div.colorless-mana.deck {
-    @include point(($s1 - $s2) / 2 + $s2, -1, vh);
+    width: px(185.5) * 1vh;
+    height: px(185.5) * 1vh;
+    border-width: px(5) * 1vh;
+    transform: translate(#{-(px(195.5) / 2)}vh, #{-(px(195.5) / 2)}vh);
+    // @include point(($s1 - $s2) / 2 + $s2, -1, vh);
+    @include point(-1, -1, vh);
   }
 
   // 4C combos
@@ -901,10 +899,8 @@ div.green-mana.deck {
     &.colorless-mana {
       // horizontal same as blue
       // vertical equal to whiteless
-      @include point(($s1 - $s2) / 2 + $s2, -1, vh);
-    }
-
-    &.colorless-mana {
+      // @include point(($s1 - $s2) / 2 + $s2, -1, vh);
+      @include point(-1, -1, vh);
       width: px(175.5) * 1vh;
       height: px(175.5) * 1vh;
       transform: translate(#{-(px(195.5) / 2)}vh, #{-(px(195.5) / 2)}vh);
