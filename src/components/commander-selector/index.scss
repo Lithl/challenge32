@@ -5,9 +5,16 @@ paper-listbox {
   overflow-y: scroll;
 
   paper-item {
-    --paper-item-selected-weight: normal;
+    --paper-item-focused-before: {
+      background: none;
+    }
+
+    --paper-item-selected: {
+      background-color: var(--google-grey-300);
+    }
 
     cursor: pointer;
+    user-select: none;
   }
 }
 
