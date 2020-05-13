@@ -204,8 +204,7 @@ div.green-mana.deck {
   }
 }
 
-.colorless-mana,
-.any-type {
+.colorless-mana {
   background-color: $colorless;
 
   &.deck {
@@ -242,10 +241,6 @@ div.green-mana.deck {
       top: 0;
     }
   }
-}
-
-.any-type.deck .background {
-  transform: scale(1);
 }
 
 #content {
@@ -916,18 +911,7 @@ div.green-mana.deck {
       @include point(($s1 - $s2) / 2 + $s2, -1, vh);
     }
 
-    &.any-type {
-      // horizontal same as green
-      // vertical equal to whiteless
-      @include point(($s1 - $s2) / 2 - $s1, -1, vh);
-      font-size: 16vh;
-      font-weight: bold;
-      text-align: center;
-      line-height: 100%;
-    }
-
-    &.colorless-mana,
-    &.any-type {
+    &.colorless-mana {
       width: px(175.5) * 1vh;
       height: px(175.5) * 1vh;
       transform: translate(#{-(px(195.5) / 2)}vh, #{-(px(195.5) / 2)}vh);
