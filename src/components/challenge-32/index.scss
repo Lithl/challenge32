@@ -416,8 +416,12 @@ div.green-mana.deck {
 .jeskai,
 .abzan {
   .image {
-    transform: scaleY(-1);
+    transform: scale(.95, -.95);
     clip-path: polygon(0 100%, 100% 100%, 50% 0);
+
+    & + .image {
+      clip-path: polygon(50% 100%, 100% 100%, 50% 0);
+    }
   }
 }
 
@@ -425,7 +429,7 @@ div.green-mana.deck {
 .mardu,
 .temur {
   .image {
-    transform: scaleX(-1);
+    transform: scale(-.95, .95);
   }
 }
 
