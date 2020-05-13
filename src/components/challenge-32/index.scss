@@ -245,7 +245,7 @@ div.green-mana.deck {
   position: relative;
   transform: scale(.85);
   left: 5vh;
-  top: 3vh;
+  top: 6vh;
 }
 
 .deck,
@@ -638,10 +638,10 @@ div.green-mana.deck {
   }
 
   .four-color {
-    --minus-4c-half-width: #{-(px(182 * 1.75 * 1.2 / 2))}vh;
-    --minus-4c-half-height: #{-(px(182 * 1.75 * .962 / 2))}vh;
-    width: px(182 * 1.75 * 1.2) * 1vh;
-    height: px(182 * 1.75 * .962) * 1vh;
+    --minus-4c-half-width: #{-(px(382.2 / 2))}vh;
+    --minus-4c-half-height: #{-(px(382.2 / 2))}vh;
+    width: px(382.2) * 1vh;
+    height: px(382.2) * 1vh;
   }
 
   div.white-mana.deck,
@@ -650,6 +650,8 @@ div.green-mana.deck {
   div.red-mana.deck,
   div.green-mana.deck,
   div.colorless-mana.deck {
+    width: px(382.2) * 1vh;
+    height: px(382.2) * 1vh;
     transform: translate(#{-(px(382.2 / 2))}vh, #{-(px(382.2 / 2))}vh) rotate(var(--mono-color-rotation));
   }
 
