@@ -9,35 +9,55 @@
   <div class="ally deck azorius" on-tap="listWUCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.azorius)]]">
-        <div class="image" style$="background-image: url([[diagram_.azorius.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.azorius.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.azorius.1]]">
+          <div class="image" style$="background-image: url([[diagram_.azorius.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="ally deck dimir" on-tap="listUBCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.dimir)]]">
-        <div class="image" style$="background-image: url([[diagram_.dimir.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.dimir.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.dimir.1]]">
+          <div class="image" style$="background-image: url([[diagram_.dimir.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="ally deck rakdos" on-tap="listBRCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.rakdos)]]">
-        <div class="image" style$="background-image: url([[diagram_.rakdos.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.rakdos.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.rakdos.1]]">
+          <div class="image" style$="background-image: url([[diagram_.rakdos.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="ally deck gruul" on-tap="listRGCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.gruul)]]">
-        <div class="image" style$="background-image: url([[diagram_.gruul.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.gruul.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.gruul.1]]">
+          <div class="image" style$="background-image: url([[diagram_.gruul.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="ally deck selesnya" on-tap="listGWCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.selesnya)]]">
-        <div class="image" style$="background-image: url([[diagram_.selesnya.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.selesnya.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.selesnya.1]]">
+          <div class="image" style$="background-image: url([[diagram_.selesnya.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
@@ -48,6 +68,7 @@
         <div class="image" style$="background-image: url([[diagram_.jeskai.0.image.art]])"></div>
         <template is="dom-if" if="[[diagram_.jeskai.1]]">
           <div class="image" style$="background-image: url([[diagram_.jeskai.1.image.art]])"></div>
+          <div class="partner-separator"></div>
         </template>
       </div>
     </div>
@@ -55,21 +76,33 @@
   <div class="wedge deck sultai" on-tap="listUGBCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.sultai)]]">
-        <div class="image" style$="background-image: url([[diagram_.sultai.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.sultai.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.sultai.1]]">
+          <div class="image" style$="background-image: url([[diagram_.sultai.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="wedge deck mardu" on-tap="listBWRCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.mardu)]]">
-        <div class="image" style$="background-image: url([[diagram_.mardu.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.mardu.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.mardu.1]]">
+          <div class="image" style$="background-image: url([[diagram_.mardu.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="wedge deck temur" on-tap="listRUGCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.temur)]]">
-        <div class="image" style$="background-image: url([[diagram_.temur.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.temur.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.temur.1]]">
+          <div class="image" style$="background-image: url([[diagram_.temur.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
@@ -79,6 +112,7 @@
         <div class="image" style$="background-image: url([[diagram_.abzan.0.image.art]])"></div>
         <template is="dom-if" if="[[diagram_.abzan.1]]">
           <div class="image" style$="background-image: url([[diagram_.abzan.1.image.art]])"></div>
+          <div class="partner-separator"></div>
         </template>
       </div>
     </div>
@@ -87,35 +121,55 @@
   <div class="shard deck bant" on-tap="listGWUCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.bant)]]">
-        <div class="image" style$="background-image: url([[diagram_.bant.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.bant.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.bant.1]]">
+          <div class="image" style$="background-image: url([[diagram_.bant.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="shard deck esper" on-tap="listWUBCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.esper)]]">
-        <div class="image" style$="background-image: url([[diagram_.esper.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.esper.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.esper.1]]">
+          <div class="image" style$="background-image: url([[diagram_.esper.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="shard deck grixis" on-tap="listUBRCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.grixis)]]">
-        <div class="image" style$="background-image: url([[diagram_.grixis.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.grixis.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.grixis.1]]">
+          <div class="image" style$="background-image: url([[diagram_.grixis.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="shard deck jund" on-tap="listBRGCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.jund)]]">
-        <div class="image" style$="background-image: url([[diagram_.jund.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.jund.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.jund.1]]">
+          <div class="image" style$=" background-image: url([[diagram_.jund.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="shard deck naya" on-tap="listRGWCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.naya)]]">
-        <div class="image" style$="background-image: url([[diagram_.naya.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.naya.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.naya.1]]">
+          <div class="image" style$="background-image: url([[diagram_.naya.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
@@ -123,35 +177,55 @@
   <div class="enemy deck simic" on-tap="listGUCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.simic)]]">
-        <div class="image" style$="background-image: url([[diagram_.simic.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.simic.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.simic.1]]">
+          <div class="image" style$="background-image: url([[diagram_.simic.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="enemy deck orzhov" on-tap="listWBCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.orzhov)]]">
-        <div class="image" style$="background-image: url([[diagram_.orzhov.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.orzhov.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.orzhov.1]]">
+          <div class="image" style$="background-image: url([[diagram_.orzhov.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="enemy deck izzet" on-tap="listURCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.izzet)]]">
-        <div class="image" style$="background-image: url([[diagram_.izzet.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.izzet.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.izzet.1]]">
+          <div class="image" style$="background-image: url([[diagram_.izzet.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="enemy deck golgari" on-tap="listBGCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.golgari)]]">
-        <div class="image" style$="background-image: url([[diagram_.golgari.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.golgari.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.golgari.1]]">
+          <div class="image" style$="background-image: url([[diagram_.golgari.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="enemy deck boros" on-tap="listRWCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.boros)]]">
-        <div class="image" style$="background-image: url([[diagram_.boros.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.boros.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.boros.1]]">
+          <div class="image" style$="background-image: url([[diagram_.boros.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
@@ -159,35 +233,55 @@
   <div class="four-color deck whiteless" on-tap="listUBRGCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.whiteless)]]">
-        <div class="image" style$="background-image: url([[diagram_.whiteless.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.whiteless.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.whiteless.1]]">
+          <div class="image" style$="background-image: url([[diagram_.whiteless.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="four-color deck blueless" on-tap="listWBRGCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.blueless)]]">
-        <div class="image" style$="background-image: url([[diagram_.blueless.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.blueless.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.blueless.1]]">
+          <div class="image" style$="background-image: url([[diagram_.blueless.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="four-color deck blackless" on-tap="listWURGCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.blackless)]]">
-        <div class="image" style$="background-image: url([[diagram_.blackless.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.blackless.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.blackless.1]]">
+          <div class="image" style$="background-image: url([[diagram_.blackless.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="four-color deck redless" on-tap="listWUBGCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.redless)]]">
-        <div class="image" style$="background-image: url([[diagram_.redless.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.redless.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.redless.1]]">
+          <div class="image" style$="background-image: url([[diagram_.redless.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
   <div class="four-color deck greenless" on-tap="listWUBRCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.greenless)]]">
-        <div class="image" style$="background-image: url([[diagram_.greenless.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.greenless.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.greenless.1]]">
+          <div class="image" style$="background-image: url([[diagram_.greenless.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
@@ -195,7 +289,11 @@
   <div class="pentacolor deck" on-tap="listWUBRGCommanders_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.pentacolor)]]">
-        <div class="image" style$="background-image: url([[diagram_.pentacolor.image.art]])"></div>
+        <div class="image" style$="background-image: url([[diagram_.pentacolor.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.pentacolor.1]]">
+          <div class="image" style$="background-image: url([[diagram_.pentacolor.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
@@ -212,6 +310,10 @@
     <div class="background">
       <div class="border">
         <div class="image" style$="background-image: url([[diagram_.monoWhite.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.monoWhite.1]]">
+          <div class="image" style$="background-image: url([[diagram_.monoWhite.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
@@ -221,6 +323,10 @@
     <div class="background">
       <div class="border">
         <div class="image" style$="background-image: url([[diagram_.monoBlue.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.monoBlue.1]]">
+          <div class="image" style$="background-image: url([[diagram_.monoBlue.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
@@ -230,6 +336,10 @@
     <div class="background">
       <div class="border">
         <div class="image" style$="background-image: url([[diagram_.monoBlack.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.monoBlack.1]]">
+          <div class="image" style$="background-image: url([[diagram_.monoBlack.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
@@ -239,6 +349,10 @@
     <div class="background">
       <div class="border">
         <div class="image" style$="background-image: url([[diagram_.monoRed.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.monoRed.1]]">
+          <div class="image" style$="background-image: url([[diagram_.monoRed.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
@@ -248,6 +362,10 @@
     <div class="background">
       <div class="border">
         <div class="image" style$="background-image: url([[diagram_.monoGreen.0.image.art]])"></div>
+        <template is="dom-if" if="[[diagram_.monoGreen.1]]">
+          <div class="image" style$="background-image: url([[diagram_.monoGreen.1.image.art]])"></div>
+          <div class="partner-separator"></div>
+        </template>
       </div>
     </div>
   </div>
@@ -257,15 +375,19 @@
       on-tap="listCCommanders_"
       style$="visibility: [[isVisible_(diagram_.colorless)]]">
     <div class="background">
-      <div class="image" style$="background-image: url([[diagram_.colorless.image.art]])"></div>
+      <div class="image" style$="background-image: url([[diagram_.colorless.0.image.art]])"></div>
+      <template is="dom-if" if="[[diagram_.colorless.1]]">
+        <div class="image" style$="background-image: url([[diagram_.colorless.1.image.art]])"></div>
+        <div class="partner-separator"></div>
+      </template>
     </div>
   </div>
-  <div class="any-type mana-symbol deck" on-tap="listAllCommanders_">
+  <!-- <div class="any-type mana-symbol deck" on-tap="listAllCommanders_">
     <span>?</span>
     <div class="background" style$="visibility: [[isVisible_(diagram_.any)]]">
       <div class="image" style$="background-image: url([[diagram_.any.image.art]])"></div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <svg width="0" height="0">
