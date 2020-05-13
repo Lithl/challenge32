@@ -196,6 +196,10 @@ div.green-mana.deck {
   .image {
     background-position: center top;
     background-size: cover;
+
+    & + .image {
+      clip-path: url(#halfPetal);
+    }
   }
 
   &.background {
@@ -591,6 +595,10 @@ div.green-mana.deck {
   .border,
   .image {
     clip-path: url(#petal);
+
+    & + .image {
+      clip-path: url(#halfPetal);
+    }
   }
 }
 
