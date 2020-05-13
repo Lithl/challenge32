@@ -618,20 +618,20 @@ div.green-mana.deck {
     // length of line between mono-colors
     width: 47.55vh;
     // 85% of the distance from midpoint of hypotenuse to 4C dot
-    height: 14.6829vh;
+    height: 14.683vh;
   }
 
   .shard {
-    --minus-shard-half-width: -10.60475vh;
+    --minus-shard-half-width: -10.605vh;
     // distance between interior vertices of ally pair triangles
-    width: 21.2095vh;
+    width: 21.21vh;
     // ditance from midpoint between adjacent all pair triangles to shared mono-color
     height: 25.855vh;
   }
 
   .enemy {
     // width of shard triangles
-    width: 21.2095vh;
+    width: 21.21vh;
     // distance from base of shard tirangle to edge of pentacolor pentagon
     height: 10.55vh;
   }
@@ -807,31 +807,31 @@ div.green-mana.deck {
   // Enemy guilds
   .simic {
     // bottom-left corner of bant triangle
-    left: 39.39425vh;
+    left: 39.394vh;
     top: 35.405vh;
   }
 
   .orzhov {
     // bottom-right corner of bant triangle
-    left: 60.60375vh;
+    left: 60.604vh;
     top: 35.405vh;
   }
 
   .izzet {
     // corner shared by esper, dimir, and grixis
-    left: 67.1578vh;
+    left: 67.158vh;
     top: 55.576vh;
   }
 
   .golgari {
     // corner shared by grixis, rakdos, and jund
     left: 50.019vh;
-    top: 68.0426vh;
+    top: 68.043vh;
   }
 
   .boros {
     // corner shared by jund, gruul, and naya
-    left: 32.8602vh;
+    left: 32.86vh;
     top: 55.576vh;
   }
 
@@ -885,7 +885,7 @@ div.green-mana.deck {
     transform: translate(#{-(px(87.5) / 2)}vh, #{-(px(87.5) / 2)}vh);
 
     &.background {
-      transform: translate(-6.55495vh, -6.55495vh) scale(2);
+      transform: translate(-6.555vh, -6.555vh) scale(2);
     }
 
     &.white-mana {
