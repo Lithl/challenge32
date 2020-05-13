@@ -1,8 +1,8 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element';
 import { GestureEventListeners } from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
 import { customElement, query, property } from '@polymer/decorators';
-import '@polymer/iron-ajax';
 import { CommanderSelector } from '../commander-selector';
+import '@polymer/iron-ajax/iron-ajax';
 
 import { CardData, ManaColor } from '../../server/commanders';
 import { onlyUnique } from '../../util';
