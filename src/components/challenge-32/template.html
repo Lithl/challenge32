@@ -6,7 +6,10 @@
   on-response="getCommanders_"></iron-ajax>
 
 <div id="content">
-  <div class="ally deck azorius" on-tap="listWUCommanders_">
+  <div class="ally deck azorius"
+      on-tap="listWUCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.azorius)]]">
         <div class="image" style$="background-image: url([[diagram_.azorius.0.image.art]])"></div>
@@ -17,7 +20,10 @@
       </div>
     </div>
   </div>
-  <div class="ally deck dimir" on-tap="listUBCommanders_">
+  <div class="ally deck dimir"
+      on-tap="listUBCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.dimir)]]">
         <div class="image" style$="background-image: url([[diagram_.dimir.0.image.art]])"></div>
@@ -28,7 +34,10 @@
       </div>
     </div>
   </div>
-  <div class="ally deck rakdos" on-tap="listBRCommanders_">
+  <div class="ally deck rakdos"
+      on-tap="listBRCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.rakdos)]]">
         <div class="image" style$="background-image: url([[diagram_.rakdos.0.image.art]])"></div>
@@ -39,7 +48,10 @@
       </div>
     </div>
   </div>
-  <div class="ally deck gruul" on-tap="listRGCommanders_">
+  <div class="ally deck gruul"
+      on-tap="listRGCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.gruul)]]">
         <div class="image" style$="background-image: url([[diagram_.gruul.0.image.art]])"></div>
@@ -50,7 +62,10 @@
       </div>
     </div>
   </div>
-  <div class="ally deck selesnya" on-tap="listGWCommanders_">
+  <div class="ally deck selesnya"
+      on-tap="listGWCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.selesnya)]]">
         <div class="image" style$="background-image: url([[diagram_.selesnya.0.image.art]])"></div>
@@ -62,7 +77,10 @@
     </div>
   </div>
 
-  <div class="wedge deck jeskai" on-tap="listWRUCommanders_">
+  <div class="wedge deck jeskai"
+      on-tap="listWRUCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.jeskai)]]">
         <div class="image" style$="background-image: url([[diagram_.jeskai.0.image.art]])"></div>
@@ -73,7 +91,10 @@
       </div>
     </div>
   </div>
-  <div class="wedge deck sultai" on-tap="listUGBCommanders_">
+  <div class="wedge deck sultai"
+      on-tap="listUGBCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.sultai)]]">
         <div class="image" style$="background-image: url([[diagram_.sultai.0.image.art]])"></div>
@@ -84,7 +105,10 @@
       </div>
     </div>
   </div>
-  <div class="wedge deck mardu" on-tap="listBWRCommanders_">
+  <div class="wedge deck mardu"
+      on-tap="listBWRCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.mardu)]]">
         <div class="image" style$="background-image: url([[diagram_.mardu.0.image.art]])"></div>
@@ -95,7 +119,10 @@
       </div>
     </div>
   </div>
-  <div class="wedge deck temur" on-tap="listRUGCommanders_">
+  <div class="wedge deck temur"
+      on-tap="listRUGCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.temur)]]">
         <div class="image" style$="background-image: url([[diagram_.temur.0.image.art]])"></div>
@@ -106,7 +133,10 @@
       </div>
     </div>
   </div>
-  <div class="wedge deck abzan" on-tap="listGBWCommanders_">
+  <div class="wedge deck abzan"
+      on-tap="listGBWCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.abzan)]]">
         <div class="image" style$="background-image: url([[diagram_.abzan.0.image.art]])"></div>
@@ -118,7 +148,10 @@
     </div>
   </div>
 
-  <div class="shard deck bant" on-tap="listGWUCommanders_">
+  <div class="shard deck bant"
+      on-tap="listGWUCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.bant)]]">
         <div class="image" style$="background-image: url([[diagram_.bant.0.image.art]])"></div>
@@ -129,7 +162,10 @@
       </div>
     </div>
   </div>
-  <div class="shard deck esper" on-tap="listWUBCommanders_">
+  <div class="shard deck esper"
+      on-tap="listWUBCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.esper)]]">
         <div class="image" style$="background-image: url([[diagram_.esper.0.image.art]])"></div>
@@ -140,7 +176,10 @@
       </div>
     </div>
   </div>
-  <div class="shard deck grixis" on-tap="listUBRCommanders_">
+  <div class="shard deck grixis"
+      on-tap="listUBRCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.grixis)]]">
         <div class="image" style$="background-image: url([[diagram_.grixis.0.image.art]])"></div>
@@ -151,7 +190,10 @@
       </div>
     </div>
   </div>
-  <div class="shard deck jund" on-tap="listBRGCommanders_">
+  <div class="shard deck jund"
+      on-tap="listBRGCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.jund)]]">
         <div class="image" style$="background-image: url([[diagram_.jund.0.image.art]])"></div>
@@ -162,7 +204,10 @@
       </div>
     </div>
   </div>
-  <div class="shard deck naya" on-tap="listRGWCommanders_">
+  <div class="shard deck naya"
+      on-tap="listRGWCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.naya)]]">
         <div class="image" style$="background-image: url([[diagram_.naya.0.image.art]])"></div>
@@ -174,7 +219,10 @@
     </div>
   </div>
 
-  <div class="enemy deck simic" on-tap="listGUCommanders_">
+  <div class="enemy deck simic"
+      on-tap="listGUCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.simic)]]">
         <div class="image" style$="background-image: url([[diagram_.simic.0.image.art]])"></div>
@@ -185,7 +233,10 @@
       </div>
     </div>
   </div>
-  <div class="enemy deck orzhov" on-tap="listWBCommanders_">
+  <div class="enemy deck orzhov"
+      on-tap="listWBCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.orzhov)]]">
         <div class="image" style$="background-image: url([[diagram_.orzhov.0.image.art]])"></div>
@@ -196,7 +247,10 @@
       </div>
     </div>
   </div>
-  <div class="enemy deck izzet" on-tap="listURCommanders_">
+  <div class="enemy deck izzet"
+      on-tap="listURCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.izzet)]]">
         <div class="image" style$="background-image: url([[diagram_.izzet.0.image.art]])"></div>
@@ -207,7 +261,10 @@
       </div>
     </div>
   </div>
-  <div class="enemy deck golgari" on-tap="listBGCommanders_">
+  <div class="enemy deck golgari"
+      on-tap="listBGCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.golgari)]]">
         <div class="image" style$="background-image: url([[diagram_.golgari.0.image.art]])"></div>
@@ -218,7 +275,10 @@
       </div>
     </div>
   </div>
-  <div class="enemy deck boros" on-tap="listRWCommanders_">
+  <div class="enemy deck boros"
+      on-tap="listRWCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.boros)]]">
         <div class="image" style$="background-image: url([[diagram_.boros.0.image.art]])"></div>
@@ -230,7 +290,10 @@
     </div>
   </div>
 
-  <div class="four-color deck whiteless" on-tap="listUBRGCommanders_">
+  <div class="four-color deck whiteless"
+      on-tap="listUBRGCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.whiteless)]]">
         <div class="image" style$="background-image: url([[diagram_.whiteless.0.image.art]])"></div>
@@ -241,7 +304,10 @@
       </div>
     </div>
   </div>
-  <div class="four-color deck blueless" on-tap="listWBRGCommanders_">
+  <div class="four-color deck blueless"
+      on-tap="listWBRGCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.blueless)]]">
         <div class="image" style$="background-image: url([[diagram_.blueless.0.image.art]])"></div>
@@ -252,7 +318,10 @@
       </div>
     </div>
   </div>
-  <div class="four-color deck blackless" on-tap="listWURGCommanders_">
+  <div class="four-color deck blackless"
+      on-tap="listWURGCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.blackless)]]">
         <div class="image" style$="background-image: url([[diagram_.blackless.0.image.art]])"></div>
@@ -263,7 +332,10 @@
       </div>
     </div>
   </div>
-  <div class="four-color deck redless" on-tap="listWUBGCommanders_">
+  <div class="four-color deck redless"
+      on-tap="listWUBGCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.redless)]]">
         <div class="image" style$="background-image: url([[diagram_.redless.0.image.art]])"></div>
@@ -274,7 +346,10 @@
       </div>
     </div>
   </div>
-  <div class="four-color deck greenless" on-tap="listWUBRCommanders_">
+  <div class="four-color deck greenless"
+      on-tap="listWUBRCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.greenless)]]">
         <div class="image" style$="background-image: url([[diagram_.greenless.0.image.art]])"></div>
@@ -286,7 +361,10 @@
     </div>
   </div>
 
-  <div class="pentacolor deck" on-tap="listWUBRGCommanders_">
+  <div class="pentacolor deck"
+      on-tap="listWUBRGCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.pentacolor)]]">
         <div class="image" style$="background-image: url([[diagram_.pentacolor.0.image.art]])"></div>
@@ -304,9 +382,15 @@
   <div class="red-mana dot redless"></div>
   <div class="green-mana dot greenless"></div>
 
-  <img src="/images/w.svg" class="white-mana mana-symbol deck" on-tap="listWCommanders_">
-  <div class="white-mana deck"
-      on-tap="listWCommanders_">
+  <img src="/images/w.svg"
+      class="white-mana mana-symbol deck"
+      on-tap="listWCommanders_"
+      on-mousemove="handlePreviewHoverHelper_"
+      on-mouseleave="handlePreviewUnhover_">
+  <div class="white-mana deck monoWhite"
+      on-tap="listWCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.monoWhite)]]">
         <div class="image" style$="background-image: url([[diagram_.monoWhite.0.image.art]])"></div>
@@ -317,9 +401,15 @@
       </div>
     </div>
   </div>
-  <img src="/images/u.svg" class="blue-mana mana-symbol deck" on-tap="listUCommanders_">
-  <div class="blue-mana deck"
-      on-tap="listUCommanders_">
+  <img src="/images/u.svg"
+      class="blue-mana mana-symbol deck"
+      on-tap="listUCommanders_"
+      on-mousemove="handlePreviewHoverHelper_"
+      on-mouseleave="handlePreviewUnhover_">
+  <div class="blue-mana deck monoBlue"
+      on-tap="listUCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.monoBlue)]]">
         <div class="image" style$="background-image: url([[diagram_.monoBlue.0.image.art]])"></div>
@@ -330,9 +420,15 @@
       </div>
     </div>
   </div>
-  <img src="/images/b.svg" class="black-mana mana-symbol deck" on-tap="listBCommanders_">
-  <div class="black-mana deck"
-      on-tap="listBCommanders_">
+  <img src="/images/b.svg"
+      class="black-mana mana-symbol deck"
+      on-tap="listBCommanders_"
+      on-mousemove="handlePreviewHoverHelper_"
+      on-mouseleave="handlePreviewUnhover_">
+  <div class="black-mana deck monoBlack"
+      on-tap="listBCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.monoBlack)]]">
         <div class="image" style$="background-image: url([[diagram_.monoBlack.0.image.art]])"></div>
@@ -343,9 +439,15 @@
       </div>
     </div>
   </div>
-  <img src="/images/r.svg" class="red-mana mana-symbol deck" on-tap="listRCommanders_">
-  <div class="red-mana deck"
-      on-tap="listRCommanders_">
+  <img src="/images/r.svg"
+      class="red-mana mana-symbol deck"
+      on-tap="listRCommanders_"
+      on-mousemove="handlePreviewHoverHelper_"
+      on-mouseleave="handlePreviewUnhover_">
+  <div class="red-mana deck monoRed"
+      on-tap="listRCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.monoRed)]]">
         <div class="image" style$="background-image: url([[diagram_.monoRed.0.image.art]])"></div>
@@ -356,9 +458,15 @@
       </div>
     </div>
   </div>
-  <img src="/images/g.svg" class="green-mana mana-symbol deck" on-tap="listGCommanders_">
-  <div class="green-mana deck"
-      on-tap="listGCommanders_">
+  <img src="/images/g.svg"
+      class="green-mana mana-symbol deck"
+      on-tap="listGCommanders_"
+      on-mousemove="handlePreviewHoverHelper_"
+      on-mouseleave="handlePreviewUnhover_">
+  <div class="green-mana deck monoGreen"
+      on-tap="listGCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="border" style$="visibility: [[isVisible_(diagram_.monoGreen)]]">
         <div class="image" style$="background-image: url([[diagram_.monoGreen.0.image.art]])"></div>
@@ -370,10 +478,16 @@
     </div>
   </div>
 
-  <img src="/images/c.svg" class="colorless-mana mana-symbol deck" on-tap="listCCommanders_">
-  <div class="colorless-mana deck"
+  <img src="/images/c.svg"
+      class="colorless-mana mana-symbol deck"
       on-tap="listCCommanders_"
-      style$="visibility: [[isVisible_(diagram_.colorless)]]">
+      on-mousemove="handlePreviewHoverHelper_"
+      on-mouseleave="handlePreviewUnhover_">
+  <div class="colorless-mana deck colorless"
+      style$="visibility: [[isVisible_(diagram_.colorless)]]"
+      on-tap="listCCommanders_"
+      on-mousemove="handlePreviewHover_"
+      on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="image" style$="background-image: url([[diagram_.colorless.0.image.art]])"></div>
       <template is="dom-if" if="[[diagram_.colorless.1]]">
@@ -416,3 +530,4 @@
 </svg>
 
 <commander-selector id="selector" on-commander-selected="handleCommanderSelected_"></commander-selector>
+<preview-hover></preview-hover>

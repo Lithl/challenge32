@@ -1,11 +1,14 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element';
 import { GestureEventListeners } from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
+import { Debouncer } from '@polymer/polymer/lib/utils/debounce';
+import { timeOut } from '@polymer/polymer/lib/utils/async';
 import { customElement, query, property } from '@polymer/decorators';
 import { CommanderSelector } from '../commander-selector';
+import { PreviewHover } from'../preview-hover';
 import '@polymer/iron-ajax/iron-ajax';
 
 import { CardData, ManaColor } from '../../server/commanders';
-import { onlyUnique } from '../../util';
+import { intersection, onlyUnique } from '../../util';
 
 import { default as template } from './template.html';
 
@@ -60,15 +63,19 @@ const allColorDescriptors = Object.keys(identities);
 
 interface DiagramModel extends Record<ColorDescriptor, [CardData]> {}
 
+const timeoutTask = timeOut.after(100);
+
 @customElement('challenge-32')
 export class Challenge32 extends GestureEventListeners(PolymerElement) {
   @query('#content') private content_!: HTMLDivElement;
   @query('#selector') private selector_!: CommanderSelector;
+  @query('preview-hover') private preview_!: PreviewHover;
 
   @property() protected commanders_: CardData[] = [];
   @property() protected diagram_: Partial<DiagramModel> = {};
 
   private selectedId_?: ColorDescriptor;
+  private mousemoveDebouncer_: Debouncer | null = null;
 
   static get template() {
     // @ts-ignore
@@ -96,6 +103,37 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
 
   protected getCommanders_(e: CustomEvent) {
     this.commanders_ = e.detail.response.commanders;
+  }
+
+  protected handlePreviewHover_(e: MouseEvent, _: any, nextSibling?: HTMLElement) {
+    const path = e.composedPath();
+    const deck = nextSibling || path.find((el) =>
+        (el as HTMLElement).classList.contains('deck')) as HTMLElement;
+
+    if (deck) {
+      const identity = intersection(allColorDescriptors, [...deck.classList]);
+      if (identity.length) {
+        const data = this.diagram_[identity[0] as ColorDescriptor];
+        this.preview_.data = data;
+        const idData = identities[identity[0] as ColorDescriptor];
+        const symbols = idData.colors.length ? idData.colors.join('') : 'C';
+        this.preview_.identity = `${idData.name} (${symbols})`;
+
+        this.preview_.show(e);
+      }
+    }
+  }
+
+  protected handlePreviewHoverHelper_(e: MouseEvent) {
+    const img = e.composedPath().find((el) =>
+        (el as HTMLElement).classList.contains('mana-symbol')) as HTMLElement;
+    this.handlePreviewHover_(e, undefined, img.nextElementSibling as HTMLElement);
+  }
+
+  protected handlePreviewUnhover_() {
+    this.mousemoveDebouncer_ = Debouncer.debounce(this.mousemoveDebouncer_, timeoutTask, () => {
+      this.preview_.hide();
+    });
   }
 
   protected listWCommanders_() {
