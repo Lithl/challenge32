@@ -36,6 +36,7 @@
     "@polymer/paper-input": "^3.2.1",
     "@polymer/paper-item": "^3.0.1",
     "@polymer/paper-listbox": "^3.0.1",
+    "@polymer/paper-styles": "^3.0.1",
     "@polymer/polymer": "^3.4.1",
     "body-parser": "^1.19.0",
     "colors": "^1.4.0",
