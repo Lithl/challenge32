@@ -17,6 +17,46 @@ export type ColorDescriptor = 'colorless' | 'monoWhite' | 'monoBlue' |
     'jeskai' | 'sultai' | 'mardu' | 'temur' | 'abzan' | 'bant' | 'esper' |
     'grixis' | 'jund' | 'naya' | 'whiteless' | 'blueless' | 'blackless' |
     'redless' | 'greenless' | 'pentacolor';
+const identities: Record<ColorDescriptor, {name: string, colors: ManaColor[]}> = {
+  colorless: { name: 'Colorless', colors: [] },
+  monoWhite: { name: 'Mono-white', colors: ['W'] },
+  monoBlue: { name: 'Mono-blue', colors: ['U'] },
+  monoBlack: { name: 'Mono-black', colors: ['B'] },
+  monoRed: { name: 'Mono-red', colors: ['R'] },
+  monoGreen: { name: 'Mono-green', colors: ['G'] },
+
+  azorius: { name: 'Azorius', colors: ['W', 'U'] },
+  dimir: { name: 'Dimir', colors: ['U', 'B'] },
+  rakdos: { name: 'Rakdos', colors: ['B', 'R'] },
+  gruul: { name: 'Gruul', colors: ['R', 'G'] },
+  selesnya: { name: 'Selesnya', colors: ['W', 'G'] },
+
+  simic: { name: 'Simic', colors: ['U', 'G'] },
+  orzhov: { name: 'Orzhov', colors: ['W', 'B'] },
+  izzet: { name: 'Izzet', colors: ['U', 'R'] },
+  golgari: { name: 'Golgari', colors: ['B'] },
+  boros: { name: 'Boros', colors: ['W', 'R'] },
+
+  jeskai: { name: 'Jeskai', colors: ['W', 'U', 'R'] },
+  sultai: { name: 'Sultai', colors: ['U', 'B', 'G'] },
+  mardu: { name: 'Mardu', colors: ['W', 'B', 'R'] },
+  temur: { name: 'Temur', colors: ['U', 'R', 'G'] },
+  abzan: { name: 'Abzan', colors: ['W', 'B', 'G'] },
+
+  bant: { name: 'Bant', colors: ['W', 'U', 'G'] },
+  esper: { name: 'Esper', colors: ['W', 'U', 'B'] },
+  grixis: { name: 'Grixis', colors: ['U', 'B', 'R'] },
+  jund: { name: 'Jund', colors: ['B', 'R', 'G'] },
+  naya: { name: 'Naya', colors: ['W', 'R', 'G'] },
+
+  whiteless: { name: 'Whiteless', colors: ['U', 'B', 'R', 'G'] },
+  blueless: { name: 'Blueless', colors: ['W', 'B', 'R', 'G'] },
+  blackless: { name: 'Blackless', colors: ['W', 'U', 'R', 'G'] },
+  redless: { name: 'Redless', colors: ['W', 'U', 'B', 'G'] },
+  greenless: { name: 'Greenless', colors: ['W', 'U', 'B', 'R'] },
+  pentacolor: { name: 'Pentacolor', colors: ['W', 'U', 'B', 'R', 'G'] },
+};
+const allColorDescriptors = Object.keys(identities);
 
 interface DiagramModel extends Record<ColorDescriptor, [CardData]> {}
 
