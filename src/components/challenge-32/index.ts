@@ -21,44 +21,44 @@ export type ColorDescriptor = 'colorless' | 'monoWhite' | 'monoBlue' |
     'jeskai' | 'sultai' | 'mardu' | 'temur' | 'abzan' | 'bant' | 'esper' |
     'grixis' | 'jund' | 'naya' | 'whiteless' | 'blueless' | 'blackless' |
     'redless' | 'greenless' | 'pentacolor';
-const identities: Record<ColorDescriptor, {name: string, colors: ManaColor[]}> = {
+const identities: Record<ColorDescriptor, {name: string, type?: string, colors: ManaColor[]}> = {
   colorless: { name: 'Colorless', colors: [] },
-  monoWhite: { name: 'Mono-white', colors: ['W'] },
-  monoBlue: { name: 'Mono-blue', colors: ['U'] },
-  monoBlack: { name: 'Mono-black', colors: ['B'] },
-  monoRed: { name: 'Mono-red', colors: ['R'] },
-  monoGreen: { name: 'Mono-green', colors: ['G'] },
+  monoWhite: { name: 'Mono-white', type: 'white-mana', colors: ['W'] },
+  monoBlue: { name: 'Mono-blue', type: 'blue-mana', colors: ['U'] },
+  monoBlack: { name: 'Mono-black', type: 'black-mana', colors: ['B'] },
+  monoRed: { name: 'Mono-red', type: 'red-mana', colors: ['R'] },
+  monoGreen: { name: 'Mono-green', type: 'green-mana', colors: ['G'] },
 
-  azorius: { name: 'Azorius', colors: ['W', 'U'] },
-  dimir: { name: 'Dimir', colors: ['U', 'B'] },
-  rakdos: { name: 'Rakdos', colors: ['B', 'R'] },
-  gruul: { name: 'Gruul', colors: ['R', 'G'] },
-  selesnya: { name: 'Selesnya', colors: ['W', 'G'] },
+  azorius: { name: 'Azorius', type: 'ally', colors: ['W', 'U'] },
+  dimir: { name: 'Dimir', type: 'ally', colors: ['U', 'B'] },
+  rakdos: { name: 'Rakdos', type: 'ally', colors: ['B', 'R'] },
+  gruul: { name: 'Gruul', type: 'ally', colors: ['R', 'G'] },
+  selesnya: { name: 'Selesnya', type: 'ally', colors: ['W', 'G'] },
 
-  simic: { name: 'Simic', colors: ['U', 'G'] },
-  orzhov: { name: 'Orzhov', colors: ['W', 'B'] },
-  izzet: { name: 'Izzet', colors: ['U', 'R'] },
-  golgari: { name: 'Golgari', colors: ['B', 'G'] },
-  boros: { name: 'Boros', colors: ['W', 'R'] },
+  simic: { name: 'Simic', type: 'enemy', colors: ['U', 'G'] },
+  orzhov: { name: 'Orzhov', type: 'enemy', colors: ['W', 'B'] },
+  izzet: { name: 'Izzet', type: 'enemy', colors: ['U', 'R'] },
+  golgari: { name: 'Golgari', type: 'enemy', colors: ['B', 'G'] },
+  boros: { name: 'Boros', type: 'enemy', colors: ['W', 'R'] },
 
-  jeskai: { name: 'Jeskai', colors: ['W', 'U', 'R'] },
-  sultai: { name: 'Sultai', colors: ['U', 'B', 'G'] },
-  mardu: { name: 'Mardu', colors: ['W', 'B', 'R'] },
-  temur: { name: 'Temur', colors: ['U', 'R', 'G'] },
-  abzan: { name: 'Abzan', colors: ['W', 'B', 'G'] },
+  jeskai: { name: 'Jeskai', type: 'wedge', colors: ['W', 'U', 'R'] },
+  sultai: { name: 'Sultai', type: 'wedge', colors: ['U', 'B', 'G'] },
+  mardu: { name: 'Mardu', type: 'wedge', colors: ['W', 'B', 'R'] },
+  temur: { name: 'Temur', type: 'wedge', colors: ['U', 'R', 'G'] },
+  abzan: { name: 'Abzan', type: 'wedge', colors: ['W', 'B', 'G'] },
 
-  bant: { name: 'Bant', colors: ['W', 'U', 'G'] },
-  esper: { name: 'Esper', colors: ['W', 'U', 'B'] },
-  grixis: { name: 'Grixis', colors: ['U', 'B', 'R'] },
-  jund: { name: 'Jund', colors: ['B', 'R', 'G'] },
-  naya: { name: 'Naya', colors: ['W', 'R', 'G'] },
+  bant: { name: 'Bant', type: 'shard', colors: ['W', 'U', 'G'] },
+  esper: { name: 'Esper', type: 'shard', colors: ['W', 'U', 'B'] },
+  grixis: { name: 'Grixis', type: 'shard', colors: ['U', 'B', 'R'] },
+  jund: { name: 'Jund', type: 'shard', colors: ['B', 'R', 'G'] },
+  naya: { name: 'Naya', type: 'shard', colors: ['W', 'R', 'G'] },
 
-  whiteless: { name: 'Whiteless', colors: ['U', 'B', 'R', 'G'] },
-  blueless: { name: 'Blueless', colors: ['W', 'B', 'R', 'G'] },
-  blackless: { name: 'Blackless', colors: ['W', 'U', 'R', 'G'] },
-  redless: { name: 'Redless', colors: ['W', 'U', 'B', 'G'] },
-  greenless: { name: 'Greenless', colors: ['W', 'U', 'B', 'R'] },
-  pentacolor: { name: 'Pentacolor', colors: ['W', 'U', 'B', 'R', 'G'] },
+  whiteless: { name: 'Whiteless', type: 'four-color', colors: ['U', 'B', 'R', 'G'] },
+  blueless: { name: 'Blueless', type: 'four-color', colors: ['W', 'B', 'R', 'G'] },
+  blackless: { name: 'Blackless', type: 'four-color', colors: ['W', 'U', 'R', 'G'] },
+  redless: { name: 'Redless', type: 'four-color', colors: ['W', 'U', 'B', 'G'] },
+  greenless: { name: 'Greenless', type: 'four-color', colors: ['W', 'U', 'B', 'R'] },
+  pentacolor: { name: 'Pentacolor', type: '', colors: ['W', 'U', 'B', 'R', 'G'] },
 };
 const allColorDescriptors = Object.keys(identities) as ColorDescriptor[];
 
@@ -97,262 +97,18 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     super();
 
     const self = this;
-    this.generatorData_ = [
-      {
-        name: 'monoWhite',
-        type: 'white-mana',
-        id: 'w',
+    const dataArr: ShapeData[] = [];
+    Object.entries(identities).forEach((id) => {
+      dataArr.push({
+        name: id[0],
+        type: id[1].type!,
+        id: id[1].colors.join('').toLowerCase(),
         get data() {
-          return () => self.diagram_.monoWhite;
+          return () => self.diagram_[id[0] as ColorDescriptor];
         },
-      },
-      {
-        name: 'monoBlue',
-        type: 'blue-mana',
-        id: 'u',
-        get data() {
-          return () => self.diagram_.monoBlue;
-        },
-      },
-      {
-        name: 'monoBlack',
-        type: 'black-mana',
-        id: 'b',
-        get data() {
-          return () => self.diagram_.monoBlack;
-        },
-      },
-      {
-        name: 'monoRed',
-        type: 'red-mana',
-        id: 'r',
-        get data() {
-          return () => self.diagram_.monoRed;
-        },
-      },
-      {
-        name: 'monoGreen',
-        type: 'green-mana',
-        id: 'g',
-        get data() {
-          return () => self.diagram_.monoGreen;
-        },
-      },
-
-      {
-        name: 'azorius',
-        type: 'ally',
-        id: 'wu',
-        get data() {
-          return () => self.diagram_.azorius;
-        }
-      },
-      {
-        name: 'dimir',
-        type: 'ally',
-        id: 'ub',
-        get data() {
-          return () => self.diagram_.dimir;
-        }
-      },
-      {
-        name: 'rakdos',
-        type: 'ally',
-        id: 'br',
-        get data() {
-          return () => self.diagram_.rakdos;
-        }
-      },
-      {
-        name: 'gruul',
-        type: 'ally',
-        id: 'rg',
-        get data() {
-          return () => self.diagram_.gruul;
-        }
-      },
-      {
-        name: 'selesnya',
-        type: 'ally',
-        id: 'wg',
-        get data() {
-          return () => self.diagram_.selesnya;
-        }
-      },
-
-      {
-        name: 'simic',
-        type: 'enemy',
-        id: 'ug',
-        get data() {
-          return () => self.diagram_.simic;
-        },
-      },
-      {
-        name: 'orzhov',
-        type: 'enemy',
-        id: 'wb',
-        get data() {
-          return () => self.diagram_.orzhov;
-        },
-      },
-      {
-        name: 'izzet',
-        type: 'enemy',
-        id: 'ur',
-        get data() {
-          return () => self.diagram_.izzet;
-        },
-      },
-      {
-        name: 'golgari',
-        type: 'enemy',
-        id: 'bg',
-        get data() {
-          return () => self.diagram_.golgari;
-        },
-      },
-      {
-        name: 'boros',
-        type: 'enemy',
-        id: 'wr',
-        get data() {
-          return () => self.diagram_.boros;
-        },
-      },
-
-      {
-        name: 'jeskai',
-        type: 'wedge',
-        id: 'wur',
-        get data() {
-          return () => self.diagram_.jeskai;
-        },
-      },
-      {
-        name: 'sultai',
-        type: 'wedge',
-        id: 'ubg',
-        get data() {
-          return () => self.diagram_.sultai;
-        },
-      },
-      {
-        name: 'mardu',
-        type: 'wedge',
-        id: 'wbr',
-        get data() {
-          return () => self.diagram_.mardu;
-        },
-      },
-      {
-        name: 'temur',
-        type: 'wedge',
-        id: 'urg',
-        get data() {
-          return () => self.diagram_.temur;
-        },
-      },
-      {
-        name: 'abzan',
-        type: 'wedge',
-        id: 'wbg',
-        get data() {
-          return () => self.diagram_.abzan;
-        },
-      },
-
-      {
-        name: 'bant',
-        type: 'shard',
-        id: 'wug',
-        get data() {
-          return () => self.diagram_.bant;
-        },
-      },
-      {
-        name: 'esper',
-        type: 'shard',
-        id: 'wub',
-        get data() {
-          return () => self.diagram_.esper;
-        },
-      },
-      {
-        name: 'grixis',
-        type: 'shard',
-        id: 'ubr',
-        get data() {
-          return () => self.diagram_.grixis;
-        },
-      },
-      {
-        name: 'jund',
-        type: 'shard',
-        id: 'brg',
-        get data() {
-          return () => self.diagram_.jund;
-        },
-      },
-      {
-        name: 'naya',
-        type: 'shard',
-        id: 'wrg',
-        get data() {
-          return () => self.diagram_.naya;
-        },
-      },
-
-      {
-        name: 'whiteless',
-        type: 'four-color',
-        id: 'ubrg',
-        get data() {
-          return () => self.diagram_.whiteless;
-        },
-      },
-      {
-        name: 'blueless',
-        type: 'four-color',
-        id: 'wbrg',
-        get data() {
-          return () => self.diagram_.blueless;
-        },
-      },
-      {
-        name: 'blackless',
-        type: 'four-color',
-        id: 'wurg',
-        get data() {
-          return () => self.diagram_.blackless;
-        },
-      },
-      {
-        name: 'redless',
-        type: 'four-color',
-        id: 'wubg',
-        get data() {
-          return () => self.diagram_.redless;
-        },
-      },
-      {
-        name: 'greenless',
-        type: 'four-color',
-        id: 'wubr',
-        get data() {
-          return () => self.diagram_.greenless;
-        },
-      },
-
-      {
-        name: 'pentacolor',
-        type: '',
-        id: 'wubrg',
-        get data() {
-          return () => self.diagram_.pentacolor;
-        },
-      },
-    ];
+      });
+    });
+    this.generatorData_ = dataArr;
   }
 
   ready() {
