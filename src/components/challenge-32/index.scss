@@ -17,23 +17,6 @@ $c2: $sqrt5Plus1 / 4;
 $s1: $sqrtTenPlus2sqrt5 / 4;
 $s2: $sqrtTenMinus2sqrt5 / 4;
 
-@function px($px) {
-  // converts a pixel value to a number suitable for use with vh/vw units
-  @return $px * .08458;
-}
-
-@function invert($n) {
-  // $n: number in rane [0,1]
-  // return: number in range [1,0]
-  @return (1 - $n);
-}
-
-@function range-scale($n) {
-  // $n: number in range [-1,1]
-  // return: number in range [0,1]
-  @return ($n + 1) / 2;
-}
-
 @mixin point($x, $y, $unit, $scale: 100) {
   // $x: x-coordinate in range [-1,1]
   // $y: y-coordinate in range [-1,1]
