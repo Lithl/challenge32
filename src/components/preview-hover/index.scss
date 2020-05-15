@@ -1,0 +1,21 @@
+@import '../../common';
+
+:host {
+  position: absolute;
+}
+
+#content {
+  padding: 8px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity .5s ease-in-out;
+  z-index: 5000;
+  background-color: white;
+  white-space: nowrap;
+
+  @apply --shadow-elevation-2dp;
+}
+
+.card-image {
+  width: px(200) * 1vh;
+}

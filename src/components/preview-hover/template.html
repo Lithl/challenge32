@@ -1,0 +1,11 @@
+<style include="preview-hover"></style>
+
+<div id="content">
+  <h2>[[identity]]</h2>
+  <template is="dom-if" if="[[data]]">
+    <img class="card-image" src$="[[data.0.image.normal]]">
+    <template is="dom-if" if="[[data.1]]">
+      <img class="card-image" src$="[[data.1.image.normal]]">
+    </template>
+  </template>
+</div>
