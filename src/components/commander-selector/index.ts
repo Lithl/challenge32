@@ -30,7 +30,7 @@ interface DomRepeatMouseEvent extends MouseEvent {
   };
 }
 
-interface DomRepeatCustomEvent extends CustomEvent {
+export interface DomRepeatCustomEvent extends CustomEvent {
   model: {
     item: any,
     index: number,

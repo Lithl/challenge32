@@ -99,6 +99,7 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   border-radius: 50%;
   position: absolute;
   user-select: none;
+  z-index: 2;
 }
 
 .dot {
@@ -192,6 +193,7 @@ div.green-mana.deck {
     border-radius: 50%;
     border-style: solid;
     border-color: black;
+    z-index: 2;
 
     .background,
     .image {

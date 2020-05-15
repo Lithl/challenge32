@@ -9,6 +9,7 @@ import '@polymer/iron-ajax/iron-ajax';
 
 import { CardData, ManaColor } from '../../server/commanders';
 import { intersection, onlyUnique } from '../../util';
+import { DomRepeatCustomEvent } from '../commander-selector';
 
 import { default as template } from './template.html';
 
@@ -65,6 +66,13 @@ interface DiagramModel extends Record<ColorDescriptor, [CardData]> {}
 
 const timeoutTask = timeOut.after(100);
 
+interface ShapeData {
+  name: string;
+  type: string;
+  id: string;
+  readonly data: () => [CardData] | undefined;
+}
+
 @customElement('challenge-32')
 export class Challenge32 extends GestureEventListeners(PolymerElement) {
   [x: string]: any;
@@ -75,6 +83,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
 
   @property() protected commanders_: CardData[] = [];
   @property() protected diagram_: Partial<DiagramModel> = {};
+  @property() protected readonly generatorData_: ShapeData[];
 
   private selectedId_?: ColorDescriptor;
   private mousemoveDebouncer_: Debouncer | null = null;
@@ -82,6 +91,268 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   static get template() {
     // @ts-ignore
     return html([template]);
+  }
+
+  constructor() {
+    super();
+
+    const self = this;
+    this.generatorData_ = [
+      {
+        name: 'monoWhite',
+        type: 'white-mana',
+        id: 'w',
+        get data() {
+          return () => self.diagram_.monoWhite;
+        },
+      },
+      {
+        name: 'monoBlue',
+        type: 'blue-mana',
+        id: 'u',
+        get data() {
+          return () => self.diagram_.monoBlue;
+        },
+      },
+      {
+        name: 'monoBlack',
+        type: 'black-mana',
+        id: 'b',
+        get data() {
+          return () => self.diagram_.monoBlack;
+        },
+      },
+      {
+        name: 'monoRed',
+        type: 'red-mana',
+        id: 'r',
+        get data() {
+          return () => self.diagram_.monoRed;
+        },
+      },
+      {
+        name: 'monoGreen',
+        type: 'green-mana',
+        id: 'g',
+        get data() {
+          return () => self.diagram_.monoGreen;
+        },
+      },
+
+      {
+        name: 'azorius',
+        type: 'ally',
+        id: 'wu',
+        get data() {
+          return () => self.diagram_.azorius;
+        }
+      },
+      {
+        name: 'dimir',
+        type: 'ally',
+        id: 'ub',
+        get data() {
+          return () => self.diagram_.dimir;
+        }
+      },
+      {
+        name: 'rakdos',
+        type: 'ally',
+        id: 'br',
+        get data() {
+          return () => self.diagram_.rakdos;
+        }
+      },
+      {
+        name: 'gruul',
+        type: 'ally',
+        id: 'rg',
+        get data() {
+          return () => self.diagram_.gruul;
+        }
+      },
+      {
+        name: 'selesnya',
+        type: 'ally',
+        id: 'wg',
+        get data() {
+          return () => self.diagram_.selesnya;
+        }
+      },
+
+      {
+        name: 'simic',
+        type: 'enemy',
+        id: 'ug',
+        get data() {
+          return () => self.diagram_.simic;
+        },
+      },
+      {
+        name: 'orzhov',
+        type: 'enemy',
+        id: 'wb',
+        get data() {
+          return () => self.diagram_.orzhov;
+        },
+      },
+      {
+        name: 'izzet',
+        type: 'enemy',
+        id: 'ur',
+        get data() {
+          return () => self.diagram_.izzet;
+        },
+      },
+      {
+        name: 'golgari',
+        type: 'enemy',
+        id: 'bg',
+        get data() {
+          return () => self.diagram_.golgari;
+        },
+      },
+      {
+        name: 'boros',
+        type: 'enemy',
+        id: 'wr',
+        get data() {
+          return () => self.diagram_.boros;
+        },
+      },
+
+      {
+        name: 'jeskai',
+        type: 'wedge',
+        id: 'wur',
+        get data() {
+          return () => self.diagram_.jeskai;
+        },
+      },
+      {
+        name: 'sultai',
+        type: 'wedge',
+        id: 'ubg',
+        get data() {
+          return () => self.diagram_.sultai;
+        },
+      },
+      {
+        name: 'mardu',
+        type: 'wedge',
+        id: 'wbr',
+        get data() {
+          return () => self.diagram_.mardu;
+        },
+      },
+      {
+        name: 'temur',
+        type: 'wedge',
+        id: 'urg',
+        get data() {
+          return () => self.diagram_.temur;
+        },
+      },
+      {
+        name: 'abzan',
+        type: 'wedge',
+        id: 'wbg',
+        get data() {
+          return () => self.diagram_.abzan;
+        },
+      },
+
+      {
+        name: 'bant',
+        type: 'shard',
+        id: 'wug',
+        get data() {
+          return () => self.diagram_.bant;
+        },
+      },
+      {
+        name: 'esper',
+        type: 'shard',
+        id: 'wub',
+        get data() {
+          return () => self.diagram_.esper;
+        },
+      },
+      {
+        name: 'grixis',
+        type: 'shard',
+        id: 'ubr',
+        get data() {
+          return () => self.diagram_.grixis;
+        },
+      },
+      {
+        name: 'jund',
+        type: 'shard',
+        id: 'brg',
+        get data() {
+          return () => self.diagram_.jund;
+        },
+      },
+      {
+        name: 'naya',
+        type: 'shard',
+        id: 'wrg',
+        get data() {
+          return () => self.diagram_.naya;
+        },
+      },
+
+      {
+        name: 'whiteless',
+        type: 'four-color',
+        id: 'ubrg',
+        get data() {
+          return () => self.diagram_.whiteless;
+        },
+      },
+      {
+        name: 'blueless',
+        type: 'four-color',
+        id: 'wbrg',
+        get data() {
+          return () => self.diagram_.blueless;
+        },
+      },
+      {
+        name: 'blackless',
+        type: 'four-color',
+        id: 'wurg',
+        get data() {
+          return () => self.diagram_.blackless;
+        },
+      },
+      {
+        name: 'redless',
+        type: 'four-color',
+        id: 'wubg',
+        get data() {
+          return () => self.diagram_.redless;
+        },
+      },
+      {
+        name: 'greenless',
+        type: 'four-color',
+        id: 'wubr',
+        get data() {
+          return () => self.diagram_.greenless;
+        },
+      },
+
+      {
+        name: 'pentacolor',
+        type: '',
+        id: 'wubrg',
+        get data() {
+          return () => self.diagram_.pentacolor;
+        },
+      },
+    ];
   }
 
   ready() {
@@ -101,6 +372,24 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
       this.content_.classList.toggle('landscape', false);
       this.content_.classList.toggle('portrait', true);
     }
+  }
+
+  protected generatorItemTapped_(e: DomRepeatCustomEvent) {
+    this[`list${e.model.item.id.toUpperCase()}Commanders_`]();
+  }
+
+  protected getArt_(item: () => CardData[] | undefined, idx: number) {
+    const data = item();
+    return data && data[idx].image.art;
+  }
+
+  protected hasPartner_(item: () => CardData[] | undefined) {
+    const data = item();
+    return data && data[1];
+  }
+
+  protected hasSymbolUrl_(item: ShapeData) {
+    return item.id.length === 1;
   }
 
   protected getCommanders_(e: CustomEvent) {
@@ -129,7 +418,10 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   protected handlePreviewHoverHelper_(e: MouseEvent) {
     const img = e.composedPath().find((el) =>
         (el as HTMLElement).classList.contains('mana-symbol')) as HTMLElement;
-    this.handlePreviewHover_(e, undefined, img.nextElementSibling as HTMLElement);
+    const sibs = [...this.content_.children];
+    const imgIdx = sibs.findIndex((elem) => elem === img);
+    const petal = sibs.find((elem, idx) => idx >= imgIdx && elem.nodeName === 'DIV');
+    this.handlePreviewHover_(e, undefined, petal as HTMLElement);
   }
 
   protected handlePreviewUnhover_() {
@@ -200,10 +492,15 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   protected handleCommanderSelected_(e: CustomEvent) {
     if (this.selectedId_) {
       this.set(`diagram_.${this.selectedId_}`, e.detail);
+      const idx = this.generatorData_.findIndex((shape) => shape.name === this.selectedId_);
+      this.notifyPath(`generatorData_.${idx}.data`);
     }
   }
 
-  protected isVisible_(card?: CardData) {
+  protected isVisible_(card?: (() => CardData[] | undefined) | CardData[]) {
+    if (typeof card === 'function') {
+      return !!card() ? 'visible' : 'hidden';
+    }
     return !!card ? 'visible' : 'hidden';
   }
 
