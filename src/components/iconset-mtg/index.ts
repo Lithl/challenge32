@@ -4,8 +4,6 @@ import '@polymer/iron-iconset-svg/iron-iconset-svg';
 
 import { default as template } from './template.html';
 
-import './index.scss?name=iconset-mtg';
-
 @customElement('iconset-mtg')
 export class IconsetMtg extends PolymerElement {
   static get template() {
