@@ -1,0 +1,21 @@
+@import '../../common';
+
+#border {
+  border-width: 1px;
+  border-style: solid;
+  display: inline-block;
+  padding: 3px;
+  cursor: pointer;
+
+  @apply --icon-toggle-button;
+
+  &.unchecked {
+    border-color: var(--toggle-button-unchecked-border-color, var(--google-grey-500));
+    background: radial-gradient(transparent, var(--toggle-button-unchecked-color, var(--google-grey-300)));
+  }
+
+  &.checked {
+    border-color: var(--toggle-button-checked-border-color, var(--google-blue-500));
+    background: radial-gradient(transparent, var(--toggle-button-checked-color, var(--google-blue-300)));
+  }
+}
