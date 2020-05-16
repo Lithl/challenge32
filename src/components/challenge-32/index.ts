@@ -6,13 +6,14 @@ import { customElement, query, property } from '@polymer/decorators';
 import { CommanderSelector } from '../commander-selector';
 import { PreviewHover } from'../preview-hover';
 import { AppDrawerElement } from '@polymer/app-layout/app-drawer/app-drawer';
-import '@polymer/iron-ajax/iron-ajax';
 import { PaperIconButtonElement } from '@polymer/paper-icon-button/paper-icon-button';
+import '@polymer/iron-ajax/iron-ajax';
 import '@polymer/app-layout/app-drawer/app-drawer';
 import '@polymer/paper-icon-button/paper-icon-button';
 import '@polymer/paper-tooltip/paper-tooltip';
 import '../icon-toggle-button';
 import '../iconset-mtg';
+import '../toggle-button-group';
 
 import { CardData, ManaColor } from '../../server/commanders';
 import { intersection, onlyUnique } from '../../util';
@@ -93,6 +94,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   @property() protected commanders_: CardData[] = [];
   @property() protected diagram_: Partial<DiagramModel> = {};
   @property() protected readonly generatorData_: ShapeData[];
+  @property() protected editId_ = 'C';
 
   private selectedId_?: ColorDescriptor;
   private mousemoveDebouncer_: Debouncer | null = null;
@@ -136,6 +138,26 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     } else {
       this.content_.classList.toggle('landscape', false);
       this.content_.classList.toggle('portrait', true);
+    }
+  }
+
+  protected handleEditIdChanged_(e: CustomEvent) {
+    const prev: string[] = e.detail.previous;
+    const curr: string[] = e.detail.current;
+
+    if (prev.includes('C') && curr.length > 1) {
+      // went from colorless to colored, deselect C
+      setTimeout(() =>
+          this.editId_ = curr.filter((v: string) => v !== 'C').join(''), 0);
+    } else if (curr.includes('C')) {
+      // went from colored to colorless, set to only C
+      setTimeout(() => this.editId_ = 'C');
+    } else if (prev.includes('C') && curr.length === 0) {
+      // went from colorless to nothing, use 5C
+      setTimeout(() => this.editId_ = 'WUBRG');
+    } else if (!prev.includes('C') && curr.length === 0) {
+      // went from colored to nothing, use C
+      setTimeout(() => this.editId_ = 'C');
     }
   }
 

@@ -16,12 +16,17 @@
     align="end"
     on-opened-changed="handleMenuToggle_">
   <h2>Edit commanders</h2>
-  <icon-toggle-button icon="mtg:w"></icon-toggle-button>
-  <icon-toggle-button icon="mtg:u"></icon-toggle-button>
-  <icon-toggle-button icon="mtg:b"></icon-toggle-button>
-  <icon-toggle-button icon="mtg:r"></icon-toggle-button>
-  <icon-toggle-button icon="mtg:g"></icon-toggle-button>
-  <icon-toggle-button icon="mtg:c" checked></icon-toggle-button>
+  <toggle-button-group
+      attr-for-value="color"
+      value="{{editId_}}"
+      on-group-value-changed="handleEditIdChanged_">
+    <icon-toggle-button icon="mtg:w" color="W"></icon-toggle-button>
+    <icon-toggle-button icon="mtg:u" color="U"></icon-toggle-button>
+    <icon-toggle-button icon="mtg:b" color="B"></icon-toggle-button>
+    <icon-toggle-button icon="mtg:r" color="R"></icon-toggle-button>
+    <icon-toggle-button icon="mtg:g" color="G"></icon-toggle-button>
+    <icon-toggle-button icon="mtg:c" color="C"></icon-toggle-button>
+  </tggle-button-group>
 </app-drawer>
 <div id="content">
   <img src="/images/c.svg"
