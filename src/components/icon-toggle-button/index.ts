@@ -23,5 +23,13 @@ export class IconToggleButton extends PolymerElement {
 
   protected toggleChecked_() {
     this.checked = !this.checked;
+    this.dispatchEvent(new CustomEvent('button-state-changed', {
+      detail: {
+        button: this,
+        state: this.checked,
+      },
+      bubbles: true,
+      composed: true,
+    }));
   }
 }
