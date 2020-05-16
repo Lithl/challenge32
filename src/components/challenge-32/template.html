@@ -5,6 +5,24 @@
   handle-as="json"
   on-response="getCommanders_"></iron-ajax>
 
+<iconset-mtg></iconset-mtg>
+<paper-tooltip fit-to-visible-bounds for="menuButton">Toggle edit menu</paper-tooltip>
+<paper-icon-button
+    id="menuButton"
+    icon="menu"
+    on-tap="toggleMenu_"></paper-icon-button>
+<app-drawer
+    id="menu"
+    align="end"
+    on-opened-changed="handleMenuToggle_">
+  <h2>Edit commanders</h2>
+  <icon-toggle-button icon="mtg:w"></icon-toggle-button>
+  <icon-toggle-button icon="mtg:u"></icon-toggle-button>
+  <icon-toggle-button icon="mtg:b"></icon-toggle-button>
+  <icon-toggle-button icon="mtg:r"></icon-toggle-button>
+  <icon-toggle-button icon="mtg:g"></icon-toggle-button>
+  <icon-toggle-button icon="mtg:c" checked></icon-toggle-button>
+</app-drawer>
 <div id="content">
   <img src="/images/c.svg"
       class="colorless-mana mana-symbol deck"

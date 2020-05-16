@@ -93,6 +93,57 @@ $s2: $sqrtTenMinus2sqrt5 / 4;
   }
 }
 
+:host {
+  --app-drawer-width: 30vw;
+}
+
+paper-tooltip {
+  z-index: 5000;
+}
+
+#menuButton {
+  top: 1vh;
+  right: 0;
+  position: absolute;
+  z-index: 5000;
+  transition: right 200ms ease;
+  border-color: black;
+  border-style: solid;
+  border-top-width: 1px;
+  border-left-width: 1px;
+  border-bottom-width: 1px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  background-color: white;
+
+  &.menu-open {
+    right: var(--app-drawer-width);
+  }
+}
+
+#menu {
+  --app-drawer-content-container: {
+    z-index: 5000;
+  }
+
+  --iron-icon: {
+    border-radius: 50%;
+
+    @apply --shadow-elevation-2dp;
+  }
+
+  z-index: 4000;
+  text-align: initial;
+
+  h2 {
+    padding: 0 24px;
+
+    &:first-child {
+      margin-top: 16px;
+    }
+  }
+}
+
 .mana-symbol {
   border-color: black;
   border-style: solid;

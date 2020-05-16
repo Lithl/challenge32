@@ -5,7 +5,14 @@ import { timeOut } from '@polymer/polymer/lib/utils/async';
 import { customElement, query, property } from '@polymer/decorators';
 import { CommanderSelector } from '../commander-selector';
 import { PreviewHover } from'../preview-hover';
+import { AppDrawerElement } from '@polymer/app-layout/app-drawer/app-drawer';
 import '@polymer/iron-ajax/iron-ajax';
+import { PaperIconButtonElement } from '@polymer/paper-icon-button/paper-icon-button';
+import '@polymer/app-layout/app-drawer/app-drawer';
+import '@polymer/paper-icon-button/paper-icon-button';
+import '@polymer/paper-tooltip/paper-tooltip';
+import '../icon-toggle-button';
+import '../iconset-mtg';
 
 import { CardData, ManaColor } from '../../server/commanders';
 import { intersection, onlyUnique } from '../../util';
@@ -80,6 +87,8 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   @query('#content') private content_!: HTMLDivElement;
   @query('#selector') private selector_!: CommanderSelector;
   @query('preview-hover') private preview_!: PreviewHover;
+  @query('#menu') private menu_!: AppDrawerElement;
+  @query('#menuButton') private menuButton_!: PaperIconButtonElement;
 
   @property() protected commanders_: CardData[] = [];
   @property() protected diagram_: Partial<DiagramModel> = {};
@@ -128,6 +137,14 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
       this.content_.classList.toggle('landscape', false);
       this.content_.classList.toggle('portrait', true);
     }
+  }
+
+  protected toggleMenu_() {
+    this.menu_.opened = !this.menu_.opened;
+  }
+
+  protected handleMenuToggle_() {
+    this.menuButton_.classList.toggle('menu-open', this.menu_.opened!);
   }
 
   protected generatorItemTapped_(e: DomRepeatCustomEvent) {
