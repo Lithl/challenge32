@@ -1,5 +1,9 @@
 @import '../../common';
 
+:host {
+  display: inline-block;
+}
+
 #border {
   border-width: 1px;
   border-style: solid;
