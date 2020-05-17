@@ -3,3 +3,14 @@
 :host {
   display: flex;
 }
+
+::slotted(:first-child),
+::slotted(:last-child) {
+  flex-grow: 1;
+}
+
+::slotted(:first-child) {
+  --icon-toggle-button: {
+    float: right;
+  }
+}
