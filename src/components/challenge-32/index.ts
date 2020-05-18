@@ -176,7 +176,8 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
 
   protected handleImageAdjust_(e: DomRepeatCustomEvent) {
     const card = e.model.item as CardData;
-    const isFull = this.colorIdentityEquals_(card, this.editId_);
+    const id = this.editId_ === 'C' ? '' : this.editId_;
+    const isFull = this.colorIdentityEquals_(card, id);
     const isLeft = !isFull && e.model.index === 0;
 
     this.adjuster_.isFull = isFull;
