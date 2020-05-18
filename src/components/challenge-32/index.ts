@@ -448,10 +448,6 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     }
     return !!card ? 'visible' : 'hidden';
   }
-
-  protected isBackground_(card?: CardData) {
-    return !!card ? 'background' : '';
-  }
 }
 
 allColorDescriptors.forEach((k) => {
