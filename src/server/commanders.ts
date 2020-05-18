@@ -2,6 +2,9 @@ import express from 'express';
 import request from 'request-promise-native';
 import 'colors';
 
+const partnerWithRegex = /^partner with ([^(\n]+)/im;
+const partnerRegex = /^partner\b/im;
+
 export type ManaColor = 'W' | 'U' | 'B' | 'R' | 'G';
 
 export interface CardData {
@@ -40,11 +43,13 @@ export function apply(app: express.Application) {
           let partnerWith;
           let partnerWithAny;
           if (orig.card_faces && orig.card_faces[0].oracle_text) {
-            partnerWith = (orig.card_faces[0].oracle_text.match(/^partner with ([^(\n]+)/im) || '')[1];
-            partnerWithAny = /^partner\b/im.test(orig.card_faces[0].oracle_text) && !partnerWith;
+            const text = orig.card_faces[0].oracle_text;
+            partnerWith = (text.match(partnerWithRegex) || '')[1];
+            partnerWithAny = partnerRegex.test(text) && !partnerWith;
           } else {
-            partnerWith = (orig.oracle_text.match(/^partner with ([^(\n]+)/im) || '')[1];
-            partnerWithAny = /^partner\b/im.test(orig.oracle_text) && !partnerWith;
+            const text = orig.oracle_text;
+            partnerWith = (text.match(partnerWithRegex) || '')[1];
+            partnerWithAny = partnerRegex.test(text) && !partnerWith;
           }
           if (partnerWith) partnerWith = partnerWith.trim();
 
@@ -102,13 +107,14 @@ export function apply(app: express.Application) {
     }
   });
 
-  createRoute('/repopulate-commanders', (_: express.Request, res: express.Response) => {
-    commanders = [];
-    populateCommanders().finally(() => {
-      res.status(200).send({
-        updating: true,
-        message: 'A full update has begun. This may take several minutes.',
+  createRoute('/repopulate-commanders',
+      (_: express.Request, res: express.Response) => {
+        commanders = [];
+        populateCommanders().finally(() => {
+          res.status(200).send({
+            updating: true,
+            message: 'A full update has begun. This may take several minutes.',
+          });
+        });
       });
-    });
-  });
 }

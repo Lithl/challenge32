@@ -26,7 +26,8 @@ export class ToggleButtonGroup extends PolymerElement {
 
     [...this.children].forEach((child) => {
       if (child instanceof IconToggleButton) {
-        child.addEventListener('button-state-changed', () => this.buttonStateChanged_());
+        child.addEventListener('button-state-changed', () =>
+            this.buttonStateChanged_());
       }
     });
   }

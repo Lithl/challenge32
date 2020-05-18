@@ -135,7 +135,8 @@ export class CommanderSelector extends PolymerElement {
         return this.filterCommanders_(card);
       });
       const partnerIdx = displayed.findIndex((card: CardData) => {
-        return card.name.toLowerCase() === e.model.item.partnerWith.toLowerCase();
+        const partnerWith = e.model.item.partnerWith.toLowerCase();
+        return card.name.toLowerCase() === partnerWith;
       });
       if (partnerIdx >= 0) {
         this.listContainer_.selectedValues = [partnerIdx];
@@ -146,7 +147,7 @@ export class CommanderSelector extends PolymerElement {
     if (this.lastTapped_) {
       if (!partnerWithForced && this.lastTapped_ !== e.model.item) {
         if (!(this.lastTapped_.partnerWithAny && e.model.item.partnerWithAny)) {
-          // unless both previous and current selections have partner, only select one
+          // unless both prev and curr selections have partner, only select one
           this.listContainer_.selectedValues = [];
         } else {
           // current and previous are both partners
@@ -159,7 +160,8 @@ export class CommanderSelector extends PolymerElement {
           const prevId = this.lastTapped_.colorIdentity;
           const currId = e.model.item.colorIdentity;
           const combinedId = [...prevId, ...currId].filter(onlyUnique);
-          const identity = identityMap[this.identityToColorDescriptor_(this.identity)];
+          const identity =
+              identityMap[this.identityToColorDescriptor_(this.identity)];
           let isGoodId = identity.length === combinedId.length;
           for (const color of identity) {
             isGoodId = isGoodId && combinedId.includes(color);
@@ -191,9 +193,10 @@ export class CommanderSelector extends PolymerElement {
     const selected = displayed.filter((_: CardData, idx: number) => {
       return this.listContainer_.selectedValues!.includes(idx);
     });
-    const identity = identityMap[this.identityToColorDescriptor_(this.identity)];
-    const selectedIdentity = selected.map((card: CardData) => card.colorIdentity)
-        .reduce((memo: ManaColor[], val: ManaColor[]) => {
+    const identity =
+        identityMap[this.identityToColorDescriptor_(this.identity)];
+    const selectedIdentity = selected.map((card: CardData) =>
+        card.colorIdentity).reduce((memo: ManaColor[], val: ManaColor[]) => {
           return [...memo, ...val];
         }, []).filter(onlyUnique);
 

@@ -29,7 +29,12 @@ export type ColorDescriptor = 'colorless' | 'monoWhite' | 'monoBlue' |
     'jeskai' | 'sultai' | 'mardu' | 'temur' | 'abzan' | 'bant' | 'esper' |
     'grixis' | 'jund' | 'naya' | 'whiteless' | 'blueless' | 'blackless' |
     'redless' | 'greenless' | 'pentacolor';
-const identities: Record<ColorDescriptor, {name: string, type?: string, colors: ManaColor[]}> = {
+interface Identity {
+  name: string;
+  type?: string;
+  colors: ManaColor[];
+}
+const identities: Record<ColorDescriptor, Identity> = {
   colorless: { name: 'Colorless', colors: [] },
   monoWhite: { name: 'Mono-white', type: 'white-mana', colors: ['W'] },
   monoBlue: { name: 'Mono-blue', type: 'blue-mana', colors: ['U'] },
@@ -61,12 +66,36 @@ const identities: Record<ColorDescriptor, {name: string, type?: string, colors: 
   jund: { name: 'Jund', type: 'shard', colors: ['B', 'R', 'G'] },
   naya: { name: 'Naya', type: 'shard', colors: ['W', 'R', 'G'] },
 
-  whiteless: { name: 'Whiteless', type: 'four-color', colors: ['U', 'B', 'R', 'G'] },
-  blueless: { name: 'Blueless', type: 'four-color', colors: ['W', 'B', 'R', 'G'] },
-  blackless: { name: 'Blackless', type: 'four-color', colors: ['W', 'U', 'R', 'G'] },
-  redless: { name: 'Redless', type: 'four-color', colors: ['W', 'U', 'B', 'G'] },
-  greenless: { name: 'Greenless', type: 'four-color', colors: ['W', 'U', 'B', 'R'] },
-  pentacolor: { name: 'Pentacolor', type: '', colors: ['W', 'U', 'B', 'R', 'G'] },
+  whiteless: {
+    name: 'Whiteless',
+    type: 'four-color',
+    colors: ['U', 'B', 'R', 'G'],
+  },
+  blueless: {
+    name: 'Blueless',
+    type: 'four-color',
+    colors: ['W', 'B', 'R', 'G'],
+  },
+  blackless: {
+    name: 'Blackless',
+    type: 'four-color',
+    colors: ['W', 'U', 'R', 'G'],
+  },
+  redless: {
+    name: 'Redless',
+    type: 'four-color',
+    colors: ['W', 'U', 'B', 'G'],
+  },
+  greenless: {
+    name: 'Greenless',
+    type: 'four-color',
+    colors: ['W', 'U', 'B', 'R'],
+  },
+  pentacolor: {
+    name: 'Pentacolor',
+    type: '',
+    colors: ['W', 'U', 'B', 'R', 'G'],
+  },
 };
 const allColorDescriptors = Object.keys(identities) as ColorDescriptor[];
 
@@ -191,7 +220,10 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     this.commanders_ = e.detail.response.commanders;
   }
 
-  protected handlePreviewHover_(e: MouseEvent, _: any, nextSibling?: HTMLElement) {
+  protected handlePreviewHover_(
+      e: MouseEvent,
+      _: any,
+      nextSibling?: HTMLElement) {
     const path = e.composedPath();
     const deck = nextSibling || path.find((el) =>
         (el as HTMLElement).classList.contains('deck')) as HTMLElement;
@@ -215,14 +247,17 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
         (el as HTMLElement).classList.contains('mana-symbol')) as HTMLElement;
     const sibs = [...this.content_.children];
     const imgIdx = sibs.findIndex((elem) => elem === img);
-    const petal = sibs.find((elem, idx) => idx >= imgIdx && elem.nodeName === 'DIV');
+    const petal = sibs.find((elem, idx) =>
+        idx >= imgIdx && elem.nodeName === 'DIV');
     this.handlePreviewHover_(e, undefined, petal as HTMLElement);
   }
 
   protected handlePreviewUnhover_() {
-    this.mousemoveDebouncer_ = Debouncer.debounce(this.mousemoveDebouncer_, timeoutTask, () => {
-      this.preview_.hide();
-    });
+    this.mousemoveDebouncer_ = Debouncer.debounce(
+        this.mousemoveDebouncer_,
+        timeoutTask, () => {
+          this.preview_.hide();
+        });
   }
 
   protected colorIdentityEquals_(card: CardData, identity: string) {
@@ -287,7 +322,8 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   protected handleCommanderSelected_(e: CustomEvent) {
     if (this.selectedId_) {
       this.set(`diagram_.${this.selectedId_}`, e.detail);
-      const idx = this.generatorData_.findIndex((shape) => shape.name === this.selectedId_);
+      const idx = this.generatorData_.findIndex((shape) =>
+          shape.name === this.selectedId_);
       this.notifyPath(`generatorData_.${idx}.data`);
     }
   }
@@ -311,7 +347,8 @@ allColorDescriptors.forEach((k) => {
   const fnCode = `list${fnNameColors}Commanders_() {
   this.selectedId_ = '${k}';
   this.listCommanders_((card) =>
-      this.colorIdentityEquals_(card, '${colorsStr}') || this.isPartnerIn_(card, '${colorsStr}'));
+      this.colorIdentityEquals_(card, '${colorsStr}') ||
+      this.isPartnerIn_(card, '${colorsStr}'));
 }`;
 
   const fn = (new Function(`return function ${fnCode}`))();

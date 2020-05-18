@@ -30,13 +30,15 @@ export function apply(root: string) {
 
     let reqPath = isWhitelisted ? req.path : req.path.red;
     if (isImage) {
-      const safeSuffix = path.normalize(req.path).replace(/^(\.\.(\/|\\|$))+/, '');
+      const safeSuffix =
+          path.normalize(req.path).replace(/^(\.\.(\/|\\|$))+/, '');
       if (fs.existsSync(path.join(root, 'resources', safeSuffix))) {
         reqPath = req.path;
       }
     }
     if (isCommanderRoute) reqPath = req.path;
-    console.log(`[${(new Date()).toISOString().bold}] ${req.ip.bold} requested ${reqPath}`);
+    const date = (new Date()).toISOString();
+    console.log(`[${date.bold}] ${req.ip.bold} requested ${reqPath}`);
     next();
   });
 
