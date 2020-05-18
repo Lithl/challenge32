@@ -1,0 +1,10 @@
+{
+  "line-max-len": 80,
+  "tag-bans": ["b", "i"],
+  "attr-req-value": false,
+  "id-style": "camel",
+  "indent-width": false,
+  "class-style": "dash",
+  "attr-name-style": "(?:.+-)*.+\\$?",
+  "img-req-src": false
+}

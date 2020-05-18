@@ -3,9 +3,11 @@
 <div id="content">
   <h2>[[identity]]</h2>
   <template is="dom-if" if="[[data]]">
-    <img class="card-image" src$="[[data.0.image.normal]]">
+    <img class="card-image" src$="[[data.0.image.normal]]" alt="preview image">
     <template is="dom-if" if="[[data.1]]">
-      <img class="card-image" src$="[[data.1.image.normal]]">
+      <img class="card-image"
+          src$="[[data.1.image.normal]]"
+          alt="preview image">
     </template>
   </template>
 </div>
