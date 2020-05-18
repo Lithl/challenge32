@@ -349,6 +349,11 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     });
   }
 
+  protected openEditor_(id: ColorDescriptor) {
+    this.editId_ = identities[id].colors.join('');
+    this.menu_.opened = !this.menu_.opened;
+  }
+
   protected listCommanders_(filter?: (card: CardData) => boolean) {
     if (filter) {
       this.selector_.commanders = this.commanders_.filter(filter);
@@ -385,10 +390,14 @@ allColorDescriptors.forEach((k) => {
   const colorsStr = id.colors.join('');
   const fnNameColors = colorsStr || 'C';
   const fnCode = `list${fnNameColors}Commanders_() {
-  this.selectedId_ = '${k}';
-  this.listCommanders_((card) =>
-      this.colorIdentityEquals_(card, '${colorsStr}') ||
-      this.isPartnerIn_(card, '${colorsStr}'));
+  if (this.diagram_.${k}) {
+    this.openEditor_('${k}');
+  } else {
+    this.selectedId_ = '${k}';
+    this.listCommanders_((card) =>
+        this.colorIdentityEquals_(card, '${colorsStr}') ||
+        this.isPartnerIn_(card, '${colorsStr}'));
+  }
 }`;
 
   const fn = (new Function(`return function ${fnCode}`))();
