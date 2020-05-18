@@ -155,6 +155,55 @@ paper-tooltip {
       font-weight: normal;
     }
   }
+
+  .commander-images {
+    display: flex;
+    margin: 8px 24px;
+    padding: 0 4px;
+
+    .art-edit {
+      display: inline-block;
+      position: relative;
+      width: 50%;
+      padding-top: calc(50% - 18px);
+      border: 5px solid black;
+      height: 0;
+      background-size: cover;
+      border-radius: 50%;
+      margin: 0 4px;
+
+      &:first-of-type:last-of-type {
+        width: calc(50% - 18px);
+        margin: 0 calc(25% + 4px);
+      }
+    }
+
+    .hover-message {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .5);
+      border-radius: 50%;
+      color: white;
+      text-align: center;
+      font-size: 16pt;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      span {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        user-select: none;
+      }
+    }
+  }
 }
 
 .mana-symbol {
