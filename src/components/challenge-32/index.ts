@@ -7,6 +7,7 @@ import { CommanderSelector } from '../commander-selector';
 import { PreviewHover } from'../preview-hover';
 import { AppDrawerElement } from '@polymer/app-layout/app-drawer/app-drawer';
 import { PaperIconButtonElement } from '@polymer/paper-icon-button/paper-icon-button';
+import { ImageAdjuster, ImageShape } from '../image-adjuster';
 import '@polymer/iron-ajax/iron-ajax';
 import '@polymer/app-layout/app-drawer/app-drawer';
 import '@polymer/paper-icon-button/paper-icon-button';
@@ -15,6 +16,7 @@ import '@polymer/paper-button/paper-button';
 import '../icon-toggle-button';
 import '../iconset-mtg';
 import '../toggle-button-group';
+import '../image-adjuster';
 
 import { CardData, ManaColor } from '../../server/commanders';
 import { intersection, onlyUnique } from '../../util';
@@ -120,6 +122,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   @query('preview-hover') private preview_!: PreviewHover;
   @query('#menu') private menu_!: AppDrawerElement;
   @query('#menuButton') private menuButton_!: PaperIconButtonElement;
+  @query('#adjuster') private adjuster_!: ImageAdjuster;
 
   @property() protected commanders_: CardData[] = [];
   @property() protected diagram_: Partial<DiagramModel> = {};
@@ -169,6 +172,71 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
       this.content_.classList.toggle('landscape', false);
       this.content_.classList.toggle('portrait', true);
     }
+  }
+
+  protected handleImageAdjust_(e: DomRepeatCustomEvent) {
+    const card = e.model.item as CardData;
+    const isFull = this.colorIdentityEquals_(card, this.editId_);
+    const isLeft = !isFull && e.model.index === 0;
+
+    this.adjuster_.isFull = isFull;
+    this.adjuster_.isLeft = isLeft;
+
+    switch (this.editId_) {
+      case 'C':
+        this.adjuster_.shape = ImageShape.CIRCLE;
+        break;
+      case 'W':
+      case 'U':
+      case 'B':
+      case 'R':
+      case 'G':
+      case 'UBRG':
+      case 'WBRG':
+      case 'WURG':
+      case 'WUBG':
+      case 'WUBR':
+        this.adjuster_.shape = ImageShape.PETAL;
+        break;
+      case 'WU':
+      case 'WG':
+      case 'UBG':
+      case 'WBR':
+      case 'URG':
+        this.adjuster_.shape = ImageShape.OBTUSE_TRIANGLE;
+        break;
+      case 'UB':
+      case 'BR':
+      case 'RG':
+      case 'WUR':
+      case 'WBG':
+        this.adjuster_.shape = ImageShape.INVERTED_OBTUSE_TRIANGLE;
+        break;
+      case 'WUG':
+      case 'WUB':
+      case 'WRG':
+        this.adjuster_.shape = ImageShape.ACUTE_TRIANGLE;
+        break;
+      case 'UBR':
+      case 'BRG':
+        this.adjuster_.shape = ImageShape.INVERTED_ACUTE_TRIANGLE;
+        break;
+      case 'UG':
+      case 'WB':
+      case 'WR':
+        this.adjuster_.shape = ImageShape.TRAPEZOID;
+        break;
+      case 'UR':
+      case 'BG':
+        this.adjuster_.shape = ImageShape.INVERTED_TRAPEZOID;
+        break;
+      case 'WUBRG':
+        this.adjuster_.shape = ImageShape.PENTAGON;
+        break;
+      default:
+        throw new TypeError('invalid identity type string');
+    }
+    this.adjuster_.show();
   }
 
   protected hasCommanderFor_(id: string) {
