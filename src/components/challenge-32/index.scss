@@ -105,7 +105,7 @@ paper-tooltip {
   top: 1vh;
   right: 0;
   position: absolute;
-  z-index: 5000;
+  z-index: 50;
   transition: right 200ms ease;
   border-color: black;
   border-style: solid;
@@ -123,7 +123,7 @@ paper-tooltip {
 
 #menu {
   --app-drawer-content-container: {
-    z-index: 5000;
+    z-index: 50;
   }
 
   --iron-icon: {
@@ -132,14 +132,27 @@ paper-tooltip {
     @apply --shadow-elevation-3dp;
   }
 
-  z-index: 4000;
+  z-index: 40;
   text-align: initial;
 
-  h2 {
-    padding: 0 24px;
+  h2,
+  h3 {
+    margin: 16px 24px;
+  }
 
-    &:first-child {
-      margin-top: 16px;
+  p {
+    margin: 0 24px 8px 24px;
+  }
+
+  paper-button {
+    display: block;
+    text-align: center;
+    color: var(--primary-color);
+    padding: 8px;
+    margin: 0 24px;
+
+    --paper-button-flat-keyboard-focus: {
+      font-weight: normal;
     }
   }
 }

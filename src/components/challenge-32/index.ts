@@ -11,6 +11,7 @@ import '@polymer/iron-ajax/iron-ajax';
 import '@polymer/app-layout/app-drawer/app-drawer';
 import '@polymer/paper-icon-button/paper-icon-button';
 import '@polymer/paper-tooltip/paper-tooltip';
+import '@polymer/paper-button/paper-button';
 import '../icon-toggle-button';
 import '../iconset-mtg';
 import '../toggle-button-group';
@@ -99,7 +100,7 @@ const identities: Record<ColorDescriptor, Identity> = {
 };
 const allColorDescriptors = Object.keys(identities) as ColorDescriptor[];
 
-interface DiagramModel extends Record<ColorDescriptor, [CardData]> {}
+interface DiagramModel extends Record<ColorDescriptor, CardData[]> {}
 
 const timeoutTask = timeOut.after(100);
 
@@ -107,7 +108,7 @@ interface ShapeData {
   name: string;
   type: string;
   id: string;
-  readonly data: () => [CardData] | undefined;
+  readonly data: () => CardData[] | undefined;
 }
 
 @customElement('challenge-32')
@@ -170,6 +171,33 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     }
   }
 
+  protected hasCommanderFor_(id: string) {
+    return !!this.commanderFor_(id);
+  }
+
+  protected commanderFor_(id: string) {
+    const identity = this.filterIdentities_(id);
+    return this.diagram_[identity[0] as ColorDescriptor];
+  }
+
+  protected identityToName_(id: string) {
+    return this.filterIdentities_(id)[1].name;
+  }
+
+  private filterIdentities_(id: string) {
+    let idArr: ManaColor[] = [];
+    if (id !== 'C') {
+      idArr = id.split('') as ManaColor[];
+    }
+    return Object.entries(identities).find((val) => {
+      if (val[1].colors.length !== idArr.length) return false;
+      for (const color of val[1].colors) {
+        if (!idArr.includes(color)) return false;
+      }
+      return true;
+    })! as [ColorDescriptor, Identity];
+  }
+
   protected handleEditIdChanged_(e: CustomEvent) {
     const prev: string[] = e.detail.previous;
     const curr: string[] = e.detail.current;
@@ -187,11 +215,14 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     } else if (!prev.includes('C') && curr.length === 0) {
       // went from colored to nothing, use C
       setTimeout(() => this.editId_ = 'C');
+    } else {
+      this.editId_ = curr.join('');
     }
   }
 
   protected toggleMenu_() {
     this.menu_.opened = !this.menu_.opened;
+    this.notifyPath('editId_', this.editId_);
   }
 
   protected handleMenuToggle_() {
@@ -307,6 +338,15 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
       }
       return compatible.length > 0;
     }
+  }
+
+  protected listEditCommanders_() {
+    const identity = this.filterIdentities_(this.editId_);
+    this.selectedId_ = identity[0];
+    this.listCommanders_((card) => {
+      const id = this.editId_ === 'C' ? '' : this.editId_;
+      return this.colorIdentityEquals_(card, id) || this.isPartnerIn_(card, id);
+    });
   }
 
   protected listCommanders_(filter?: (card: CardData) => boolean) {

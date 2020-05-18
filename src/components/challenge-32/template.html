@@ -31,7 +31,31 @@
     <icon-toggle-button icon="mtg:g" color="G"></icon-toggle-button>
     <icon-toggle-button icon="mtg:c" color="C"></icon-toggle-button>
   </toggle-button-group>
+  <h3>[[identityToName_(editId_)]]: [[editId_]]</h3>
+  <p>
+    Selected commander(s):
+    <template is="dom-if" if="[[hasCommanderFor_(editId_, diagram_.*)]]">
+      <template is="dom-repeat" items="[[commanderFor_(editId_, diagram_.*)]]">
+        <template is="dom-if" if="[[index]]">
+          &
+        </template>
+        <span class="bold">[[item.name]]</span>
+      </template>
+    </template>
+    <template is="dom-if" if="[[!hasCommanderFor_(editId_, diagram_.*)]]">
+      <span class="italic">None</span>
+    </template>
+  </p>
+  <paper-button on-tap="listEditCommanders_">
+    <template is="dom-if" if="[[hasCommanderFor_(editId_, diagram_.*)]]">
+      Change selected commander(s)
+    </template>
+    <template is="dom-if" if="[[!hasCommanderFor_(editId_, diagram_.*)]]">
+      Select commander
+    </template>
+  </paper-button>
 </app-drawer>
+
 <div id="content">
   <img src="/images/c.svg"
       class="colorless-mana mana-symbol deck"
