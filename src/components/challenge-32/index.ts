@@ -182,6 +182,13 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
 
     this.adjuster_.isFull = isFull;
     this.adjuster_.isLeft = isLeft;
+    this.adjuster_.adjustment = {
+      card,
+      left: 0,
+      top: 0,
+      scaleW: 1,
+      scaleH: 1,
+    };
 
     switch (this.editId_) {
       case 'C':
