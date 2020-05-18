@@ -418,7 +418,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   }
 
   protected openEditor_(id: ColorDescriptor) {
-    this.editId_ = identities[id].colors.join('');
+    this.editId_ = identities[id].colors.join('') || 'C';
     this.menu_.opened = !this.menu_.opened;
   }
 
