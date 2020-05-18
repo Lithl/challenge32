@@ -1,2 +1,90 @@
 <style include="image-adjuster"></style>
 
+<div id="dragging" on-mousemove="handleDrag_" on-mouseup="handleDragend_"></div>
+<paper-dialog
+    id="dialog"
+    allow-click-through="false"
+    always-on-top
+    modal
+    entry-animation="scale-up-animation"
+    exit-animation="fade-out-animation"
+    on-opened-changed="handleOpenClose_">
+  <h2>Adjust the image for [[adjustment.card.name]]</h2>
+  <p>Drag the image or type values to move it.</p>
+  <p>Use your scroll wheel or type values to change the image's size.</p>
+  <template is="dom-if" if="[[isCircle_(shape)]]">
+    <div class="circle">
+      <div class="background">
+        <div class="image"
+            style$="background-image: url([[adjustment.card.image.art]]);
+                background-size:
+                    calc(16vh * [[initialScaleH_]] * [[adjustment.scaleW]])
+                    calc(16vh * [[initialScaleW_]] * [[adjustment.scaleH]]);
+                background-position:
+                    calc(-16vh * [[initialOffsetX_]]
+                        + [[adjustment.left]]vh + [[pxOffsetX_]]px)
+                    calc([[adjustment.top]]vh + [[pxOffsetY_]]px)"
+            on-mousedown="handleDragstart_">
+        </div>
+        <template is="dom-if" if="[[!isFull]]">
+          <div class$="[[halfMask_(isLeft)]]"
+              on-mousedown="handleDragstart_"></div>
+        </template>
+      </div>
+    </div>
+  </template>
+  <template is="dom-if" if="[[isPetal_(shape)]]">
+    PETAL
+  </template>
+  <template is="dom-if" if="[[isObtuseTriangle_(shape)]]">
+    OBTUSE TRIANGLE
+  </template>
+  <template is="dom-if" if="[[isInvertedObtuseTriangle_(shape)]]">
+    INVERTED OBTUSE TRIANGLE
+  </template>
+  <template is="dom-if" if="[[isAcuteTriangle_(shape)]]">
+    ACUTE TRIANGLE
+  </template>
+  <template is="dom-if" if="[[isInvertedAcuteTriangle_(shape)]]">
+    INVERTED ACUTE TRIANGLE
+  </template>
+  <template is="dom-if" if="[[isTrapezoid_(shape)]]">
+    TRAPEZOID
+  </template>
+  <template is="dom-if" if="[[isInvertedTrapezoid_(shape)]]">
+    INVERTED TRAPEZOID
+  </template>
+  <template is="dom-if" if="[[isPentagon_(shape)]]">
+    PENTAGON
+  </template>
+  <div class="row">
+    <paper-input label="Horizontal offset"
+        always-float-label
+        type="number"
+        step=".1"
+        value="{{adjustment.left}}"></paper-input>
+    <paper-input label="Vertical offset"
+        always-float-label
+        type="number"
+        step=".1"
+        value="{{adjustment.top}}"></paper-input>
+  </div>
+  <div class="row">
+    <paper-input label="Scale width"
+        always-float-label
+        type="number"
+        step=".01"
+        min=".01"
+        value="{{adjustment.scaleW}}"></paper-input>
+    <paper-input label="Scale height"
+        always-float-label
+        type="number"
+        step=".01"
+        min=".01"
+        value="{{adjustment.scaleH}}"></paper-input>
+  </div>
+  <div class="buttons">
+    <paper-button dialog-dismiss>Cancel</paper-button>
+    <paper-button on-tap="handleConfirm_">Select</paper-button>
+  </div>
+</paper-dialog>
