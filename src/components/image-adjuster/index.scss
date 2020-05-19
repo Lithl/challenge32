@@ -21,6 +21,16 @@ p {
   }
 }
 
+.mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: scale(.95);
+  background-color: black;
+}
+
 .circle {
   width: 16vh;
   height: 16vh;
@@ -31,8 +41,7 @@ p {
   background-color: $colorless;
 
   .background,
-  .image,
-  .mask {
+  .image {
     height: 100%;
     transform: scale(.95);
     background-color: black;
@@ -41,10 +50,7 @@ p {
   }
 
   .mask {
-    width: 100%;
-    top: 0;
-    left: 0;
-    position: absolute;
+    border-radius: 50%;
 
     &.mask-right {
       clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
@@ -54,4 +60,52 @@ p {
       clip-path: polygon(50% 0, 50% 100%, 0 100%, 0 0);
     }
   }
+}
+
+.petal {
+  width: 24vh;
+  height: 24vh;
+  margin-left: calc(50% - 12vh);
+  padding: 0;
+  background-color: black;
+  clip-path: url(#petal);
+
+  .background,
+  .border,
+  .image {
+    transform: scale(.95);
+    height: 100%;
+    background-repeat: no-repeat;
+    clip-path: url(#petal);
+  }
+
+  .background {
+    background-color: $colorless;
+  }
+
+  .border {
+    background-color: black;
+  }
+
+  .mask {
+    &.mask-left {
+      clip-path: url(#halfPetal);
+      transform: scale(-.95, .95);
+    }
+
+    &.mask-right {
+      clip-path: url(#halfPetal);
+    }
+  }
+}
+
+.petal-cover {
+  width: 24vh;
+  height: 12vh;
+  background-color: var(--google-blue-300);
+  opacity: .5;
+  border: 3px dashed var(--google-blue-500);
+  margin-top: -12vh;
+  margin-left: calc(50% - 12vh - 3px);
+  padding: 0;
 }

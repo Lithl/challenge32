@@ -5,6 +5,7 @@ import { CardData } from '../../server/commanders';
 import '@polymer/paper-input/paper-input';
 
 import { default as template } from './template.html';
+import { default as shapes } from '../challenge-32/shapes.html';
 
 import './index.scss?name=image-adjuster';
 
@@ -50,7 +51,7 @@ export class ImageAdjuster extends PolymerElement {
 
   static get template() {
     // @ts-ignore
-    return html([template]);
+    return html([template + shapes]);
   }
 
   show() {
