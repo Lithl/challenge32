@@ -18,10 +18,12 @@
         <div class="image"
             style$="background-image: url([[adjustment.card.image.art]]);
                 background-size:
-                    calc(16vh * [[initialScaleH_]] * [[adjustment.scaleW]])
-                    calc(16vh * [[initialScaleW_]] * [[adjustment.scaleH]]);
+                    calc([[initialWidth_(16, 16, imgRatio_)]]vh
+                        * [[adjustment.scaleW]])
+                    calc([[initialHeight_(16, 16, imgRatio_)]]vh
+                        * [[adjustment.scaleH]]);
                 background-position:
-                    calc(-16vh * [[initialOffsetX_]]
+                    calc([[initialOffsetX_(16, 16, imgRatio_)]]vh
                         + [[adjustment.left]]vh + [[pxOffsetX_]]px)
                     calc([[adjustment.top]]vh + [[pxOffsetY_]]px)"
             on-mousedown="handleDragstart_"></div>
@@ -39,10 +41,12 @@
           <div class="image"
               style$="background-image: url([[adjustment.card.image.art]]);
                   background-size:
-                      calc(24vh * [[initialScaleH_]] * [[adjustment.scaleW]])
-                      calc(24vh * [[initialScaleW_]] * [[adjustment.scaleH]]);
+                      calc([[initialWidth_(24, 24, imgRatio_)]]vh
+                          * [[adjustment.scaleW]])
+                      calc([[initialHeight_(24, 24, imgRatio_)]]vh
+                          * [[adjustment.scaleH]]);
                   background-position:
-                      calc(-24vh * [[initialOffsetX_]]
+                      calc([[initialOffsetX_(24, 24, imgRatio_)]]vh
                           + [[adjustment.left]]vh + [[pxOffsetX_]]px)
                       calc([[adjustment.top]]vh + [[pxOffsetY_]]px)"
               on-mousedown="handleDragstart_"></div>
@@ -56,7 +60,28 @@
     <div class="petal-cover" on-mousedown="handleDragstart_"></div>
   </template>
   <template is="dom-if" if="[[isObtuseTriangle_(shape)]]">
-    OBTUSE TRIANGLE
+    <div class="obtuse-triangle">
+      <div class="background">
+        <div class="border">
+          <div class="image"
+              style$="background-image: url([[adjustment.card.image.art]]);
+                  background-size:
+                      calc([[initialWidth_(47.55, 14.638, imgRatio_)]]vh
+                          * [[adjustment.scaleW]])
+                      calc([[initialHeight_(47.55, 14.638, imgRatio_)]]vh
+                          * [[adjustment.scaleH]]);
+                  background-position:
+                      calc([[initialOffsetX_(47.55, 14.638, imgRatio_)]]vh
+                          + [[adjustment.left]]vh + [[pxOffsetX_]]px)
+                      calc([[adjustment.top]]vh + [[pxOffsetY_]]px)"
+              on-mousedown="handleDragstart_"></div>
+        </div>
+        <template is="dom-if" if="[[!isFull]]">
+          <div class$="[[halfMask_(isLeft)]]"
+              on-mousedown="handleDragstart_"></div>
+        </template>
+      </div>
+    </div>
   </template>
   <template is="dom-if" if="[[isInvertedObtuseTriangle_(shape)]]">
     INVERTED OBTUSE TRIANGLE

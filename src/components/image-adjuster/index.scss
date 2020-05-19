@@ -109,3 +109,40 @@ p {
   margin-left: calc(50% - 12vh - 3px);
   padding: 0;
 }
+
+.obtuse-triangle {
+  width: 47.55vh;
+  height: 14.638vh;
+  margin-left: calc(50% - 47.55vh / 2);
+  padding: 0;
+  background-color: black;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform: scale(.85);
+
+  .background,
+  .border,
+  .image {
+    transform: scale(.95);
+    height: 100%;
+    background-repeat: no-repeat;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+  }
+
+  .background {
+    background-color: $colorless;
+  }
+
+  .border {
+    background-color: black;
+  }
+
+  .mask {
+    &.mask-left {
+      clip-path: polygon(0 0, 50% 0, 50% 100%);
+    }
+
+    &.mask-right {
+      clip-path: polygon(50% 0, 100% 0, 50% 100%);
+    }
+  }
+}

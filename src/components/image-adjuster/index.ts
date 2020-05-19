@@ -40,9 +40,9 @@ export class ImageAdjuster extends PolymerElement {
   @property() adjustment?: ImageAdjustment;
   @property() protected initialScaleW_ = 1;
   @property() protected initialScaleH_ = 1;
-  @property() protected initialOffsetX_ = .5;
   @property() protected pxOffsetX_ = 0;
   @property() protected pxOffsetY_ = 0;
+  @property() protected imgRatio_ = 1;
 
   private initialMouseX_ = 0;
   private initialMouseY_ = 0;
@@ -63,6 +63,7 @@ export class ImageAdjuster extends PolymerElement {
     img.addEventListener('load', () => {
       const w = img.width;
       const h = img.height;
+      this.imgRatio_ = h / w;
       if (w > h) {
         this.initialScaleW_ = 1;
         this.initialScaleH_ = w / h;
@@ -70,12 +71,37 @@ export class ImageAdjuster extends PolymerElement {
         this.initialScaleW_ = h / w;
         this.initialScaleH_ = 1;
       }
-      this.initialOffsetX_ =
-          Math.abs(this.initialScaleW_ - this.initialScaleH_) /
-              Math.max(this.initialScaleW_, this.initialScaleH_) / 2;
       this.dialog_.open();
     });
     img.src = this.adjustment.card.image.art;
+  }
+
+  protected initialOffsetX_(cW: number, cH: number, imgRatio: number) {
+    if (cH / cW > imgRatio) {
+      const w = this.initialWidth_(cW, cH, imgRatio);
+      const h = this.initialHeight_(cW, cH, imgRatio);
+      return -Math.abs(w - h) / 2;
+    } else {
+      return 0;
+    }
+  }
+
+  protected initialWidth_(cW: number, cH: number, imgRatio: number) {
+    const containerRatio = cH / cW;
+    if (containerRatio > imgRatio) {
+      return cH / imgRatio;
+    } else {
+      return cW;
+    }
+  }
+
+  protected initialHeight_(cW: number, cH: number, imgRatio: number) {
+    const containerRatio = cH / cW;
+    if (containerRatio > imgRatio) {
+      return cH;
+    } else {
+      return cW * imgRatio;
+    }
   }
 
   protected handleDragstart_(e: MouseEvent) {
