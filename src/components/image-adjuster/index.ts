@@ -46,8 +46,13 @@ export class ImageAdjuster extends PolymerElement {
 
   private initialMouseX_ = 0;
   private initialMouseY_ = 0;
+  private initialPinchDist_ = 0;
+  private scaling_ = false;
 
   private zoomHandlerFn_ = (e: WheelEvent) => this.handleZoom_(e);
+  private pinchStartHandlerFn_ = (e: TouchEvent) => this.handleDragstart_(e);
+  private pinchMoveHandlerFn_ = (e: TouchEvent) => this.handleDrag_(e);
+  private pinchEndHandlerFn_ = (_e: TouchEvent) => this.handleDragend_();
 
   static get template() {
     // @ts-ignore
@@ -58,6 +63,9 @@ export class ImageAdjuster extends PolymerElement {
     if (!this.adjustment) return;
 
     document.body.addEventListener('wheel', this.zoomHandlerFn_);
+    document.body.addEventListener('touchstart', this.pinchStartHandlerFn_);
+    document.body.addEventListener('touchmove', this.pinchMoveHandlerFn_);
+    document.body.addEventListener('touchend', this.pinchEndHandlerFn_);
 
     const img = new Image();
     img.addEventListener('load', () => {
@@ -106,8 +114,16 @@ export class ImageAdjuster extends PolymerElement {
 
   protected handleDragstart_(e: MouseEvent | TouchEvent) {
     if (e instanceof TouchEvent) {
-      this.initialMouseX_ = e.touches[0].clientX;
-      this.initialMouseY_ = e.touches[0].clientY;
+      if (e.touches.length === 1) {
+        // started dragging
+        this.initialMouseX_ = e.touches[0].clientX;
+        this.initialMouseY_ = e.touches[0].clientY;
+      } else if (e.touches.length > 1) {
+        const diffX = Math.abs(e.touches[0].clientX - e.touches[1].clientX);
+        const diffY = Math.abs(e.touches[0].clientY - e.touches[1].clientY);
+        this.initialPinchDist_ = Math.hypot(diffX, diffY);
+        this.scaling_ = true;
+      }
     } else {
       this.initialMouseX_ = e.x;
       this.initialMouseY_ = e.y;
@@ -116,32 +132,50 @@ export class ImageAdjuster extends PolymerElement {
   }
 
   protected handleDrag_(e: MouseEvent | TouchEvent) {
-    let diffX: number;
-    let diffY: number;
-    if (e instanceof TouchEvent) {
-      diffX = e.touches[0].clientX - this.initialMouseX_;
-      diffY = e.touches[0].clientY - this.initialMouseY_;
-    } else {
-      diffX = e.x - this.initialMouseX_;
-      diffY = e.y - this.initialMouseY_;
+    if (this.scaling_ && e instanceof TouchEvent && e.touches.length > 1) {
+      const diffX = Math.abs(e.touches[0].clientX - e.touches[1].clientX);
+      const diffY = Math.abs(e.touches[0].clientY - e.touches[1].clientY);
+      const dist = Math.hypot(diffX, diffY);
+      const change = (dist - this.initialPinchDist_) / 500;
+      this.initialPinchDist_ = dist;
+      let newVal = Math.max(.01, change + this.adjustment!.scaleW);
+      newVal = Math.round(newVal * 100) / 100;
+      this.set('adjustment.scaleW', newVal);
+      newVal = Math.max(.01, change + this.adjustment!.scaleH);
+      newVal = Math.round(newVal * 100) / 100;
+      this.set('adjustment.scaleH', newVal);
+    } else if (!this.scaling_) {
+      let diffX: number;
+      let diffY: number;
+      if (e instanceof TouchEvent) {
+        diffX = e.touches[0].clientX - this.initialMouseX_;
+        diffY = e.touches[0].clientY - this.initialMouseY_;
+      } else {
+        diffX = e.x - this.initialMouseX_;
+        diffY = e.y - this.initialMouseY_;
+      }
+      this.set('pxOffsetX_', diffX);
+      this.set('pxOffsetY_', diffY);
     }
-    this.set('pxOffsetX_', diffX);
-    this.set('pxOffsetY_', diffY);
   }
 
-  protected handleDragend_() {
+  protected handleDragend_(e?: TouchEvent) {
+    if (e instanceof TouchEvent) {
+      this.scaling_ = false;
+    } else {
+      const vh = document.body.getBoundingClientRect().height;
+      const vhOffsetX = this.pxOffsetX_ / (vh / 100);
+      const vhOffsetY = this.pxOffsetY_ / (vh / 100);
+      let newVal = Number(this.adjustment!.left) + vhOffsetX;
+      newVal = Math.round(newVal * 10) / 10;
+      this.set('adjustment.left', newVal);
+      newVal = Number(this.adjustment!.top) + vhOffsetY;
+      newVal = Math.round(newVal * 10) / 10;
+      this.set('adjustment.top', newVal);
+      this.pxOffsetX_ = 0;
+      this.pxOffsetY_ = 0;
+    }
     this.dragging_.style.display = 'none';
-    const vh = document.body.getBoundingClientRect().height;
-    const vhOffsetX = this.pxOffsetX_ / (vh / 100);
-    const vhOffsetY = this.pxOffsetY_ / (vh / 100);
-    let newVal = Number(this.adjustment!.left) + vhOffsetX;
-    newVal = Math.round(newVal * 10) / 10;
-    this.set('adjustment.left', newVal);
-    newVal = Number(this.adjustment!.top) + vhOffsetY;
-    newVal = Math.round(newVal * 10) / 10;
-    this.set('adjustment.top', newVal);
-    this.pxOffsetX_ = 0;
-    this.pxOffsetY_ = 0;
   }
 
   protected handleZoom_(e: WheelEvent) {
@@ -161,6 +195,10 @@ export class ImageAdjuster extends PolymerElement {
   protected handleOpenClose_() {
     if (!this.dialog_.opened) {
       document.body.removeEventListener('wheel', this.zoomHandlerFn_);
+      document.body.removeEventListener('touchstart',
+          this.pinchStartHandlerFn_);
+      document.body.removeEventListener('touchmove', this.pinchMoveHandlerFn_);
+      document.body.removeEventListener('touchend', this.pinchEndHandlerFn_);
     }
   }
 

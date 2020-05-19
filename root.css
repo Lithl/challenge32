@@ -2,4 +2,5 @@ body {
   font-family: Roboto, Arial, sans-serif;
   height: 100vh;
   margin: 0;
+  touch-action: pan-x pan-y;
 }
