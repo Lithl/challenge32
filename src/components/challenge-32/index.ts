@@ -134,7 +134,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
 
   static get template() {
     // @ts-ignore
-    return html([template]);
+    return html([template + shapes]);
   }
 
   constructor() {
