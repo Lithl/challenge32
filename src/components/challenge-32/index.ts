@@ -23,6 +23,7 @@ import { intersection, onlyUnique } from '../../util';
 import { DomRepeatCustomEvent } from '../commander-selector';
 
 import { default as template } from './template.html';
+import { default as shapes } from './shapes.html';
 
 import './index.scss?name=challenge-32';
 
