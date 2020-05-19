@@ -104,15 +104,27 @@ export class ImageAdjuster extends PolymerElement {
     }
   }
 
-  protected handleDragstart_(e: MouseEvent) {
-    this.initialMouseX_ = e.x;
-    this.initialMouseY_ = e.y;
+  protected handleDragstart_(e: MouseEvent | TouchEvent) {
+    if (e instanceof TouchEvent) {
+      this.initialMouseX_ = e.touches[0].clientX;
+      this.initialMouseY_ = e.touches[0].clientY;
+    } else {
+      this.initialMouseX_ = e.x;
+      this.initialMouseY_ = e.y;
+    }
     this.dragging_.style.display = 'block';
   }
 
-  protected handleDrag_(e: MouseEvent) {
-    const diffX = e.x - this.initialMouseX_;
-    const diffY = e.y - this.initialMouseY_;
+  protected handleDrag_(e: MouseEvent | TouchEvent) {
+    let diffX: number;
+    let diffY: number;
+    if (e instanceof TouchEvent) {
+      diffX = e.touches[0].clientX - this.initialMouseX_;
+      diffY = e.touches[0].clientY - this.initialMouseY_;
+    } else {
+      diffX = e.x - this.initialMouseX_;
+      diffY = e.y - this.initialMouseY_;
+    }
     this.set('pxOffsetX_', diffX);
     this.set('pxOffsetY_', diffY);
   }

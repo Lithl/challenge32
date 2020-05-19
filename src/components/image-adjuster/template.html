@@ -1,6 +1,10 @@
 <style include="image-adjuster"></style>
 
-<div id="dragging" on-mousemove="handleDrag_" on-mouseup="handleDragend_"></div>
+<div id="dragging"
+    on-mousemove="handleDrag_"
+    on-touchmove="handleDrag_"
+    on-mouseup="handleDragend_"
+    on-touchend="handleDragend_"></div>
 <paper-dialog
     id="dialog"
     allow-click-through="false"
@@ -74,11 +78,13 @@
                       calc([[initialOffsetX_(47.55, 14.638, imgRatio_)]]vh
                           + [[adjustment.left]]vh + [[pxOffsetX_]]px)
                       calc([[adjustment.top]]vh + [[pxOffsetY_]]px)"
-              on-mousedown="handleDragstart_"></div>
+              on-mousedown="handleDragstart_"
+              on-touchstart="handleDragstart_"></div>
         </div>
         <template is="dom-if" if="[[!isFull]]">
           <div class$="[[halfMask_(isLeft)]]"
-              on-mousedown="handleDragstart_"></div>
+              on-mousedown="handleDragstart_"
+              on-touchstart="handleDragstart_"></div>
         </template>
       </div>
     </div>
