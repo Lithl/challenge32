@@ -119,6 +119,26 @@ p {
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform: scale(.85);
 
+  &.inverted {
+    clip-path: polygon(0 100%, 100% 100%, 50% 0);
+
+    .background,
+    .border,
+    .image {
+      clip-path: polygon(0 100%, 100% 100%, 50% 0);
+    }
+
+    .mask {
+      &.mask-left {
+        clip-path: polygon(0 100%, 50% 100%, 50% 0);
+      }
+
+      &.mask-right {
+        clip-path: polygon(50% 100%, 100% 100%, 50% 0);
+      }
+    }
+  }
+
   .background,
   .border,
   .image {
