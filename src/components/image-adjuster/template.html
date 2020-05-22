@@ -117,10 +117,30 @@
     </div>
   </template>
   <template is="dom-if" if="[[isTrapezoid_(shape)]]">
-    TRAPEZOID
-  </template>
-  <template is="dom-if" if="[[isInvertedTrapezoid_(shape)]]">
-    INVERTED TRAPEZOID
+    <div class$="trapezoid [[isInvertedTrapezoid_(shape)]]">
+      <div class="background">
+        <div class="border">
+          <div class="image"
+              style$="background-image: url([[adjustment.card.image.art]]);
+                  background-size:
+                      calc([[initialWidth_(21.21, 10.55, imgRatio_)]]vh
+                          * [[adjustment.scaleW]])
+                      calc([[initialHeight_(21.21, 10.55, imgRatio_)]]vh
+                          * [[adjustment.scaleH]]);
+                  background-position:
+                      calc([[initialOffsetX_(21.21, 10.55, imgRatio_)]]vh
+                          + [[adjustment.left]]vh + [[pxOffsetX_]]px)
+                      calc([[adjustment.top]]vh + [[pxOffsetY_]]px)"
+              on-mousedown="handleDragstart_"
+              on-touchstart="handleDragstart_"></div>
+        </div>
+        <template is="dom-if" if="[[!isFull]]">
+          <div class$="[[halfMask_(isLeft)]]"
+              on-mousedown="handleDragstart_"
+              on-touchstart="handleDragstart_"></div>
+        </template>
+      </div>
+    </div>
   </template>
   <template is="dom-if" if="[[isPentagon_(shape)]]">
     PENTAGON

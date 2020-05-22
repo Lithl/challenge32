@@ -225,3 +225,59 @@ p {
     }
   }
 }
+
+.trapezoid {
+  width: 21.21vh;
+  height: 10.55vh;
+  margin-left: calc(50% - 21.21vh / 2);
+  padding: 0;
+  background-color: black;
+  clip-path: polygon(0 0, 100% 0, 63.85% 100%, 36.15% 100%);
+
+  &.inverted {
+    clip-path: polygon(0 100%, 100% 100%, 63.85% 0, 36.15% 0);
+
+    .background,
+    .border,
+    .image {
+      clip-path: polygon(0 100%, 100% 100%, 63.85% 0, 36.15% 0);
+    }
+
+    .mask {
+      &.mask-left {
+        clip-path: polygon(0 100%, 50% 100%, 50% 0, 36.15% 0);
+      }
+
+      &.mask-right {
+        clip-path: polygon(50% 100%, 100% 100%, 63.85% 0, 50% 0);
+      }
+    }
+  }
+
+  .background,
+  .border,
+  .image {
+    transform: scale(.95);
+    height: 100%;
+    background-repeat: no-repeat;
+    clip-path: polygon(0 0, 100% 0, 63.85% 100%, 36.15% 100%);
+  }
+
+  .background {
+    background-color: $colorless;
+  }
+
+  .border {
+    background-color: black;
+  }
+
+  .mask {
+    &.mask-left {
+      clip-path: polygon(0 0, 50% 0, 50% 100%, 36.15% 100%);
+    }
+
+    &.mask-right {
+      clip-path: polygon(50% 0, 100% 0, 63.85% 100%, 50% 100%);
+    }
+  }
+}

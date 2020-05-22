@@ -233,11 +233,12 @@ export class ImageAdjuster extends PolymerElement {
   }
 
   protected isTrapezoid_(shape: ImageShape) {
-    return shape === ImageShape.TRAPEZOID;
+    return shape === ImageShape.TRAPEZOID
+        || shape === ImageShape.INVERTED_TRAPEZOID;
   }
 
   protected isInvertedTrapezoid_(shape: ImageShape) {
-    return shape === ImageShape.INVERTED_TRAPEZOID;
+    return shape === ImageShape.INVERTED_TRAPEZOID ? 'inverted' : '';
   }
 
   protected isPentagon_(shape: ImageShape) {
