@@ -65,7 +65,7 @@
     <div class="petal-cover" on-mousedown="handleDragstart_"></div>
   </template>
   <template is="dom-if" if="[[isObtuseTriangle_(shape)]]">
-    <div class="obtuse-triangle">
+    <div class$="obtuse-triangle [[isInvertedObtuseTriangle_(shape)]]">
       <div class="background">
         <div class="border">
           <div class="image"

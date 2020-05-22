@@ -63,28 +63,14 @@ p {
 }
 
 .petal {
-  width: 24vh;
-  height: 24vh;
-  margin-left: calc(50% - 12vh);
-  padding: 0;
-  background-color: black;
+  --shape-width: 24vh;
+  --shape-height: 24vh;
   clip-path: url(#petal);
 
   .background,
   .border,
   .image {
-    transform: scale(.95);
-    height: 100%;
-    background-repeat: no-repeat;
     clip-path: url(#petal);
-  }
-
-  .background {
-    background-color: $colorless;
-  }
-
-  .border {
-    background-color: black;
   }
 
   .mask {
@@ -111,11 +97,8 @@ p {
 }
 
 .obtuse-triangle {
-  width: 47.55vh;
-  height: 14.638vh;
-  margin-left: calc(50% - 47.55vh / 2);
-  padding: 0;
-  background-color: black;
+  --shape-width: 47.55vh;
+  --shape-height: 14.638vh;
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform: scale(.85);
 
@@ -142,18 +125,7 @@ p {
   .background,
   .border,
   .image {
-    transform: scale(.95);
-    height: 100%;
-    background-repeat: no-repeat;
     clip-path: polygon(0 0, 100% 0, 50% 100%);
-  }
-
-  .background {
-    background-color: $colorless;
-  }
-
-  .border {
-    background-color: black;
   }
 
   .mask {
@@ -168,11 +140,8 @@ p {
 }
 
 .acute-triangle {
-  width: 21.21vh;
-  height: 25.855vh;
-  margin-left: calc(50% - 21.21vh / 2);
-  padding: 0;
-  background-color: black;
+  --shape-width: 21.21vh;
+  --shape-height: 25.855vh;
   clip-path: polygon(0 100%, 100% 100%, 50% 0);
   transform: scale(.85);
 
@@ -201,18 +170,7 @@ p {
   .border,
   .image {
     transform-origin: 50% 70%;
-    transform: scale(.95);
-    height: 100%;
-    background-repeat: no-repeat;
     clip-path: polygon(0 100%, 100% 100%, 50% 0);
-  }
-
-  .background {
-    background-color: $colorless;
-  }
-
-  .border {
-    background-color: black;
   }
 
   .mask {
@@ -227,11 +185,8 @@ p {
 }
 
 .trapezoid {
-  width: 21.21vh;
-  height: 10.55vh;
-  margin-left: calc(50% - 21.21vh / 2);
-  padding: 0;
-  background-color: black;
+  --shape-width: 21.21vh;
+  --shape-height: 10.55vh;
   clip-path: polygon(0 0, 100% 0, 63.85% 100%, 36.15% 100%);
 
   &.inverted {
@@ -257,18 +212,7 @@ p {
   .background,
   .border,
   .image {
-    transform: scale(.95);
-    height: 100%;
-    background-repeat: no-repeat;
     clip-path: polygon(0 0, 100% 0, 63.85% 100%, 36.15% 100%);
-  }
-
-  .background {
-    background-color: $colorless;
-  }
-
-  .border {
-    background-color: black;
   }
 
   .mask {
@@ -283,29 +227,16 @@ p {
 }
 
 .pentagon {
-  width: 20vh;
-  height: 20vh;
-  margin-left: calc(50% - 20vh / 2);
-  padding: 0;
-  background-color: black;
-  clip-path: polygon(50% 100%, 2.45% 65.45%, 20.6125% 9.55%, 79.3875% 9.55%, 97.55% 65.45%);
-  // transform: scale(1.3);
+  --shape-width: 20vh;
+  --shape-height: 20vh;
+  clip-path: polygon(
+      50% 100%, 2.45% 65.45%, 20.6125% 9.55%, 79.3875% 9.55%, 97.55% 65.45%);
 
   .background,
   .border,
   .image {
-    transform: scale(.95);
-    height: 100%;
-    background-repeat: no-repeat;
-    clip-path: polygon(50% 100%, 2.45% 65.45%, 20.6125% 9.55%, 79.3875% 9.55%, 97.55% 65.45%);
-  }
-
-  .background {
-    background-color: $colorless;
-  }
-
-  .border {
-    background-color: black;
+    clip-path: polygon(
+        50% 100%, 2.45% 65.45%, 20.6125% 9.55%, 79.3875% 9.55%, 97.55% 65.45%);
   }
 
   .mask {
@@ -316,5 +247,33 @@ p {
     &.mask-right {
       clip-path: polygon(50% 100%, 50% 9.55%, 79.3875% 9.55%, 97.55% 65.45%);
     }
+  }
+}
+
+.petal,
+.obtuse-triangle,
+.acute-triangle,
+.trapezoid,
+.pentagon {
+  padding: 0;
+  background-color: black;
+  margin-left: calc(50% - var(--shape-width) / 2);
+  width: var(--shape-width);
+  height: var(--shape-height);
+
+  .background,
+  .border,
+  .image {
+    transform: scale(.95);
+    height: 100%;
+    background-repeat: no-repeat;
+  }
+
+  .background {
+    background-color: $colorless;
+  }
+
+  .border {
+    background-color: black;
   }
 }
