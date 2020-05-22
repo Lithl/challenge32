@@ -35,7 +35,7 @@ export function apply(app: express.Application) {
 
   function getCardData(uri?: string) {
     console.info(`called getCardData(${(uri || '').blue})`.italic);
-    const queryStr = 'is:commander';
+    const queryStr = 'is:commander is:firstprint';
     return request(uri || `https://api.scryfall.com/cards/search?q=${queryStr}`)
       .then(async (text: string) => {
         const json = JSON.parse(text);
