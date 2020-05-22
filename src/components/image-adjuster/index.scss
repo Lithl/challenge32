@@ -166,3 +166,61 @@ p {
     }
   }
 }
+
+.acute-triangle {
+  width: 21.21vh;
+  height: 25.855vh;
+  margin-left: calc(50% - 21.21vh / 2);
+  padding: 0;
+  background-color: black;
+  clip-path: polygon(0 100%, 100% 100%, 50% 0);
+  transform: scale(.85);
+
+  &.inverted {
+    clip-path: polygon(0 100%, 100% 100%, 50% 0);
+
+    .background,
+    .border,
+    .image {
+      clip-path: polygon(0 100%, 100% 100%, 50% 0);
+    }
+
+    .mask {
+      &.mask-left {
+        clip-path: polygon(0 100%, 50% 100%, 50% 0);
+      }
+
+      &.mask-right {
+        clip-path: polygon(50% 100%, 100% 100%, 50% 0);
+      }
+    }
+  }
+
+  .background,
+  .border,
+  .image {
+    transform-origin: 50% 70%;
+    transform: scale(.95);
+    height: 100%;
+    background-repeat: no-repeat;
+    clip-path: polygon(0 100%, 100% 100%, 50% 0);
+  }
+
+  .background {
+    background-color: $colorless;
+  }
+
+  .border {
+    background-color: black;
+  }
+
+  .mask {
+    &.mask-left {
+      clip-path: polygon(0 100%, 50% 100%, 50% 0);
+    }
+
+    &.mask-right {
+      clip-path: polygon(50% 100%, 100% 100%, 50% 0);
+    }
+  }
+}
