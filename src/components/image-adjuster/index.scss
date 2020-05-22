@@ -281,3 +281,40 @@ p {
     }
   }
 }
+
+.pentagon {
+  width: 20vh;
+  height: 20vh;
+  margin-left: calc(50% - 20vh / 2);
+  padding: 0;
+  background-color: black;
+  clip-path: polygon(50% 100%, 2.45% 65.45%, 20.6125% 9.55%, 79.3875% 9.55%, 97.55% 65.45%);
+  // transform: scale(1.3);
+
+  .background,
+  .border,
+  .image {
+    transform: scale(.95);
+    height: 100%;
+    background-repeat: no-repeat;
+    clip-path: polygon(50% 100%, 2.45% 65.45%, 20.6125% 9.55%, 79.3875% 9.55%, 97.55% 65.45%);
+  }
+
+  .background {
+    background-color: $colorless;
+  }
+
+  .border {
+    background-color: black;
+  }
+
+  .mask {
+    &.mask-left {
+      clip-path: polygon(50% 100%, 2.45% 65.45%, 20.6125% 9.55%, 50% 9.55%);
+    }
+
+    &.mask-right {
+      clip-path: polygon(50% 100%, 50% 9.55%, 79.3875% 9.55%, 97.55% 65.45%);
+    }
+  }
+}

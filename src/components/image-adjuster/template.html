@@ -143,7 +143,30 @@
     </div>
   </template>
   <template is="dom-if" if="[[isPentagon_(shape)]]">
-    PENTAGON
+    <div class="pentagon">
+      <div class="background">
+        <div class="border">
+          <div class="image"
+              style$="background-image: url([[adjustment.card.image.art]]);
+                  background-size:
+                      calc([[initialWidth_(20, 20, imgRatio_)]]vh
+                          * [[adjustment.scaleW]])
+                      calc([[initialHeight_(20, 20, imgRatio_)]]vh
+                          * [[adjustment.scaleH]]);
+                  background-position:
+                      calc([[initialOffsetX_(20, 20, imgRatio_)]]vh
+                          + [[adjustment.left]]vh + [[pxOffsetX_]]px)
+                      calc([[adjustment.top]]vh + [[pxOffsetY_]]px)"
+              on-mousedown="handleDragstart_"
+              on-touchstart="handleDragstart_"></div>
+        </div>
+        <template is="dom-if" if="[[!isFull]]">
+          <div class$="[[halfMask_(isLeft)]]"
+              on-mousedown="handleDragstart_"
+              on-touchstart="handleDragstart_"></div>
+        </template>
+      </div>
+    </div>
   </template>
   <div class="row">
     <paper-input label="Horizontal offset"
