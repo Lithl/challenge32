@@ -215,19 +215,21 @@ export class ImageAdjuster extends PolymerElement {
   }
 
   protected isObtuseTriangle_(shape: ImageShape) {
-    return shape === ImageShape.OBTUSE_TRIANGLE;
+    return shape === ImageShape.OBTUSE_TRIANGLE
+        || shape === ImageShape.INVERTED_OBTUSE_TRIANGLE;
   }
 
   protected isInvertedObtuseTriangle_(shape: ImageShape) {
-    return shape === ImageShape.INVERTED_OBTUSE_TRIANGLE;
+    return shape === ImageShape.INVERTED_OBTUSE_TRIANGLE ? 'inverted' : '';
   }
 
   protected isAcuteTriangle_(shape: ImageShape) {
-    return shape === ImageShape.ACUTE_TRIANGLE;
+    return shape === ImageShape.ACUTE_TRIANGLE
+        || shape === ImageShape.INVERTED_ACUTE_TRIANGLE;
   }
 
   protected isInvertedAcuteTriangle_(shape: ImageShape) {
-    return shape === ImageShape.INVERTED_ACUTE_TRIANGLE;
+    return shape === ImageShape.INVERTED_ACUTE_TRIANGLE ? 'inverted' : '';
   }
 
   protected isTrapezoid_(shape: ImageShape) {
