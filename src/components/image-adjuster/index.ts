@@ -203,7 +203,14 @@ export class ImageAdjuster extends PolymerElement {
   }
 
   protected handleConfirm_() {
-
+    this.dispatchEvent(new CustomEvent('image-adjustment-confirmed', {
+      detail: {
+        adjustment: this.adjustment,
+      },
+      bubbles: true,
+      composed: true,
+    }));
+    this.dialog_.close();
   }
 
   protected isCircle_(shape: ImageShape) {

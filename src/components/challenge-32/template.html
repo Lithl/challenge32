@@ -79,11 +79,11 @@
       on-mouseleave="handlePreviewUnhover_">
     <div class="background">
       <div class="image"
-          style$="background-image: url([[diagram_.colorless.0.image.art]])">
+          style$="[[getImageStyle_('colorless', diagram_.colorless, 0)]]">
       </div>
       <template is="dom-if" if="[[diagram_.colorless.1]]">
         <div class="image"
-            style$="background-image: url([[diagram_.colorless.1.image.art]])">
+            style$="[[getImageStyle_('colorless', diagram_.colorless, 1)]]">
         </div>
         <div class="partner-separator"></div>
       </template>
@@ -106,10 +106,10 @@
       <div class="background">
         <div class="border" style$="visibility: [[isVisible_(item.data)]]">
           <div class="image"
-              style$="background-image: url([[getArt_(item.data, 0)]])"></div>
+              style$="[[getImageStyle_(item.name, item.data, 0)]]"></div>
           <template is="dom-if" if="[[hasPartner_(item.data)]]">
             <div class="image"
-                style$="background-image: url([[getArt_(item.data, 1)]])"></div>
+                style$="[[getImageStyle_(item.name, item.data, 1)]]"></div>
             <div class="partner-separator"></div>
           </template>
         </div>
@@ -126,5 +126,6 @@
 
 <commander-selector id="selector"
     on-commander-selected="handleCommanderSelected_"></commander-selector>
-<image-adjuster id="adjuster"></image-adjuster>
+<image-adjuster id="adjuster"
+    on-image-adjustment-confirmed="handleImageAdjusted_"></image-adjuster>
 <preview-hover></preview-hover>

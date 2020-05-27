@@ -7,7 +7,7 @@ import { CommanderSelector } from '../commander-selector';
 import { PreviewHover } from'../preview-hover';
 import { AppDrawerElement } from '@polymer/app-layout/app-drawer/app-drawer';
 import { PaperIconButtonElement } from '@polymer/paper-icon-button/paper-icon-button';
-import { ImageAdjuster, ImageShape } from '../image-adjuster';
+import { ImageAdjuster, ImageAdjustment, ImageShape } from '../image-adjuster';
 import '@polymer/iron-ajax/iron-ajax';
 import '@polymer/app-layout/app-drawer/app-drawer';
 import '@polymer/paper-icon-button/paper-icon-button';
@@ -19,7 +19,7 @@ import '../toggle-button-group';
 import '../image-adjuster';
 
 import { CardData, ManaColor } from '../../server/commanders';
-import { intersection, onlyUnique } from '../../util';
+import { intersection, onlyUnique, assertUnreachable } from '../../util';
 import { DomRepeatCustomEvent } from '../commander-selector';
 
 import { default as template } from './template.html';
@@ -103,16 +103,24 @@ const identities: Record<ColorDescriptor, Identity> = {
 };
 const allColorDescriptors = Object.keys(identities) as ColorDescriptor[];
 
-interface DiagramModel extends Record<ColorDescriptor, CardData[]> {}
+interface CardDataAdjustment extends Omit<ImageAdjustment, 'card'> {}
+
+interface ExtendedCardData extends CardData {
+  adjustment?: CardDataAdjustment;
+}
+
+interface DiagramModel extends Record<ColorDescriptor, ExtendedCardData[]> {}
 
 const timeoutTask = timeOut.after(100);
 
 interface ShapeData {
-  name: string;
+  name: ColorDescriptor;
   type: string;
   id: string;
-  readonly data: () => CardData[] | undefined;
+  readonly data: () => ExtendedCardData[] | undefined;
 }
+
+type ExtendedCardDataArrFn = () => ExtendedCardData[] | undefined;
 
 @customElement('challenge-32')
 export class Challenge32 extends GestureEventListeners(PolymerElement) {
@@ -125,13 +133,14 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   @query('#menuButton') private menuButton_!: PaperIconButtonElement;
   @query('#adjuster') private adjuster_!: ImageAdjuster;
 
-  @property() protected commanders_: CardData[] = [];
+  @property() protected commanders_: ExtendedCardData[] = [];
   @property() protected diagram_: Partial<DiagramModel> = {};
   @property() protected readonly generatorData_: ShapeData[];
   @property() protected editId_ = 'C';
 
   private selectedId_?: ColorDescriptor;
   private mousemoveDebouncer_: Debouncer | null = null;
+  private imgRatioCache_: {[key: string]: number} = {};
 
   static get template() {
     // @ts-ignore
@@ -145,7 +154,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     const dataArr: ShapeData[] = [];
     Object.entries(identities).forEach((id) => {
       dataArr.push({
-        name: id[0],
+        name: id[0] as ColorDescriptor,
         type: id[1].type!,
         id: id[1].colors.join('').toLowerCase(),
         get data() {
@@ -175,8 +184,24 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     }
   }
 
+  protected handleImageAdjusted_(e: CustomEvent) {
+    const adjustedCommander = this.commanders_
+        .find((c) => c.id === e.detail.adjustment.card.id);
+    if (!adjustedCommander) return;
+    adjustedCommander.adjustment = {
+      left: e.detail.adjustment.left,
+      top: e.detail.adjustment.top,
+      scaleW: e.detail.adjustment.scaleW,
+      scaleH: e.detail.adjustment.scaleH,
+    };
+    const shapeIdx = this.generatorData_
+        .findIndex((shape) => shape.name === this.selectedId_);
+    this.notifyPath(`generatorData_.${shapeIdx}.data`);
+    this.notifyPath(`diagram_.${this.selectedId_}`);
+  }
+
   protected handleImageAdjust_(e: DomRepeatCustomEvent) {
-    const card = e.model.item as CardData;
+    const card = e.model.item as ExtendedCardData;
     const descriptor = this.filterIdentities_(this.editId_)[0];
     const isFull = !!this.diagram_[descriptor]
         && this.diagram_[descriptor]!.length === 1;
@@ -184,13 +209,18 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
 
     this.adjuster_.isFull = isFull;
     this.adjuster_.isLeft = isLeft;
-    this.adjuster_.adjustment = {
-      card,
-      left: 0,
-      top: 0,
-      scaleW: 1,
-      scaleH: 1,
-    };
+
+    if (card.adjustment) {
+      this.adjuster_.adjustment = Object.assign({}, card.adjustment, {card});
+    } else {
+      this.adjuster_.adjustment = {
+        card,
+        left: 0,
+        top: 0,
+        scaleW: 1,
+        scaleH: 1,
+      };
+    }
 
     switch (this.editId_) {
       case 'C':
@@ -311,9 +341,157 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     this[`list${e.model.item.id.toUpperCase()}Commanders_`]();
   }
 
-  protected getArt_(item: () => CardData[] | undefined, idx: number) {
-    const data = item();
-    return data && data[idx].image.art;
+  protected getImageStyle_(
+      shapeName: ColorDescriptor,
+      item: ExtendedCardDataArrFn | ExtendedCardData[] | undefined,
+      idx: number) {
+    const data = typeof item === 'function' ? item() : item;
+    if (!data) return '';
+    const card = data[idx];
+    this.addRatioToCache_(card.image.art);
+    let style = `background-image: url(${card.image.art});`;
+    if (card.adjustment) {
+      // imgRatioCache_[card.image.art] is set asynchronously, so might be
+      // undefined. However, this section will only be reached after confirming
+      // the image adjustment dialog, while this function will have been called
+      // on the same image upon confirming the comander selection dialog, so
+      // under most circumstances the value will be set correctly.
+      const dim = this.getDimensions_(shapeName);
+      const baseW = this.initialWidth_(
+          dim.width,
+          dim.height,
+          this.imgRatioCache_[card.image.art]);
+      const baseH = this.initialHeight_(
+          dim.width,
+          dim.height,
+          this.imgRatioCache_[card.image.art]);
+      const adjustment = card.adjustment || {
+        left: 0,
+        top: 0,
+        scaleW: 1,
+        scaleH: 1,
+      };
+      style += `background-size:
+    calc(${baseW}vh * ${adjustment.scaleW})
+    calc(${baseH}vh * ${adjustment.scaleH});`;
+      const offset = this.initialOffsetX_(
+          dim.width,
+          dim.height,
+          this.imgRatioCache_[card.image.art]);
+      style += `background-position:
+    calc(${offset}vh + ${adjustment.left}vh)
+    ${adjustment.top}vh`;
+    }
+    return style;
+  }
+
+  private initialOffsetX_(cW: number, cH: number, imgRatio: number) {
+    if (cH / cW > imgRatio) {
+      const w = this.initialWidth_(cW, cH, imgRatio);
+      const h = this.initialHeight_(cW, cH, imgRatio);
+      return -Math.abs(w - h) / 2;
+    } else {
+      return 0;
+    }
+  }
+
+  private initialWidth_(cW: number, cH: number, imgRatio = 1) {
+    const containerRatio = cH / cW;
+    if (containerRatio > imgRatio) {
+      return cH / imgRatio;
+    } else {
+      return cW;
+    }
+  }
+
+  private initialHeight_(cW: number, cH: number, imgRatio = 1) {
+    const containerRatio = cH / cW;
+    if (containerRatio > imgRatio) {
+      return cH;
+    } else {
+      return cW * imgRatio;
+    }
+  }
+
+  private addRatioToCache_(url: string) {
+    const image = new Image();
+    image.addEventListener('load', () => {
+      const w = image.width;
+      const h = image.height;
+      this.imgRatioCache_[url] = h / w;
+    });
+    image.src = url;
+  }
+
+  private getDimensions_(shapeName: ColorDescriptor) {
+    switch (shapeName) {
+      case 'colorless':
+        return {
+          // computed: vh equivalent to 185.5px
+          width: 15.68959,
+          height: 15.68959,
+        };
+      case 'monoWhite':
+      case 'monoBlue':
+      case 'monoBlack':
+      case 'monoRed':
+      case 'monoGreen':
+      case 'whiteless':
+      case 'blueless':
+      case 'blackless':
+      case 'redless':
+      case 'greenless':
+        return {
+          // computed: vh equivalent to 382.2px
+          width: 32.32648,
+          height: 32.32648,
+        };
+      case 'azorius':
+      case 'dimir':
+      case 'rakdos':
+      case 'gruul':
+      case 'selesnya':
+      case 'jeskai':
+      case 'sultai':
+      case 'mardu':
+      case 'temur':
+      case 'abzan':
+        return {
+          // distance between mono-color mana symbols
+          width: 47.55,
+          // arbitrarily chosen
+          height: 14.683,
+        };
+      case 'bant':
+      case 'esper':
+      case 'grixis':
+      case 'jund':
+      case 'naya':
+        return {
+          // dimensions to fill space between ally-color triangles
+          width: 21.21,
+          height: 25.855,
+        };
+      case 'simic':
+      case 'orzhov':
+      case 'izzet':
+      case 'golgari':
+      case 'boros':
+        return {
+          // width of shards
+          width: 21.21,
+          // width of side of 5c pentagon
+          height: 10.55,
+        };
+      case 'pentacolor':
+        return {
+          // arbitrarily chosen
+          width: 10,
+          height: 10,
+        };
+      default:
+        assertUnreachable(shapeName);
+    }
   }
 
   protected hasPartner_(item: () => CardData[] | undefined) {
