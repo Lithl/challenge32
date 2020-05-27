@@ -768,7 +768,17 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   protected handleCommanderSelected_(e: CustomEvent) {
     if (!this.selectedId_) return;
     if (this.metadata_[this.selectedId_]) {
-      delete this.metadata_[this.selectedId_]!.adjustment;
+      this.metadata_[this.selectedId_]!.adjustment = [{
+        left: 0,
+        top: 0,
+        scaleW: 1,
+        scaleH: 1,
+      }, {
+        left: 0,
+        top: 0,
+        scaleW: 1,
+        scaleH: 1,
+      }];
     }
 
     if (this.setExtra_) {
