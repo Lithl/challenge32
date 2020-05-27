@@ -101,6 +101,7 @@ paper-tooltip {
 
   paper-progress {
     border-radius: 2px;
+    width: 100%;
   }
 
   &:hover {
@@ -108,7 +109,6 @@ paper-tooltip {
 
     paper-progress {
       border-radius: 8px;
-      width: 100%;
 
       &::before {
         content: attr(data-label);
