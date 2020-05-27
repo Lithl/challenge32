@@ -181,7 +181,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   }
 
   protected handleImageAdjusted_(e: CustomEvent) {
-    const descriptor = this.filterIdentities_(this.editId_)[0];
+    const descriptor = this.descriptor_(this.editId_);
     if (!this.adjustments_[descriptor]) {
       this.adjustments_[descriptor] = [{
         left: 0,
@@ -210,7 +210,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
 
   protected handleImageAdjust_(e: DomRepeatCustomEvent) {
     const card = e.model.item as CardData;
-    const descriptor = this.filterIdentities_(this.editId_)[0];
+    const descriptor = this.descriptor_(this.editId_);
     const isFull = !!this.diagram_[descriptor]
         && this.diagram_[descriptor]!.length === 1;
     const isLeft = e.model.index === 0;
@@ -295,8 +295,8 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   }
 
   protected commanderFor_(id: string) {
-    const identity = this.filterIdentities_(id);
-    return this.diagram_[identity[0] as ColorDescriptor];
+    const descriptor = this.descriptor_(id);
+    return this.diagram_[descriptor];
   }
 
   protected identityToName_(id: string) {
