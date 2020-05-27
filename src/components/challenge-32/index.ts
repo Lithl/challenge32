@@ -103,13 +103,7 @@ const identities: Record<ColorDescriptor, Identity> = {
 };
 const allColorDescriptors = Object.keys(identities) as ColorDescriptor[];
 
-interface CardDataAdjustment extends Omit<ImageAdjustment, 'card'> {}
-
-interface ExtendedCardData extends CardData {
-  adjustment?: CardDataAdjustment;
-}
-
-interface DiagramModel extends Record<ColorDescriptor, ExtendedCardData[]> {}
+interface DiagramModel extends Record<ColorDescriptor, CardData[]> {}
 
 const timeoutTask = timeOut.after(100);
 
@@ -117,10 +111,11 @@ interface ShapeData {
   name: ColorDescriptor;
   type: string;
   id: string;
-  readonly data: () => ExtendedCardData[] | undefined;
+  readonly data: CardDataArrFn;
 }
 
-type ExtendedCardDataArrFn = () => ExtendedCardData[] | undefined;
+type CardDataArrFn = () => CardData[] | undefined;
+type AdjustmentData = Omit<ImageAdjustment, 'card'>;
 
 @customElement('challenge-32')
 export class Challenge32 extends GestureEventListeners(PolymerElement) {
@@ -133,14 +128,15 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   @query('#menuButton') private menuButton_!: PaperIconButtonElement;
   @query('#adjuster') private adjuster_!: ImageAdjuster;
 
-  @property() protected commanders_: ExtendedCardData[] = [];
+  @property() protected commanders_: CardData[] = [];
   @property() protected diagram_: Partial<DiagramModel> = {};
   @property() protected readonly generatorData_: ShapeData[];
   @property() protected editId_ = 'C';
 
   private selectedId_?: ColorDescriptor;
   private mousemoveDebouncer_: Debouncer | null = null;
-  private imgRatioCache_: {[key: string]: number} = {};
+  private imgRatioCache_: Partial<Record<ColorDescriptor, number[]>> = {};
+  private adjustments_: Partial<Record<ColorDescriptor, AdjustmentData[]>> = {};
 
   static get template() {
     // @ts-ignore
@@ -185,10 +181,22 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   }
 
   protected handleImageAdjusted_(e: CustomEvent) {
-    const adjustedCommander = this.commanders_
-        .find((c) => c.id === e.detail.adjustment.card.id);
-    if (!adjustedCommander) return;
-    adjustedCommander.adjustment = {
+    const descriptor = this.filterIdentities_(this.editId_)[0];
+    if (!this.adjustments_[descriptor]) {
+      this.adjustments_[descriptor] = [{
+        left: 0,
+        top: 0,
+        scaleW: 1,
+        scaleH: 1,
+      }, {
+        left: 0,
+        top: 0,
+        scaleW: 1,
+        scaleH: 1,
+      }];
+    }
+    const idx = e.detail.isFull || e.detail.isLeft ? 0 : 1;
+    this.adjustments_[descriptor]![idx] = {
       left: e.detail.adjustment.left,
       top: e.detail.adjustment.top,
       scaleW: e.detail.adjustment.scaleW,
@@ -197,11 +205,11 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     const shapeIdx = this.generatorData_
         .findIndex((shape) => shape.name === this.selectedId_);
     this.notifyPath(`generatorData_.${shapeIdx}.data`);
-    this.notifyPath(`diagram_.${this.selectedId_}`);
+    this.notifyPath(`diagram_.${this.selectedId_}.${idx}`);
   }
 
   protected handleImageAdjust_(e: DomRepeatCustomEvent) {
-    const card = e.model.item as ExtendedCardData;
+    const card = e.model.item as CardData;
     const descriptor = this.filterIdentities_(this.editId_)[0];
     const isFull = !!this.diagram_[descriptor]
         && this.diagram_[descriptor]!.length === 1;
@@ -210,8 +218,11 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     this.adjuster_.isFull = isFull;
     this.adjuster_.isLeft = isLeft;
 
-    if (card.adjustment) {
-      this.adjuster_.adjustment = Object.assign({}, card.adjustment, {card});
+    if (this.adjustments_[descriptor]) {
+      this.adjuster_.adjustment = Object.assign(
+          {},
+          this.adjustments_[descriptor]![e.model.index],
+          {card});
     } else {
       this.adjuster_.adjustment = {
         card,
@@ -343,29 +354,24 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
 
   protected getImageStyle_(
       shapeName: ColorDescriptor,
-      item: ExtendedCardDataArrFn | ExtendedCardData[] | undefined,
+      item: CardDataArrFn | CardData[] | undefined,
       idx: number) {
     const data = typeof item === 'function' ? item() : item;
     if (!data) return '';
     const card = data[idx];
-    this.addRatioToCache_(card.image.art);
+    this.addRatioToCache_(card.image.art, shapeName, idx);
     let style = `background-image: url(${card.image.art});`;
-    if (card.adjustment) {
+    if (this.adjustments_[shapeName]) {
       // imgRatioCache_[card.image.art] is set asynchronously, so might be
       // undefined. However, this section will only be reached after confirming
       // the image adjustment dialog, while this function will have been called
       // on the same image upon confirming the comander selection dialog, so
       // under most circumstances the value will be set correctly.
       const dim = this.getDimensions_(shapeName);
-      const baseW = this.initialWidth_(
-          dim.width,
-          dim.height,
-          this.imgRatioCache_[card.image.art]);
-      const baseH = this.initialHeight_(
-          dim.width,
-          dim.height,
-          this.imgRatioCache_[card.image.art]);
-      const adjustment = card.adjustment || {
+      const ratioCache = this.imgRatioCache_[shapeName] || [1, 1];
+      const baseW = this.initialWidth_(dim.width, dim.height, ratioCache[idx]);
+      const baseH = this.initialHeight_(dim.width, dim.height, ratioCache[idx]);
+      const adjustment = this.adjustments_[shapeName]![idx] || {
         left: 0,
         top: 0,
         scaleW: 1,
@@ -377,7 +383,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
       const offset = this.initialOffsetX_(
           dim.width,
           dim.height,
-          this.imgRatioCache_[card.image.art]);
+          ratioCache[idx]);
       style += `background-position:
     calc(${offset}vh + ${adjustment.left}vh)
     ${adjustment.top}vh`;
@@ -413,12 +419,15 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     }
   }
 
-  private addRatioToCache_(url: string) {
+  private addRatioToCache_(url: string, id: ColorDescriptor, idx: number) {
     const image = new Image();
     image.addEventListener('load', () => {
       const w = image.width;
       const h = image.height;
-      this.imgRatioCache_[url] = h / w;
+      if (this.imgRatioCache_[id] === undefined) {
+        this.imgRatioCache_[id] = [1, 1];
+      }
+      this.imgRatioCache_[id]![idx] = h / w;
     });
     image.src = url;
   }
@@ -622,6 +631,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
 
   protected handleCommanderSelected_(e: CustomEvent) {
     if (this.selectedId_) {
+      delete this.adjustments_[this.selectedId_];
       this.set(`diagram_.${this.selectedId_}`, e.detail);
       const idx = this.generatorData_.findIndex((shape) =>
           shape.name === this.selectedId_);

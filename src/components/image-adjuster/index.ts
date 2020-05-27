@@ -206,6 +206,8 @@ export class ImageAdjuster extends PolymerElement {
     this.dispatchEvent(new CustomEvent('image-adjustment-confirmed', {
       detail: {
         adjustment: this.adjustment,
+        isFull: this.isFull,
+        isLeft: this.isLeft,
       },
       bubbles: true,
       composed: true,
