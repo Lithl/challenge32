@@ -108,10 +108,11 @@ const identities: Record<ColorDescriptor, Identity> = {
 const allColorDescriptors = Object.keys(identities) as ColorDescriptor[];
 
 type DiagramModel = Record<ColorDescriptor, CardData[]>;
-type DiagramMeta = Record<ColorDescriptor, Metadata>;
+type DiagramMeta = Record<ColorDescriptor, Partial<Metadata>>;
 
 interface Metadata {
   decklist: string;
+  adjustment: AdjustmentData[];
 }
 
 const timeoutTask = timeOut.after(100);
@@ -147,7 +148,6 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   private selectedId_?: ColorDescriptor;
   private mousemoveDebouncer_: Debouncer | null = null;
   private imgRatioCache_: Partial<Record<ColorDescriptor, number[]>> = {};
-  private adjustments_: Partial<Record<ColorDescriptor, AdjustmentData[]>> = {};
 
   static get template() {
     // @ts-ignore
@@ -193,21 +193,23 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
 
   protected handleImageAdjusted_(e: CustomEvent) {
     const descriptor = this.descriptor_(this.editId_);
-    if (!this.adjustments_[descriptor]) {
-      this.adjustments_[descriptor] = [{
-        left: 0,
-        top: 0,
-        scaleW: 1,
-        scaleH: 1,
-      }, {
-        left: 0,
-        top: 0,
-        scaleW: 1,
-        scaleH: 1,
-      }];
+    if (!this.metadata_[descriptor]) {
+      this.metadata_[descriptor] = {
+          adjustment: [{
+          left: 0,
+          top: 0,
+          scaleW: 1,
+          scaleH: 1,
+        }, {
+          left: 0,
+          top: 0,
+          scaleW: 1,
+          scaleH: 1,
+        }],
+      };
     }
     const idx = e.detail.isFull || e.detail.isLeft ? 0 : 1;
-    this.adjustments_[descriptor]![idx] = {
+    this.metadata_[descriptor]!.adjustment![idx] = {
       left: e.detail.adjustment.left,
       top: e.detail.adjustment.top,
       scaleW: e.detail.adjustment.scaleW,
@@ -267,10 +269,10 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     this.adjuster_.isFull = isFull;
     this.adjuster_.isLeft = isLeft;
 
-    if (this.adjustments_[descriptor]) {
+    if (this.metadata_[descriptor] && this.metadata_[descriptor]!.adjustment) {
       this.adjuster_.adjustment = Object.assign(
           {},
-          this.adjustments_[descriptor]![e.model.index],
+          this.metadata_[descriptor]!.adjustment![e.model.index],
           {card});
     } else {
       this.adjuster_.adjustment = {
@@ -410,7 +412,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     const card = data[idx];
     this.addRatioToCache_(card.image.art, shapeName, idx);
     let style = `background-image: url(${card.image.art});`;
-    if (this.adjustments_[shapeName]) {
+    if (this.metadata_[shapeName] && this.metadata_[shapeName]!.adjustment) {
       // imgRatioCache_[card.image.art] is set asynchronously, so might be
       // undefined. However, this section will only be reached after confirming
       // the image adjustment dialog, while this function will have been called
@@ -420,7 +422,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
       const ratioCache = this.imgRatioCache_[shapeName] || [1, 1];
       const baseW = this.initialWidth_(dim.width, dim.height, ratioCache[idx]);
       const baseH = this.initialHeight_(dim.width, dim.height, ratioCache[idx]);
-      const adjustment = this.adjustments_[shapeName]![idx] || {
+      const adjustment = this.metadata_[shapeName]!.adjustment![idx] || {
         left: 0,
         top: 0,
         scaleW: 1,
@@ -681,7 +683,9 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
 
   protected handleCommanderSelected_(e: CustomEvent) {
     if (this.selectedId_) {
-      delete this.adjustments_[this.selectedId_];
+      if (this.metadata_[this.selectedId_]) {
+        delete this.metadata_[this.selectedId_]!.adjustment;
+      }
       this.set(`diagram_.${this.selectedId_}`, e.detail);
       const idx = this.generatorData_.findIndex((shape) =>
           shape.name === this.selectedId_);
