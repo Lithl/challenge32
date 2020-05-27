@@ -607,8 +607,8 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   }
 
   protected listEditCommanders_() {
-    const identity = this.filterIdentities_(this.editId_);
-    this.selectedId_ = identity[0];
+    const descriptor = this.descriptor_(this.editId_);
+    this.selectedId_ = descriptor;
     this.listCommanders_((card) => {
       const id = this.editId_ === 'C' ? '' : this.editId_;
       return this.colorIdentityEquals_(card, id) || this.isPartnerIn_(card, id);
