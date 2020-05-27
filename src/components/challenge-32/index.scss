@@ -698,7 +698,39 @@ div.green-mana.deck {
   left: 49.5%;
 }
 
+.hide-aliasing {
+  position: absolute;
+  background-color: black;
+  z-index: -1;
+  clip-path: polygon(
+      // whiteless
+      range-scale(0) * 100% invert(range-scale(-1)) * 100% - 3,
+      // mono-red
+      range-scale($s1 / 2 - $s1) * 100% invert(range-scale(($c1 - 1) / 2 - $c1)) * 100%,
+      // blueless
+      range-scale($s1 / 2 - $s1) * 100% - 21.311 invert(range-scale(($c1 - 1) / 2 - $c1)) * 100% - 18.073,
+      // mono-green
+      range-scale(($s1 - $s2) / 2 - $s1) * 100% invert(range-scale($c2 - ($c1 + $c2) / 2)) * 100%,
+      // blackless
+      range-scale(($s1 - $s2) / 2 - $s1) * 100% + 10.603 invert(range-scale($c2 - ($c1 + $c2) / 2)) * 100% - 25.853,
+      // mono-white
+      range-scale(0) * 100% invert(range-scale($c2)) * 100%,
+      // redless
+      range-scale(0) * 100% + 27.864 invert(range-scale($c2)) * 100% + 2.095,
+      // mono-blue
+      range-scale(($s1 - $s2) / 2 + $s2) * 100% invert(range-scale($c2 - ($c1 + $c2) / 2)) * 100%,
+      // greenless
+      range-scale(($s1 - $s2) / 2 + $s2) * 100% + 6.618 invert(range-scale($c2 - ($c1 + $c2) / 2)) * 100% + 27.148,
+      // mono-black
+      range-scale($s1 / 2) * 100% invert(range-scale(($c1 - 1) / 2 - $c1)) * 100%);
+}
+
 .landscape {
+  .hide-aliasing {
+    width: 100vh;
+    height: 100vh;
+  }
+
   // shape dimensions
   .ally,
   .wedge {
