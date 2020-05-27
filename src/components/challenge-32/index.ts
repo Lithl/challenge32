@@ -578,6 +578,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
       if (!partner) return false;
       const totalIdentity = [...card.colorIdentity, ...partner.colorIdentity]
           .filter(onlyUnique);
+      if (totalIdentity.length !== identity.length) return false;
       for (const color of identity) {
         if (!totalIdentity.includes(color as ManaColor)) return false;
       }
