@@ -63,6 +63,19 @@
       </div>
     </template>
   </div>
+  <paper-input id="decklist"
+      label="Link to decklist"
+      on-keydown="decklistKeydown_"></paper-input>
+  <template is="dom-if" if="[[hasDecklist_(metadata_.*, editId_)]]">
+    <p>
+      <a href$="[[getDecklist_(metadata_.*, editId_)]]"
+          target="_blank"
+          rel="noopener">
+        <span>[[getDecklistDisplay_(metadata_.*, editId_)]]</span>
+        <iron-icon icon="link"></iron-icon>
+      </a>
+    </p>
+  </template>
 </app-drawer>
 
 <div id="content">

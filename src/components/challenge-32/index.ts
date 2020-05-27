@@ -8,11 +8,15 @@ import { PreviewHover } from'../preview-hover';
 import { AppDrawerElement } from '@polymer/app-layout/app-drawer/app-drawer';
 import { PaperIconButtonElement } from '@polymer/paper-icon-button/paper-icon-button';
 import { ImageAdjuster, ImageAdjustment, ImageShape } from '../image-adjuster';
+import { PaperInputElement } from '@polymer/paper-input/paper-input';
 import '@polymer/iron-ajax/iron-ajax';
 import '@polymer/app-layout/app-drawer/app-drawer';
 import '@polymer/paper-icon-button/paper-icon-button';
 import '@polymer/paper-tooltip/paper-tooltip';
 import '@polymer/paper-button/paper-button';
+import '@polymer/paper-input/paper-input';
+import '@polymer/iron-icon/iron-icon';
+import '@polymer/iron-icons/iron-icons';
 import '../icon-toggle-button';
 import '../iconset-mtg';
 import '../toggle-button-group';
@@ -103,7 +107,12 @@ const identities: Record<ColorDescriptor, Identity> = {
 };
 const allColorDescriptors = Object.keys(identities) as ColorDescriptor[];
 
-interface DiagramModel extends Record<ColorDescriptor, CardData[]> {}
+type DiagramModel = Record<ColorDescriptor, CardData[]>;
+type DiagramMeta = Record<ColorDescriptor, Metadata>;
+
+interface Metadata {
+  decklist: string;
+}
 
 const timeoutTask = timeOut.after(100);
 
@@ -127,9 +136,11 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   @query('#menu') private menu_!: AppDrawerElement;
   @query('#menuButton') private menuButton_!: PaperIconButtonElement;
   @query('#adjuster') private adjuster_!: ImageAdjuster;
+  @query('#decklist') private decklist_!: PaperInputElement;
 
   @property() protected commanders_: CardData[] = [];
   @property() protected diagram_: Partial<DiagramModel> = {};
+  @property() protected metadata_: Partial<DiagramMeta> = {};
   @property() protected readonly generatorData_: ShapeData[];
   @property() protected editId_ = 'C';
 
@@ -206,6 +217,44 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
         .findIndex((shape) => shape.name === this.selectedId_);
     this.notifyPath(`generatorData_.${shapeIdx}.data`);
     this.notifyPath(`diagram_.${this.selectedId_}.${idx}`);
+  }
+
+  protected getDecklist_(_: any, id: string) {
+    const descriptor = this.descriptor_(id);
+    if (!this.metadata_[descriptor]) return '';
+    return this.metadata_[descriptor]!.decklist || '';
+  }
+
+  protected getDecklistDisplay_(_: any, id: string) {
+    return this.getDecklist_(_, id).replace(/^.+\/\//, '');
+  }
+
+  protected hasDecklist_(_: any, id: string) {
+    const descriptor = this.descriptor_(id);
+    if (!this.metadata_[descriptor]) return false;
+    return !!(this.metadata_[descriptor]!.decklist);
+  }
+
+  protected descriptor_(id: string) {
+    return this.filterIdentities_(id)[0];
+  }
+
+  protected decklistKeydown_(e: KeyboardEvent) {
+    if (!(e.key === 'Enter' || e.key === 'Tab')) return;
+    const val = this.decklist_.value;
+    if (!val) return;
+    if (!val.trim().length) return;
+
+    const descriptor = this.descriptor_(this.editId_);
+    if (!this.metadata_[descriptor]) {
+      this.metadata_[descriptor] = {
+        decklist: '',
+      };
+    }
+    this.set(`metadata_.${descriptor}.decklist`, val);
+
+    this.decklist_.value = '';
+    this.decklist_.blur();
   }
 
   protected handleImageAdjust_(e: DomRepeatCustomEvent) {

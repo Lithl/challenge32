@@ -133,8 +133,33 @@ paper-tooltip {
     margin: 16px 24px;
   }
 
-  p {
+  p,
+  #decklist {
     margin: 0 24px 8px 24px;
+
+    a {
+      display: block;
+      white-space: nowrap;
+
+      span {
+        display: inline-block;
+        max-width: calc(100% - 30px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+      }
+
+      &:hover {
+        text-decoration: none;
+        color: var(--google-blue-300);
+      }
+
+      --iron-icon: {
+        border-radius: unset;
+
+        @apply --shadow-elevation-none;
+      }
+    }
   }
 
   paper-button {
