@@ -119,7 +119,7 @@ type AdjustmentData = Omit<ImageAdjustment, 'card'>;
 
 @customElement('challenge-32')
 export class Challenge32 extends GestureEventListeners(PolymerElement) {
-  [x: string]: any;
+  [x: string]: any; // needed for ts to allow automatically adding functions
 
   @query('#content') private content_!: HTMLDivElement;
   @query('#selector') private selector_!: CommanderSelector;
