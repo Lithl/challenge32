@@ -51,7 +51,7 @@
       Change selected commander(s)
     </template>
     <template is="dom-if" if="[[!hasCommanderFor_(editId_, diagram_.*)]]">
-      Select commander
+      Select commander(s)
     </template>
   </paper-button>
   <div class="commander-images">
@@ -76,6 +76,43 @@
       </a>
     </p>
   </template>
+  <hr>
+  <h3>Additional commanders in [[identityToName_(editId_)]]</h3>
+  <div class="additional-commanders">
+    <paper-button on-tap="listEditExtraCommanders_">
+      <iron-icon icon="add-circle"></iron-icon>
+      <span>Add additional commander(s)</span>
+    </paper-button>
+    <div class="list">
+      <template is="dom-repeat" items="[[additionalCommanders_]]">
+        <div class="additional-item">
+          <div>
+            <div class="art"
+                style$="background-image: url([[item.0.image.art]])"></div>
+            <template is="dom-if" if="[[item.1]]">
+              <div class="art"
+                  style$="background-image: url([[item.1.image.art]])"></div>
+            </template>
+            <paper-icon-button icon="delete"
+                class="delete"
+                on-tap="deleteAdditionalCommander_"></paper-icon-button>
+            <paper-icon-button icon="get-app"
+                class="promote"
+                on-tap="promoteAdditionalCommander_"></paper-icon-button>
+          </div>
+          <span>
+            [[item.0.name]]
+            <template is="dom-if" if="[[item.1]]">
+              & [[item.1.name]]
+            </template>
+          </span>
+        </div>
+      </template>
+    </div>
+  </div>
+  <hr>
+  <paper-button class="remove"
+      on-tap="removeCommander_">Remove commander(s)</paper-button>
 </app-drawer>
 
 <div id="indicator">

@@ -114,6 +114,7 @@ type DiagramMeta = Record<ColorDescriptor, Partial<Metadata>>;
 interface Metadata {
   decklist: string;
   adjustment: AdjustmentData[];
+  additionalCommanders: CardData[][];
 }
 
 const timeoutTask = timeOut.after(100);
@@ -146,10 +147,12 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   @property() protected metadata_: Partial<DiagramMeta> = {};
   @property() protected readonly generatorData_: ShapeData[];
   @property() protected editId_ = 'C';
+  @property() protected additionalCommanders_: CardData[][] = [];
 
   private selectedId_?: ColorDescriptor;
   private mousemoveDebouncer_: Debouncer | null = null;
   private imgRatioCache_: Partial<Record<ColorDescriptor, number[]>> = {};
+  private setExtra_ = false;
 
   static get template() {
     // @ts-ignore
@@ -406,6 +409,63 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
       setTimeout(() => this.editId_ = 'C');
     } else {
       this.editId_ = curr.join('');
+    }
+
+    const descriptor = this.descriptor_(this.editId_);
+    if (!(this.metadata_[descriptor]
+        && this.metadata_[descriptor]!.additionalCommanders)) {
+      this.additionalCommanders_ = [];
+    } else {
+      this.additionalCommanders_ =
+          this.metadata_[descriptor]!.additionalCommanders!.slice();
+    }
+  }
+
+  protected deleteAdditionalCommander_(e: DomRepeatCustomEvent) {
+    const deleteIdx = e.model.index;
+    const descriptor = this.descriptor_(this.editId_);
+    if (!(this.metadata_[descriptor]
+        && this.metadata_[descriptor]!.additionalCommanders)) return;
+    this.metadata_[descriptor]!.additionalCommanders!.splice(deleteIdx, 1);
+    this.additionalCommanders_ =
+        this.metadata_[descriptor]!.additionalCommanders!.slice();
+  }
+
+  protected promoteAdditionalCommander_(e: DomRepeatCustomEvent) {
+    const promoteIdx = e.model.index;
+    const descriptor = this.descriptor_(this.editId_);
+    if (!(this.metadata_[descriptor]
+        && this.metadata_[descriptor]!.additionalCommanders)) return;
+
+    const promoted = this.metadata_[descriptor]!.additionalCommanders!
+        .splice(promoteIdx, 1)[0];
+    const demoted = this.diagram_[descriptor];
+
+    this.set(`diagram_.${descriptor}`, promoted);
+    if (demoted) {
+      this.metadata_[descriptor]!.additionalCommanders!.push(demoted);
+    }
+    this.additionalCommanders_ =
+        this.metadata_[descriptor]!.additionalCommanders!.slice();
+  }
+
+  protected removeCommander_() {
+    const descriptor = this.descriptor_(this.editId_);
+    if (!this.diagram_[descriptor]) return;
+
+    this.set(`diagram_.${descriptor}`, null);
+    const idx = this.generatorData_.findIndex((shape) =>
+        shape.name === descriptor);
+    this.notifyPath(`generatorData_.${idx}.data`);
+    delete this.diagram_[descriptor];
+
+    if (!this.metadata_[descriptor]) return;
+    if (this.metadata_[descriptor]!.adjustment) {
+      delete this.metadata_[descriptor]!.adjustment;
+    }
+    if (this.metadata_[descriptor]!.decklist) {
+      this.set(`metadata_.${descriptor}.decklist`, null);
+      delete this.metadata_[descriptor]!.decklist;
     }
   }
 
@@ -685,6 +745,11 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     });
   }
 
+  protected listEditExtraCommanders_() {
+    this.setExtra_ = true;
+    this.listEditCommanders_();
+  }
+
   protected openEditor_(id: ColorDescriptor) {
     this.editId_ = identities[id].colors.join('') || 'C';
     this.menu_.opened = !this.menu_.opened;
@@ -701,15 +766,33 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   }
 
   protected handleCommanderSelected_(e: CustomEvent) {
-    if (this.selectedId_) {
-      if (this.metadata_[this.selectedId_]) {
-        delete this.metadata_[this.selectedId_]!.adjustment;
-      }
-      this.set(`diagram_.${this.selectedId_}`, e.detail);
-      const idx = this.generatorData_.findIndex((shape) =>
-          shape.name === this.selectedId_);
-      this.notifyPath(`generatorData_.${idx}.data`);
+    if (!this.selectedId_) return;
+    if (this.metadata_[this.selectedId_]) {
+      delete this.metadata_[this.selectedId_]!.adjustment;
     }
+
+    if (this.setExtra_) {
+      // we only want to add to the extra commanders, not update the diagram
+      if (!this.metadata_[this.selectedId_]) {
+        this.metadata_[this.selectedId_] = {
+          additionalCommanders: [],
+        };
+      }
+      if (!this.metadata_[this.selectedId_]!.additionalCommanders) {
+        this.metadata_[this.selectedId_]!.additionalCommanders = [];
+      }
+
+      this.metadata_[this.selectedId_]!.additionalCommanders!.push(e.detail);
+      this.additionalCommanders_ =
+          this.metadata_[this.selectedId_]!.additionalCommanders!.slice();
+      this.setExtra_ = false;
+      return;
+    }
+
+    this.set(`diagram_.${this.selectedId_}`, e.detail);
+    const idx = this.generatorData_.findIndex((shape) =>
+        shape.name === this.selectedId_);
+    this.notifyPath(`generatorData_.${idx}.data`);
   }
 
   protected isVisible_(card?: (() => CardData[] | undefined) | CardData[]) {

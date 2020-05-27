@@ -145,6 +145,9 @@ paper-tooltip {
 #menu {
   --app-drawer-content-container: {
     z-index: 50;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
   }
 
   --iron-icon: {
@@ -202,6 +205,13 @@ paper-tooltip {
     }
   }
 
+  hr {
+    border: 1px inset lightgray;
+    height: 3px;
+    background-color: lightgray;
+    margin: 8px 0;
+  }
+
   .commander-images {
     display: flex;
     margin: 8px 24px;
@@ -251,6 +261,75 @@ paper-tooltip {
         user-select: none;
       }
     }
+  }
+
+  .additional-commanders {
+    margin: 0 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+
+    paper-button {
+      text-align: left;
+      margin: 0 0 8px 0;
+
+      span {
+        vertical-align: middle;
+        margin-left: 8px;
+      }
+    }
+
+    .list {
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
+    .additional-item {
+      margin-top: 8px;
+
+      .art {
+        width: 40px;
+        height: 40px;
+        background-size: cover;
+        background-position: center top;
+        border-radius: 50%;
+        border: 5px solid black;
+        margin-right: 8px;
+        display: inline-block;
+      }
+
+      .delete {
+        color: var(--google-red-500);
+      }
+
+      .promote {
+        transform: scaleY(-1);
+      }
+
+      .delete,
+      .promote {
+        float: right;
+        margin-top: 5px;
+        display: none;
+
+        --iron-icon: {
+          @apply --shadow-elevation-none;
+        }
+      }
+
+      &:hover {
+        .delete,
+        .promote {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .remove {
+    color: var(--accent-color);
+    margin-bottom: 16px;
   }
 }
 
