@@ -1022,9 +1022,6 @@ div.green-mana.deck {
     }
 
     &.colorless-mana {
-      // horizontal same as blue
-      // vertical equal to whiteless
-      // @include point(($s1 - $s2) / 2 + $s2, -1, vh);
       @include point(-1, -1, vh);
       width: px(175.5) * 1vh;
       height: px(175.5) * 1vh;
