@@ -221,17 +221,17 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     this.notifyPath(`diagram_.${this.selectedId_}`);
   }
 
-  protected getDecklist_(_: any, id: string) {
+  protected getDecklist_(id: string) {
     const descriptor = this.descriptor_(id);
     if (!this.metadata_[descriptor]) return '';
     return this.metadata_[descriptor]!.decklist || '';
   }
 
-  protected getDecklistDisplay_(_: any, id: string) {
-    return this.getDecklist_(_, id).replace(/^.+\/\//, '');
+  protected getDecklistDisplay_(id: string) {
+    return this.getDecklist_(id).replace(/^.+\/\//, '');
   }
 
-  protected hasDecklist_(_: any, id: string) {
+  protected hasDecklist_(id: string) {
     const descriptor = this.descriptor_(id);
     if (!this.metadata_[descriptor]) return false;
     return !!(this.metadata_[descriptor]!.decklist);
