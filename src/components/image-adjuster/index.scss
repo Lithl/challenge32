@@ -63,9 +63,10 @@ p {
 }
 
 .petal {
-  --shape-width: 24vh;
-  --shape-height: 24vh;
+  --shape-width: 32.32648vh;
+  --shape-height: 32.32648vh;
   clip-path: url(#petal);
+  transform: scale(.85);
 
   .background,
   .border,
@@ -86,13 +87,14 @@ p {
 }
 
 .petal-cover {
-  width: 24vh;
-  height: 12vh;
+  transform: scale(.85);
+  width: 32.32648vh;
+  height: (32.32648 / 2) * 1vh;
   background-color: var(--google-blue-300);
   opacity: .5;
   border: 3px dashed var(--google-blue-500);
-  margin-top: -12vh;
-  margin-left: calc(50% - 12vh - 3px);
+  margin-top: (32.32648 / 2) * -1vh;
+  margin-left: calc(50% - #{(32.32648 / 2) * 1vh} - 3px);
   padding: 0;
 }
 
