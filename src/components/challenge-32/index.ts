@@ -218,7 +218,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     const shapeIdx = this.generatorData_
         .findIndex((shape) => shape.name === this.selectedId_);
     this.notifyPath(`generatorData_.${shapeIdx}.data`);
-    this.notifyPath(`diagram_.${this.selectedId_}.${idx}`);
+    this.notifyPath(`diagram_.${this.selectedId_}`);
   }
 
   protected getDecklist_(_: any, id: string) {
