@@ -22,3 +22,37 @@ Ultimately, this application will be hosted on its own website, accessible to al
 you're developing for the project and want to run the application locally, you can use `node .`
 while the project root is your current working directory. (Or from another directory, run `node` on
 the project root.) The localhost server will run on port 3004.
+
+### Running the application - Tutorial
+1/ create a github account
+
+2/ Install github desktop: https://desktop.github.com/
+
+3/ install git: https://git-scm.com/downloads
+
+4/ install node: https://nodejs.org/en/download/
+
+5/ clone challenge32 : https://github.com/Lithl/challenge32 ("clone or download" then "open in dekstop"
+
+6/ launch command prompt in challenge 32 cloning folder (should be C:\Users\Your Username\Documents\GitHub\challenge32), type "npm install", wait for the end of downloads
+
+7/ type "npm run build"
+
+8/ type "node ."           keep the cmd prompt open as long as you want to use the diagram
+
+9/ copy "localhost:3004" in address bar of your web browsers and TADA it should work ! (not on firefox and internet explorer)
+
+Now each time you want to reopen it you only have to open the cmd prompt challenge 32 cloning folder and redo the 8/ and 9/ steps
+
+
+When an update on the app will happen you should:
+
+- close every cmd prompt you have that are opened
+
+- open github desktop software, click on fetch origin button
+
+- open the cmd prompt in challenge 32 cloning folder
+
+- type "npm run build", wait for the end and close the prompt
+
+- You can access it with cmd prompt and 8/ and 9/ steps as usual
