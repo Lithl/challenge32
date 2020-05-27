@@ -32,9 +32,9 @@ p {
 }
 
 .circle {
-  width: 16vh;
-  height: 16vh;
-  margin-left: calc(50% - 8vh);
+  width: 15.68959vh;
+  height: 15.68959vh;
+  margin-left: calc(50% - #{(15.68959 / 2) * 1vh});
   padding: 0;
   border-radius: 50%;
   border: 5px solid black;
@@ -229,8 +229,11 @@ p {
 }
 
 .pentagon {
-  --shape-width: 20vh;
-  --shape-height: 20vh;
+  --shape-width: 10vh;
+  --shape-height: 10vh;
+  transform: scale(2);
+  margin-top: 5vh;
+  margin-bottom: 5vh;
   clip-path: polygon(
       50% 100%, 2.45% 65.45%, 20.6125% 9.55%, 79.3875% 9.55%, 97.55% 65.45%);
 
