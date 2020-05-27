@@ -17,6 +17,7 @@ import '@polymer/paper-button/paper-button';
 import '@polymer/paper-input/paper-input';
 import '@polymer/iron-icon/iron-icon';
 import '@polymer/iron-icons/iron-icons';
+import '@polymer/paper-progress/paper-progress';
 import '../icon-toggle-button';
 import '../iconset-mtg';
 import '../toggle-button-group';
@@ -132,6 +133,7 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
   [x: string]: any; // needed for ts to allow automatically adding functions
 
   @query('#content') private content_!: HTMLDivElement;
+  @query('#indicator') private indicator_!: HTMLDivElement;
   @query('#selector') private selector_!: CommanderSelector;
   @query('preview-hover') private preview_!: PreviewHover;
   @query('#menu') private menu_!: AppDrawerElement;
@@ -184,11 +186,28 @@ export class Challenge32 extends GestureEventListeners(PolymerElement) {
     const height = bodyRect.height;
     if (width > height) {
       this.content_.classList.toggle('landscape', true);
+      this.indicator_.classList.toggle('landscape', true);
       this.content_.classList.toggle('portrait', false);
+      this.indicator_.classList.toggle('portrait', false);
     } else {
       this.content_.classList.toggle('landscape', false);
+      this.indicator_.classList.toggle('landscape', false);
       this.content_.classList.toggle('portrait', true);
+      this.indicator_.classList.toggle('portrait', true);
     }
+  }
+
+  protected decksCompleted_() {
+    return Object.keys(this.diagram_).length;
+  }
+
+  protected pctCompleted_() {
+    const pct = this.decksCompleted_() / 32 * 100;
+    return (Math.round(pct * 100) / 100).toFixed(2);
+  }
+
+  protected progressLabel_() {
+    return `${this.decksCompleted_()} of 32\u2014${this.pctCompleted_()}%`;
   }
 
   protected handleImageAdjusted_(e: CustomEvent) {

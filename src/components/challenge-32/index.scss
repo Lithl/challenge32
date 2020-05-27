@@ -94,6 +94,34 @@ paper-tooltip {
   z-index: 5000;
 }
 
+#indicator {
+  position: absolute;
+  user-select: none;
+  z-index: 10;
+
+  paper-progress {
+    border-radius: 2px;
+  }
+
+  &:hover {
+    --paper-progress-height: 30px;
+
+    paper-progress {
+      border-radius: 8px;
+      width: 100%;
+
+      &::before {
+        content: attr(data-label);
+        position: absolute;
+        z-index: 11;
+        line-height: 30px;
+        text-align: center;
+        width: 100%;
+      }
+    }
+  }
+}
+
 #menuButton {
   top: 1vh;
   right: 0;
@@ -755,6 +783,11 @@ div.green-mana.deck {
 }
 
 .landscape {
+  &#indicator {
+    left: 7vh;
+    width: 98.5vh;
+  }
+
   .hide-aliasing {
     width: 100vh;
     height: 100vh;

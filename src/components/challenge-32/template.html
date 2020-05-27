@@ -78,6 +78,15 @@
   </template>
 </app-drawer>
 
+<div id="indicator">
+  <paper-progress
+      max="32"
+      value="[[decksCompleted_(diagram_.*)]]"
+      data-label$="[[progressLabel_(diagram_.*)]]">
+  </paper-progress>
+</div>
+
+
 <div id="content">
   <img src="/images/c.svg"
       class="colorless-mana mana-symbol deck"
