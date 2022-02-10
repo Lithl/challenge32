@@ -61,7 +61,7 @@
     "extract-loader": "^5.0.1",
     "gts": "^2.0.0",
     "html-loader": "^1.1.0",
-    "node-sass": "^4.14.0",
+    "node-sass": "^7.0.0",
     "npm-watch": "^0.6.0",
     "polymer-cli": "^1.9.11",
     "polymer-css-loader": "0.0.1",
